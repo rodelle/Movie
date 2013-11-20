@@ -34,7 +34,7 @@ void remove_spaces(std::string& s)
 
 SUITE(Output)
 {
-  TEST_FIXTURE(MovieSetup, MovieWithEmptyData_output)
+  TEST(MovieWithEmptyData_output)
   {
     std::string expected_output = 
       "";
@@ -51,7 +51,7 @@ SUITE(Output)
     CHECK_EQUAL(expected_output, program_output);
   }
 
-  TEST_FIXTURE(MovieSetup, MovieWithData_output)
+  TEST(MovieWithData_output)
   {
     std::string expected_output = 
       "Jurassic Park        George Lucas";
