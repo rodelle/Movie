@@ -1,5 +1,6 @@
 #include <iomanip>
 #include <iostream>
+#include <algorithm> // std::swap
 
 #include "movie.h"
  
@@ -22,7 +23,8 @@ std::ostream& operator<<(std::ostream& out, const Movie& movie)
 
 Movie::Movie(const Movie& other)
 {
-
+  director_ = other.director_;
+  title_ = other.title_;
 }
 
 Movie::~Movie()
@@ -32,6 +34,8 @@ Movie::~Movie()
 
 Movie& Movie::operator=(Movie other)
 {
+  std::swap(director_, other.director_);
+  std::swap(title_, other.title_);
   return *this;
 }
 
@@ -43,23 +47,39 @@ void Movie::PrintTableHeader()
     << std::setw(kDirectorDisplayWidth) << "DIRECTOR"; 
 }
 
-// returns true if the left movie is less than the right movie
+// Sorted by title then director
 bool Movie::operator<(const Movie& other) const
 {
-  return true;
+  int compare = 0;
+  compare = title_.compare(other.title_);
+
+  if(compare < 0)
+    return true;
+  else if(compare > 0)
+    return false;
+  
+  compare = director_.compare(other.director_);
+
+  if(compare < 0)
+    return true;
+  else if(compare > 0)
+    return false;
+
+  return false; // equal to each other
 }
 
 bool Movie::operator>(const Movie& other) const
 {
-  return true;
+  return !(*this < other); 
 }
 
 bool Movie::operator==(const Movie& other) const
 {
-  return true;
+  return (director_.compare(other.director_) == 0)
+      && (title_.compare(other.title_) == 0);
 }
 
 bool Movie::operator!=(const Movie& other) const
 {
-  return true;
+  return !(*this == other);
 }
