@@ -22,6 +22,7 @@ public:
   virtual void PrintTableHeader();
     
   // returns true if the left movie is less than the right movie
+  // Sorted by title then director
   virtual bool operator<(const Movie&) const;
   virtual bool operator>(const Movie&) const;
   virtual bool operator==(const Movie&) const;
