@@ -1,6 +1,8 @@
 #include <iomanip>
 #include <iostream>
 #include <algorithm> // std::swap
+#include <istream>
+#include <boost/algorithm/string.hpp>
 
 #include "movie.h"
  
@@ -10,6 +12,22 @@ const int Movie::kDirectorDisplayWidth = 15;
 Movie::Movie(const std::string& title, const std::string& director)
   : director_(director), title_(title)
 {
+}
+
+Movie::Movie(std::istream& input)
+{
+  std::string title, director;
+
+  std::getline(input, title, ',');
+  std::getline(input, director);
+
+  boost::algorithm::trim(title);
+  boost::algorithm::trim(director);
+
+  if(!input.fail()) {
+    title_ = title;
+    director_ = director;
+  }
 }
 
 std::ostream& operator<<(std::ostream& out, const Movie& movie)

@@ -2,6 +2,7 @@
 #define CSS343_LAB4_MOVIE_H
 
 #include <string>
+#include <istream>
 
 class Movie {
  
@@ -10,6 +11,7 @@ class Movie {
 friend std::ostream& operator<<(std::ostream&, const Movie&);
 
 public:
+  Movie(std::istream&);
   Movie(const std::string& = "", const std::string& = "");
 
   // copy ctors
