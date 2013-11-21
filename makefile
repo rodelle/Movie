@@ -1,10 +1,17 @@
-movie: movie.o 
-	g++ -Wall -g lib/movie.o
+CC=g++
+CFLAGS=-Wall -pedantic -g -c
+OBJ=obj
 
-test: movie.o
-	g++ -o RunAllTests ./tests/movie_test.cpp lib/movie.o -I./tests/lib/ -L./tests/lib/ -lUnitTest++
+TESTDIR=tests
+TESTLIB=tests/lib
+
+
+test: $(OBJ)/movie.o
+	$(CC) -Wall -pedantic -g $(TESTDIR)/movie_test.cpp $(OBJ)/movie.o -I$(TESTLIB) -L$(TESTLIB) -lUnitTest++ -o RunAllTests 
 	./RunAllTests
 
-movie.o: movie.h movie.cpp 
-	g++ -Wall -g -c movie.cpp
-	mv movie.o lib/
+$(OBJ)/test_movie.o: $(TESTDIR)/movie_test.cpp
+	$(CC) $(CFLAGS) $(TESTDIR)/movie_test.cpp -o $(OBJ)/test_movie.o
+
+$(OBJ)/movie.o: movie.h movie.cpp 
+	$(CC) $(CFLAGS) movie.cpp -o $(OBJ)/movie.o
