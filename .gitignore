@@ -1,6 +1,9 @@
 # Test suite executable
 RunAllTests
 
+# Needs to be compiled for each platform
+tests/lib/libUnitTest++.a
+
 # Compiled Object files
 *.slo
 *.lo
