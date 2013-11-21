@@ -121,7 +121,72 @@ SUITE(CopyConstructor)
   }
 }
 
-SUITE(Output)
+SUITE(IStreamConsructor)
+{
+  TEST(DefaultCase)
+  {
+    std::string input = 
+      "Jurassic Park, Steven Spielberg";
+    
+    std::string expected_output = 
+      "Jurassic Park        Steven Spielberg";
+
+    std::istringstream istream(input);
+    Movie movie(istream);
+
+    cout_redirect redirect;
+    std::cout << movie;
+    std::string program_output = redirect.get_output();
+ 
+    remove_spaces(program_output);
+    remove_spaces(expected_output);
+
+    CHECK_EQUAL(expected_output, program_output);
+  } 
+
+  TEST(EmptyData)
+  {
+    std::string expected_output =
+      "";
+    
+    std::istringstream istream;
+    Movie movie(istream);
+
+    cout_redirect redirect;
+    std::cout << movie;
+    std::string program_output = redirect.get_output();
+ 
+    remove_spaces(program_output);
+    remove_spaces(expected_output);
+
+    CHECK_EQUAL(expected_output, program_output);
+  }
+
+  TEST(PartialData)
+  {
+    std::string input = 
+      "Jurassic Park";
+
+    // fails on incomplete data
+    std::string expected_output =
+      "";
+    
+    std::istringstream istream(input);
+    Movie movie(istream);
+
+    cout_redirect redirect;
+    std::cout << movie;
+    std::string program_output = redirect.get_output();
+ 
+    remove_spaces(program_output);
+    remove_spaces(expected_output);
+
+    CHECK_EQUAL(expected_output, program_output);
+  } 
+
+}
+
+SUITE(Constructor)
 {
   TEST(MovieWithEmptyData_output)
   {
