@@ -35,8 +35,8 @@ SUITE(OperatorEquality)
 {
   TEST(LeftLessThanRight)
   {
-    Movie lhs("Jurassic Park", "Steven Spielberg");
-    Movie rhs("Star Wars", "George Lucas"); 
+    Movie lhs("Jurassic Park", "Steven Spielberg", 1993);
+    Movie rhs("Star Wars", "George Lucas", 1977); 
      
     CHECK(lhs < rhs);
     CHECK(!(lhs > rhs));
@@ -47,46 +47,46 @@ SUITE(OperatorEquality)
 
   TEST(OperatorNotEqual_MoviesNotEqual)
   {
-    Movie lhs("Jurassic Park", "Steven Spielberg");
-    Movie rhs("Star Wars", "George Lucas"); 
+    Movie lhs("Jurassic Park", "Steven Spielberg", 1993);
+    Movie rhs("Star Wars", "George Lucas", 1977); 
      
     CHECK(lhs != rhs);
   }
 
   TEST(OperatorNotEqual_MoviesAreEqual)
   {
-    Movie lhs("Jurassic Park", "Steven Spielberg");
-    Movie rhs("Jurassic Park", "Steven Spielberg");
+    Movie lhs("Jurassic Park", "Steven Spielberg", 1993);
+    Movie rhs("Jurassic Park", "Steven Spielberg", 1993);
      
     CHECK(!(lhs != rhs));
   } 
 
   TEST(OperatorEqual_MoviesNotEqual)
   {
-    Movie lhs("Jurassic Park", "Steven Spielberg");
-    Movie rhs("Star Wars", "George Lucas"); 
+    Movie lhs("Jurassic Park", "Steven Spielberg", 1993);
+    Movie rhs("Star Wars", "George Lucas", 1977); 
      
     CHECK(!(lhs == rhs));
   }
 
   TEST(OperatorEqual_MoviesAreEqual)
   {
-    Movie lhs("Jurassic Park", "Steven Spielberg");
-    Movie rhs("Jurassic Park", "Steven Spielberg"); 
+    Movie lhs("Jurassic Park", "Steven Spielberg", 1993);
+    Movie rhs("Jurassic Park", "Steven Spielberg", 1993); 
      
     CHECK(lhs == rhs);
   }
 }
 
-
-SUITE(OperatorEqual) 
+/*
+SUITE(Constructor) 
 {
-  TEST(DefaultCase)
+  TEST(Constructor_DefaultCase)
   {
     std::string expected_output = 
-      "Jurassic Park        Steven Spielberg";
+      "Jurassic Park        Steven Spielberg   1993";
 
-    Movie copied_movie("Jurassic Park", "Steven Spielberg"); // movie with no initialized data
+    Movie copied_movie("Jurassic Park", "Steven Spielberg", 1993); // movie with no initialized data
     Movie movie = copied_movie;
 
     cout_redirect redirect;
@@ -99,15 +99,16 @@ SUITE(OperatorEqual)
     CHECK_EQUAL(expected_output, program_output);
   }
 }
+*/
 
 SUITE(CopyConstructor) 
 {
-  TEST(DefaultCase)
+  TEST(CopyConstructor_DefaultCase)
   {
     std::string expected_output = 
-      "Jurassic Park        Steven Spielberg";
+      "Jurassic Park        Steven Spielberg   1993";
 
-    Movie copied_movie("Jurassic Park", "Steven Spielberg"); // movie with no initialized data
+    Movie copied_movie("Jurassic Park", "Steven Spielberg", 1993); // movie with no initialized data
     Movie movie(copied_movie);
 
     cout_redirect redirect;
@@ -123,13 +124,13 @@ SUITE(CopyConstructor)
 
 SUITE(IStreamConsructor)
 {
-  TEST(DefaultCase)
+  TEST(IStreamConstructor_DefaultCase)
   {
     std::string input = 
-      "Jurassic Park, Steven Spielberg";
+      "Jurassic Park, Steven Spielberg, 1993";
     
     std::string expected_output = 
-      "Jurassic Park        Steven Spielberg";
+      "Jurassic Park        Steven Spielberg    1993";
 
     std::istringstream istream(input);
     Movie movie(istream);
@@ -144,10 +145,10 @@ SUITE(IStreamConsructor)
     CHECK_EQUAL(expected_output, program_output);
   } 
 
-  TEST(EmptyData)
+  TEST(IStreamConstructor_EmptyData)
   {
     std::string expected_output =
-      "";
+      "1800";
     
     std::istringstream istream;
     Movie movie(istream);
@@ -162,14 +163,14 @@ SUITE(IStreamConsructor)
     CHECK_EQUAL(expected_output, program_output);
   }
 
-  TEST(PartialData)
+  TEST(IStreamConstructor_PartialData)
   {
     std::string input = 
       "Jurassic Park";
 
     // fails on incomplete data
     std::string expected_output =
-      "";
+      "1800";
     
     std::istringstream istream(input);
     Movie movie(istream);
@@ -188,10 +189,10 @@ SUITE(IStreamConsructor)
 
 SUITE(Constructor)
 {
-  TEST(MovieWithEmptyData_output)
+  TEST(Constructor_EmptyData)
   {
     std::string expected_output = 
-      "";
+      "1900";
 
     Movie movie; // movie with no initialized data
 
@@ -205,12 +206,12 @@ SUITE(Constructor)
     CHECK_EQUAL(expected_output, program_output);
   }
 
-  TEST(MovieWithData_output)
+  TEST(Constructor_DefaultCase)
   {
     std::string expected_output = 
-      "Jurassic Park        Steven Spielberg";
+      "Jurassic Park        Steven Spielberg   1993";
 
-    Movie movie("Jurassic Park", "Steven Spielberg"); // movie with initial data
+    Movie movie("Jurassic Park", "Steven Spielberg", 1993); // movie with initial data
 
     cout_redirect redirect;
     std::cout << movie;
@@ -230,7 +231,7 @@ SUITE(TableHeader)
     Movie movie;
     
     std::string expected_output = 
-      "TITLE   DIRECTOR";
+      "TITLE   DIRECTOR   YEAR";
 
     cout_redirect redirect;
     movie.PrintTableHeader(); 
