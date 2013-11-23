@@ -11,8 +11,10 @@ class Movie {
 friend std::ostream& operator<<(std::ostream&, const Movie&);
 
 public:
+  //pre: 1800 <= year <= 2100 
+  //format: "title title, director director, year"
   Movie(std::istream&);
-  Movie(const std::string& = "", const std::string& = "");
+  Movie(const std::string& = "", const std::string& = "", int year = 1900);
 
   // copy ctors
   Movie(const Movie&);
@@ -31,12 +33,20 @@ public:
   virtual bool operator!=(const Movie&) const;
 
 private:
-  std::string director_;
   std::string title_;
-  //std::string date_;
+  std::string director_;
+  int year_; 
 
   static const int kTitleDisplayWidth;
   static const int kDirectorDisplayWidth;
+  static const int kYearDisplayWidth;
+
+  static const int kMinYear;
+  static const int kMaxYear;
+
+  // Checks to make sure values are within valid ranges 
+  // If they aren't, sets them to default values
+  void validate_input();
 };
 
 #endif
