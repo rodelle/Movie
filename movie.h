@@ -32,7 +32,7 @@ public:
   virtual bool operator==(const Movie&) const;
   virtual bool operator!=(const Movie&) const;
 
-private:
+protected:
   std::string title_;
   std::string director_;
   int year_; 
