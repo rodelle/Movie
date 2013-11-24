@@ -18,7 +18,6 @@ Comedy::Comedy(const std::string& title, const std::string& director, int year)
 }
 
 Comedy::Comedy(std::istream& input)
-  :Movie("", "", kMinYear)
 {
   std::string title, director, year;
 

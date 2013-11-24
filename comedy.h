@@ -16,7 +16,9 @@ public:
   //pre: 1800 <= year <= 2100 
   //format: "title title, director director, year"
   Comedy(std::istream&);
-  Comedy(const std::string& = "", const std::string& = "", int year = kMinYear);
+  Comedy(const std::string& = kDefaultTitle,
+         const std::string& = kDefaultDirector,
+         int year = kDefaultYear);
   
   // copy ctors
   Comedy(const Comedy&);

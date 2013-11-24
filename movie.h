@@ -14,7 +14,9 @@ public:
   //pre: 1800 <= year <= 2100 
   //format: "title title, director director, year"
   Movie(std::istream&);
-  Movie(const std::string& = "", const std::string& = "", int year = kMinYear);
+  Movie(const std::string&  = kDefaultTitle,
+        const std::string&  = kDefaultDirector, 
+        const int year      = kDefaultYear);
 
   // copy ctors
   Movie(const Movie&);
@@ -43,6 +45,10 @@ protected:
 
   static const int kMinYear;
   static const int kMaxYear;
+  
+  static const int kDefaultYear;
+  static const std::string kDefaultTitle;
+  static const std::string kDefaultDirector;
 
   // Checks to make sure values are within valid ranges 
   // If they aren't, sets them to default values

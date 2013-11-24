@@ -15,6 +15,10 @@ const int Movie::kYearDisplayWidth = 4;
 const int Movie::kMinYear = 1800;
 const int Movie::kMaxYear = 2100;
 
+const int Movie::kDefaultYear = Movie::kMinYear;
+const std::string Movie::kDefaultTitle  = "";
+const std::string Movie::kDefaultDirector = "";
+
 Movie::Movie(const std::string& title, const std::string& director, int year)
   : title_(title), director_(director), year_(year)
 {

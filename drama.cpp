@@ -1,4 +1,3 @@
-#include <cassert>
 #include <iomanip>
 #include <iostream>
 #include <algorithm> // std::swap
@@ -11,14 +10,10 @@
 Drama::Drama(const std::string& title, const std::string& director, int year)
   : Movie(title, director, year)
 {
-  assert(year >= kMinYear); 
-  assert(year <= kMaxYear);
-
   Movie::validate_input();
 }
 
 Drama::Drama(std::istream& input)
-  :Movie("", "", kMinYear)
 {
   std::string title, director, year;
 

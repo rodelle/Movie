@@ -19,7 +19,9 @@ public:
   //pre: 1800 <= year <= 2100 
   //format: "title title, director director, year"
   Drama(std::istream&);
-  Drama(const std::string& = "", const std::string& = "", int year = kMinYear);
+  Drama(const std::string& = kDefaultTitle,
+        const std::string& = kDefaultDirector,
+        int year = kDefaultYear);
   
   // copy ctors
   Drama(const Drama&);
