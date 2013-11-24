@@ -100,7 +100,7 @@ SUITE(IStreamConsructor)
   TEST(IStreamConstructor_DefaultCase)
   {
     std::string input = 
-      "Jurassic Park, Steven Spielberg, 1993";
+      "Steven Spielberg, Jurassic Park, 1993";
     
     std::string expected_output = 
       "Jurassic Park        Steven Spielberg    1993";

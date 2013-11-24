@@ -29,12 +29,12 @@ Movie::Movie(const std::string& title, const std::string& director, int year)
 }
 
 Movie::Movie(std::istream& input)
-  :title_(""), director_(""), year_(kMinYear)
+  :title_(kDefaultTitle), director_(kDefaultDirector), year_(kDefaultYear)
 {
   std::string title, director, year;
 
-  std::getline(input, title, ',');
   std::getline(input, director, ',');
+  std::getline(input, title, ',');
   std::getline(input, year);
 
   boost::algorithm::trim(title);

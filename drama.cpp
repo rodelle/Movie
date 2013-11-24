@@ -17,8 +17,8 @@ Drama::Drama(std::istream& input)
 {
   std::string title, director, year;
 
-  std::getline(input, title, ',');
   std::getline(input, director, ',');
+  std::getline(input, title, ',');
   std::getline(input, year);
 
   boost::algorithm::trim(title);
