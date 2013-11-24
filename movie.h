@@ -14,7 +14,7 @@ public:
   //pre: 1800 <= year <= 2100 
   //format: "title title, director director, year"
   Movie(std::istream&);
-  Movie(const std::string& = "", const std::string& = "", int year = 1900);
+  Movie(const std::string& = "", const std::string& = "", int year = kMinYear);
 
   // copy ctors
   Movie(const Movie&);
