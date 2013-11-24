@@ -1,33 +1,37 @@
-CC=g++
-CFLAGS=-Wall -pedantic -g -c -w
-OBJ=obj
+CXX=g++
+CXXFLAGS=-Wall -pedantic -c
 
-TESTDIR=tests
+OBJ_DIR=obj
+TEST_DIR=tests
 
 TESTINCLUDE=-Itests/lib -Ltests/lib -lUnitTest++
 BOOSTINCLUDE=-I/usr/include -L/usr/lib
 
-test: $(OBJ)/movie_test.o $(OBJ)/comedy_test.o $(OBJ)/test_helper.o $(OBJ)/movie.o $(OBJ)/comedy.o $(TESTDIR)/main.cpp
-	$(CC) -Wall -pedantic -g $(TESTDIR)/main.cpp $(OBJ)/comedy_test.o $(OBJ)/movie_test.o $(OBJ)/movie.o $(OBJ)/comedy.o $(OBJ)/test_helper.o $(TESTINCLUDE) -o RunAllTests 
+src = movie.cpp \
+			comedy.cpp \
+			drama.cpp \
+
+test_src = test_main.cpp \
+					 test_helper.cpp \
+					 movie_test.cpp \
+					 drama_test.cpp \
+					 comedy_test.cpp \
+
+objects = $(src:%.cpp=$(OBJ_DIR)/%.o)
+test_objects = $(test_src:%.cpp=$(OBJ_DIR)/%.o)
+
+test: $(objects) $(test_objects)
+	$(CXX) -Wall -pedantic $(objects) $(test_objects) $(TESTINCLUDE) -o RunAllTests 
 	./RunAllTests
 
-$(OBJ)/test_helper.o: $(TESTDIR)/test_helper.h $(TESTDIR)/test_helper.cpp
-	$(CC) $(CFLAGS) $(TESTDIR)/test_helper.cpp -o $(OBJ)/test_helper.o
+$(OBJ_DIR)/%.o: $(TEST_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) $(TESTINCLUDE) $< -o $@
 
-$(OBJ)/movie_test.o: $(TESTDIR)/movie_test.cpp $(OBJ)/movie.o $(OBJ)/test_helper.o
-	$(CC) $(CFLAGS) $(TESTDIR)/movie_test.cpp $(TESTINCLUDE) -o $(OBJ)/movie_test.o
+$(OBJ_DIR)/%.o: %.cpp 
+	$(CXX) $(CXXFLAGS) $< -o $@
 
-$(OBJ)/comedy_test.o: $(TESTDIR)/comedy_test.cpp $(OBJ)/comedy.o $(OBJ)/test_helper.o
-	$(CC) $(CFLAGS) $(TESTDIR)/comedy_test.cpp $(TESTINCLUDE) -o $(OBJ)/comedy_test.o
-
-$(OBJ)/movie.o: movie.h movie.cpp $(OBJ)/boost.o
-	$(CC) $(CFLAGS) movie.cpp -o $(OBJ)/movie.o
-
-$(OBJ)/comedy.o: comedy.h comedy.cpp $(OBJ)/movie.o $(OBJ)/boost.o
-	$(CC) $(CFLAGS) comedy.cpp -o $(OBJ)/comedy.o
-
-$(OBJ)/boost.o: boost.cpp
-	$(CC) $(CFLAGS) $(BOOSTINCLUDE) boost.cpp -o $(OBJ)/boost.o
+$(OBJ_DIR)/boost.o: boost.cpp 
+	$(CXX) $(CXXFLAGS) $(BOOSTINCLUDE) $< -o $@
 
 clean:
-	rm $(OBJ)/*.o
+	rm $(objects) $(test_objects)
