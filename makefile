@@ -10,12 +10,14 @@ BOOSTINCLUDE=-I/usr/include -L/usr/lib
 src = movie.cpp \
 			comedy.cpp \
 			drama.cpp \
+			classic.cpp
 
 test_src = test_main.cpp \
 					 test_helper.cpp \
 					 movie_test.cpp \
 					 drama_test.cpp \
 					 comedy_test.cpp \
+					 classic_test.cpp \
 
 objects = $(src:%.cpp=$(OBJ_DIR)/%.o)
 test_objects = $(test_src:%.cpp=$(OBJ_DIR)/%.o)
