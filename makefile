@@ -4,7 +4,8 @@ CXXFLAGS=-Wall -pedantic -c
 OBJ_DIR=obj
 TEST_DIR=tests
 
-TESTINCLUDE=-Itests/lib -Ltests/lib -lUnitTest++
+TESTLIB=-Ltests/lib -lUnitTest++
+TESTINCLUDE=-Itests/lib 
 BOOSTINCLUDE=-I/usr/include -L/usr/lib
 
 src = movie.cpp \
@@ -23,7 +24,7 @@ objects = $(src:%.cpp=$(OBJ_DIR)/%.o)
 test_objects = $(test_src:%.cpp=$(OBJ_DIR)/%.o)
 
 test: $(objects) $(test_objects)
-	$(CXX) -Wall -pedantic $(objects) $(test_objects) $(TESTINCLUDE) -o RunAllTests 
+	$(CXX) -Wall -pedantic $(objects) $(test_objects) $(TESTLIB) -o RunAllTests 
 	./RunAllTests
 
 $(OBJ_DIR)/%.o: $(TEST_DIR)/%.cpp
