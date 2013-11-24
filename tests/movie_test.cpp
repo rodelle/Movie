@@ -1,35 +1,8 @@
-// test_shortestpath.cpp
-
 #include <UnitTest++.h>
 #include <iostream>
-#include <string>
-#include <sstream>
-#include <algorithm>
 
 #include "../movie.h"
-
-struct cout_redirect {
-  cout_redirect() 
-    :  old(std::cout.rdbuf(buffer.rdbuf()))
-  {}
-
-  std::string get_output() {
-    return buffer.str();
-  }
-
-  ~cout_redirect( ) { 
-    std::cout.rdbuf(old);
-  }   
-
-private:
-  std::streambuf* old;
-  std::stringstream buffer;
-};
-
-void remove_spaces(std::string& s)
-{
-  s.erase(std::remove_if(s.begin(), s.end(), ::isspace), s.end());
-}
+#include "test_helper.h"
 
 SUITE(OperatorEquality) 
 {
@@ -242,9 +215,4 @@ SUITE(TableHeader)
 
     CHECK_EQUAL(expected_output, program_output);
   }
-}
-
-int main()
-{
-  return UnitTest::RunAllTests();
 }
