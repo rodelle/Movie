@@ -165,7 +165,7 @@ SUITE(Constructor)
   TEST(Constructor_EmptyData)
   {
     std::string expected_output = 
-      "1900";
+      "1800";
 
     Movie movie; // movie with no initialized data
 
