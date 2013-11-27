@@ -1,5 +1,5 @@
-#ifndef CSS343_LAB4_COMEDY_H
-#define CSS343_LAB4_COMEDY_H
+#ifndef CSS343_LAB4_DRAMA_H_
+#define CSS343_LAB4_DRAMA_H
 
 #include <string>
 #include <istream>
