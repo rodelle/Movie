@@ -11,7 +11,8 @@ BOOSTINCLUDE=-I/usr/include -L/usr/lib
 src = movie.cpp \
 			comedy.cpp \
 			drama.cpp \
-			classic.cpp
+			classic.cpp \
+			inventoryitem.cpp \
 
 test_src = test_main.cpp \
 					 test_helper.cpp \
@@ -19,6 +20,7 @@ test_src = test_main.cpp \
 					 drama_test.cpp \
 					 comedy_test.cpp \
 					 classic_test.cpp \
+					 inventoryitem_test.cpp \
 
 objects = $(src:%.cpp=$(OBJ_DIR)/%.o)
 test_objects = $(test_src:%.cpp=$(OBJ_DIR)/%.o)
