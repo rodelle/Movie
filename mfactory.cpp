@@ -7,11 +7,25 @@
 
 MovieFactory::MovieFactory()
 {
-  typedef std::pair<char, MovieFactory::MovieBuilder> Pair;
+  typedef std::pair<char, MovieFactory::MovieBuilder> BuilderPair;
 
-  movie_builder_.insert(Pair('f', MovieFactory::MakeComedy));
-  movie_builder_.insert(Pair('d', MovieFactory::MakeDrama));
-  movie_builder_.insert(Pair('c', MovieFactory::MakeClassic));
+  movie_builder_.insert(BuilderPair('f', MovieFactory::MakeComedy));
+  movie_builder_.insert(BuilderPair('d', MovieFactory::MakeDrama));
+  movie_builder_.insert(BuilderPair('c', MovieFactory::MakeClassic));
+
+  typedef std::pair<char, Movie*> MoviePair;
+
+  movie_instance_.insert(MoviePair('f', MovieFactory::MakeComedy()));
+  movie_instance_.insert(MoviePair('d', MovieFactory::MakeDrama()));
+  movie_instance_.insert(MoviePair('c', MovieFactory::MakeClassic()));
+}
+
+MovieFactory::~MovieFactory()
+{
+  MovieHash::iterator i;
+  for(i = movie_instance_.begin(); i != movie_instance_.end(); ++i) {
+    delete i->second;
+  }
 }
 
 Movie* MovieFactory::Create(const char movieType) const
@@ -20,6 +34,14 @@ Movie* MovieFactory::Create(const char movieType) const
     MovieBuilder movieBuilder = movie_builder_.find(movieType)->second;
     return movieBuilder();
   } 
+  
+  return NULL; // movie type does not exist
+}
+
+Movie* MovieFactory::InstanceOf(const char movieType) const
+{
+  if(movie_instance_.count(movieType) == 1)
+    return movie_instance_.find(movieType)->second;
   
   return NULL; // movie type does not exist
 }

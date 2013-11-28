@@ -52,6 +52,38 @@ struct MovieTypes
 
 SUITE(MFactory_h) 
 {
+  TEST(InstanceOf_default) 
+  {
+    MovieFactory factory;
+
+    Movie* movie = factory.InstanceOf('f');
+  
+    Comedy* comedy = dynamic_cast<Comedy*>(movie);
+    Drama* drama = dynamic_cast<Drama*>(movie);
+    Classic* classic = dynamic_cast<Classic*>(movie);
+
+    CHECK(movie != NULL);
+    CHECK(comedy != NULL);
+    CHECK(drama == NULL);
+    CHECK(classic == NULL);
+  }
+
+  TEST(InstanceOf_nonexistent) 
+  {
+    MovieFactory factory;
+
+    Movie* movie = factory.InstanceOf('x');
+  
+    Comedy* comedy = dynamic_cast<Comedy*>(movie);
+    Drama* drama = dynamic_cast<Drama*>(movie);
+    Classic* classic = dynamic_cast<Classic*>(movie);
+
+    CHECK(movie == NULL);
+    CHECK(comedy == NULL);
+    CHECK(drama == NULL);
+    CHECK(classic == NULL);
+  }
+
   TEST(Create_nonexistent) 
   {
     MovieFactory factory;

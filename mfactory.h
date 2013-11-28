@@ -18,9 +18,13 @@ public:
   // ctor should create (dynamically) one of each type of movie and store them in the 
   // movFactory array.
   MovieFactory();
+  ~MovieFactory();
   
   // Returns an instantiated Movie object of the correct type
   Movie* Create(const char) const;
+
+  // Returns a previously instantiated Movie object of the correct type 
+  Movie* InstanceOf(const char) const;
 
 private:
   static Movie* MakeComedy();
@@ -35,7 +39,10 @@ private:
   static const int kNumMovieTypes;
   typedef Movie* (*MovieBuilder)();
   typedef std::tr1::unordered_map<char, MovieBuilder, CharHash> BuilderHash;
-  BuilderHash movie_builder_; 
+  typedef std::tr1::unordered_map<char, Movie*, CharHash> MovieHash;
+
+  BuilderHash movie_builder_; // hash of functions to create new movies
+  MovieHash movie_instance_; // hash of a single movie instance 
 };
 
 #endif
