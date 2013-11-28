@@ -13,6 +13,7 @@ src = movie.cpp \
 			drama.cpp \
 			classic.cpp \
 			inventoryitem.cpp \
+			mfactory.cpp \
 
 test_src = test_main.cpp \
 					 test_helper.cpp \
@@ -21,6 +22,7 @@ test_src = test_main.cpp \
 					 comedy_test.cpp \
 					 classic_test.cpp \
 					 inventoryitem_test.cpp \
+					 mfactory_test.cpp \
 
 objects = $(src:%.cpp=$(OBJ_DIR)/%.o)
 test_objects = $(test_src:%.cpp=$(OBJ_DIR)/%.o)
