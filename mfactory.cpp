@@ -25,30 +25,15 @@ Movie* MovieFactory::Create(const char movieType) const
 }
 
 Movie* MovieFactory::MakeComedy()
-{ return new Comedy("Comedy"); }
+{ return new Comedy(); }
 
 Movie* MovieFactory::MakeDrama()
-{ return new Drama("Drama"); }
+{ return new Drama(); }
 
 Movie* MovieFactory::MakeClassic()
-{ return new Classic("Classic"); }
+{ return new Classic(); }
 
 std::size_t MovieFactory::CharHash::operator() (const char c) const
 {
   return c - 'a';
-}
-
-#include <iostream>
-
-int main()
-{
-  MovieFactory factory;
-  Movie* movie = factory.Create('f');
-  std::cout << *movie << std::endl;
-  delete movie;
-  movie = factory.Create('c');
-  std::cout << *movie << std::endl;
-  delete movie;
-  movie = factory.Create('d');
-  std::cout << *movie << std::endl;
 }
