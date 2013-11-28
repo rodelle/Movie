@@ -33,7 +33,6 @@ private:
   };
 
   static const int kNumMovieTypes;
-  //typedef Movie* (MovieFactory::*MovieBuilder)();
   typedef Movie* (*MovieBuilder)();
   typedef std::tr1::unordered_map<char, MovieBuilder, CharHash> BuilderHash;
   BuilderHash movie_builder_; 
