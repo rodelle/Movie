@@ -31,7 +31,10 @@ public:
 
   // Prints the table headers to view the movie data in a table format
   virtual void PrintTableHeader();
-    
+
+  // override
+  virtual void Populate(std::istream&);
+
   // returns true if the left movie is less than the right movie
   // Sorted by director then title 
   virtual bool operator<(const Movie&) const;

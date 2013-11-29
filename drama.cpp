@@ -60,6 +60,26 @@ void Drama::PrintTableHeader()
     << std::setw(kYearDisplayWidth) << "YEAR"; 
 }
 
+void Drama::Populate(std::istream& input)
+{
+  std::string title, director, rest_of_line;
+
+  std::getline(input, director, ',');
+  std::getline(input, title, ',');
+
+  boost::algorithm::trim(director);
+  boost::algorithm::trim(title);
+
+  std::getline(input, rest_of_line); // discard the remaining characters
+
+  if(!input.fail()) {
+    title_ = title;
+    director_ = director;
+  }
+
+  validate_input();
+}
+
 // Sorted by director then title 
 bool Drama::operator<(const Movie& other) const
 {

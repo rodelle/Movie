@@ -110,6 +110,27 @@ void Classic::PrintTableHeader()
     << "MAJOR ACTOR"; 
 }
 
+void Classic::Populate(std::istream& input)
+{
+  std::string month, year, actor;
+
+  input >> month;
+  input >> year;
+  input >> actor;
+
+  boost::algorithm::trim(month);
+  boost::algorithm::trim(year);
+  boost::algorithm::trim(actor);
+
+  if(!input.fail()) {
+    actor_ = actor;
+    month_ = boost::lexical_cast<int>(month.c_str());
+    year_ = boost::lexical_cast<int>(year.c_str());
+  }
+
+  validate_input();
+}
+
 // Sorted by date then famous actor 
 bool Classic::operator<(const Movie& other) const
 {

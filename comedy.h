@@ -20,7 +20,11 @@ public:
     const std::string& = kDefaultTitle,
     const std::string& = kDefaultDirector, 
     const std::string& = kDefaultData);
-  
+
+  // override
+  // @param input - stream of the format "title title, year"
+  virtual void Populate(std::istream&);
+
   // copy ctors
   Comedy(const Comedy&);
   Comedy& operator=(Comedy);
@@ -37,6 +41,7 @@ public:
   virtual bool operator==(const Movie&) const;
   virtual bool operator!=(const Movie&) const;
 
+  static int compare(const Comedy&, const Comedy&);
 };
 
 #endif

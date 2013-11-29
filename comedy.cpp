@@ -60,31 +60,50 @@ void Comedy::PrintTableHeader()
     << std::setw(kYearDisplayWidth) << "YEAR"; 
 }
 
+void Comedy::Populate(std::istream& input)
+{
+  std::string title, year;
+  std::getline(input, title, ',');
+  input >> year;
+
+  boost::algorithm::trim(year);
+
+  if(!input.fail()) {
+    title_ = title;
+    year_ = boost::lexical_cast<int>(year.c_str()); 
+  }
+
+  validate_input();
+}
+
+int Comedy::compare(const Comedy& lhs, const Comedy& rhs)
+{
+  int compare = lhs.title_.compare(rhs.title_);
+
+  if(compare != 0)
+    return compare;
+
+  return lhs.year_ - rhs.year_;
+}
+
 // Sorted by title then date 
 bool Comedy::operator<(const Movie& other) const
 {
-  int compare = 0;
   const Comedy& o = static_cast<const Comedy&>(other);
 
-  compare = title_.compare(o.title_);
-
-  if(compare < 0)
+  if(Comedy::compare(*this, o) < 0)
     return true;
-  else if(compare > 0)
+  else
     return false;
-
-  compare = year_ - o.year_;
-  if(compare < 0)
-    return true;
-  else if(compare > 0)
-    return false;
-
-  return false; // equal to each other
 }
 
 bool Comedy::operator>(const Movie& other) const
 {
-  return !((*this < other) || (*this == other)); 
+  const Comedy& o = static_cast<const Comedy&>(other);
+  if(Comedy::compare(*this, o) > 0)
+    return true;
+  else
+    return false;
 }
 
 bool Comedy::operator==(const Movie& other) const
