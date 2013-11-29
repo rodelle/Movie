@@ -17,10 +17,6 @@ public:
     const std::string& = kDefaultDirector, 
     const std::string& = kDefaultData);
   
-  // copy ctors
-  Movie(const Movie&);
-  Movie& operator=(Movie);
-
   virtual ~Movie();
 
   //format: "title title, director director, year"
@@ -31,6 +27,10 @@ public:
 
   virtual void Init(std::istream&);
 
+  // Parses the istream and populates the movies methods according to the
+  // movie's sorting criteria
+  virtual void Populate(std::istream&) = 0;
+  
   // Prints the table headers to view the movie data in a table format
   virtual void PrintTableHeader();
     

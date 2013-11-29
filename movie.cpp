@@ -74,6 +74,7 @@ void Movie::Init(std::istream& input)
   boost::algorithm::trim(additional_data);
 
   if(!input.fail()) {
+    director_ = director;
     title_ = title;
     director_ = director;
     this->parse_additional_data(additional_data);
@@ -100,24 +101,9 @@ std::ostream& operator<<(std::ostream& out, const Movie& movie)
  return out;
 }
 
-Movie::Movie(const Movie& other)
-{
-  director_ = other.director_;
-  title_ = other.title_;
-  year_ = other.year_;
-}
-
 Movie::~Movie()
 {
 
-}
-
-Movie& Movie::operator=(Movie other)
-{
-  std::swap(director_, other.director_);
-  std::swap(title_, other.title_);
-  std::swap(year_, other.year_);
-  return *this;
 }
 
 // Prints the table headers to view the movie data in a table format
