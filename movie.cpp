@@ -8,8 +8,8 @@
 
 #include "movie.h"
  
-const int Movie::kTitleDisplayWidth = 20;
-const int Movie::kDirectorDisplayWidth = 15;
+const int Movie::kTitleDisplayWidth = 25;
+const int Movie::kDirectorDisplayWidth = 20;
 const int Movie::kYearDisplayWidth = 4;
 
 const int Movie::kMinYear = 1800;
