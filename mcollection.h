@@ -31,24 +31,28 @@ public:
 private:
   struct MovieCompare
   { 
-    bool operator() (const InventoryItem&, const InventoryItem&) const;
+    bool operator() (const InventoryItem*, const InventoryItem*) const;
   };
 
   struct MovieHash
   { 
-    std::size_t operator() (const InventoryItem&) const;
+    std::size_t operator() (const std::string&) const;
     static boost::hash<std::string> string_hash;
   };
 
-  typedef std::tr1::unordered_map<char, InventoryItem*, MovieHash> MovieHash;
-  typedef std::set<InventoryItem*, MovieCompare> MovieSet;
+  typedef std::tr1::unordered_map<std::string, const InventoryItem*, MovieHash> MovieHash;
+  typedef std::set<const InventoryItem*, MovieCompare> MovieSet;
 
   std::vector<Movie*> movie_list_; // holds the raw Movie data
-  std::vector<InventoryItem> inventory_list_;
-  MovieHash movie_hash_;
-  MovieHash movie_tree_;
+  std::vector<const InventoryItem*> inventory_list_;
+  MovieHash movie_hash_; // provides constant time lookup
+  MovieSet movie_set_; // used to store movies in sorted order
   
   MovieFactory factory_; // responsible for creating movies
+
+  static std::string get_hash_key(const InventoryItem*);
+  void add_movie_to_hash(const InventoryItem*);
+  void add_movie_to_set(const InventoryItem*);
 };
 
 #endif
