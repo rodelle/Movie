@@ -98,6 +98,8 @@ SUITE(MFactory_h)
     CHECK(comedy == NULL);
     CHECK(drama == NULL);
     CHECK(classic == NULL);
+
+    delete movie;
   }
 
   TEST(Create_drama) 
@@ -114,6 +116,8 @@ SUITE(MFactory_h)
     CHECK(comedy == NULL);
     CHECK(drama != NULL);
     CHECK(classic == NULL);
+
+    delete movie;
   }
 
   TEST(Create_classic) 
@@ -130,6 +134,8 @@ SUITE(MFactory_h)
     CHECK(comedy == NULL);
     CHECK(drama == NULL);
     CHECK(classic != NULL);
+
+    delete movie;
   }
 
   TEST(Create_comedy) 
@@ -146,5 +152,7 @@ SUITE(MFactory_h)
     CHECK(comedy != NULL);
     CHECK(drama == NULL);
     CHECK(classic == NULL);
+
+    delete movie;
   }
 }
