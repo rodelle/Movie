@@ -9,15 +9,15 @@ MovieFactory::MovieFactory()
 {
   typedef std::pair<char, MovieFactory::MovieBuilder> BuilderPair;
 
-  movie_builder_.insert(BuilderPair('f', MovieFactory::MakeComedy));
-  movie_builder_.insert(BuilderPair('d', MovieFactory::MakeDrama));
-  movie_builder_.insert(BuilderPair('c', MovieFactory::MakeClassic));
+  movie_builder_.insert(BuilderPair('F', MovieFactory::MakeComedy));
+  movie_builder_.insert(BuilderPair('D', MovieFactory::MakeDrama));
+  movie_builder_.insert(BuilderPair('C', MovieFactory::MakeClassic));
 
   typedef std::pair<char, Movie*> MoviePair;
 
-  movie_instance_.insert(MoviePair('f', MovieFactory::MakeComedy()));
-  movie_instance_.insert(MoviePair('d', MovieFactory::MakeDrama()));
-  movie_instance_.insert(MoviePair('c', MovieFactory::MakeClassic()));
+  movie_instance_.insert(MoviePair('F', MovieFactory::MakeComedy()));
+  movie_instance_.insert(MoviePair('D', MovieFactory::MakeDrama()));
+  movie_instance_.insert(MoviePair('C', MovieFactory::MakeClassic()));
 }
 
 MovieFactory::~MovieFactory()
@@ -57,5 +57,5 @@ Movie* MovieFactory::MakeClassic()
 
 std::size_t MovieFactory::CharHash::operator() (const char c) const
 {
-  return c - 'a';
+  return c - 'A';
 }

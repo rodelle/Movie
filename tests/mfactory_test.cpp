@@ -56,7 +56,7 @@ SUITE(MFactory_h)
   {
     MovieFactory factory;
 
-    Movie* movie = factory.InstanceOf('f');
+    Movie* movie = factory.InstanceOf('F');
   
     Comedy* comedy = dynamic_cast<Comedy*>(movie);
     Drama* drama = dynamic_cast<Drama*>(movie);
@@ -104,7 +104,7 @@ SUITE(MFactory_h)
   {
     MovieFactory factory;
 
-    Movie* movie = factory.Create('d');
+    Movie* movie = factory.Create('D');
 
     Comedy* comedy = dynamic_cast<Comedy*>(movie);
     Drama* drama = dynamic_cast<Drama*>(movie);
@@ -120,7 +120,7 @@ SUITE(MFactory_h)
   {
     MovieFactory factory;
 
-    Movie* movie = factory.Create('c');
+    Movie* movie = factory.Create('C');
 
     Comedy* comedy = dynamic_cast<Comedy*>(movie);
     Drama* drama = dynamic_cast<Drama*>(movie);
@@ -136,7 +136,7 @@ SUITE(MFactory_h)
   {
     MovieFactory factory;
 
-    Movie* movie = factory.Create('f');
+    Movie* movie = factory.Create('F');
 
     Comedy* comedy = dynamic_cast<Comedy*>(movie);
     Drama* drama = dynamic_cast<Drama*>(movie);
