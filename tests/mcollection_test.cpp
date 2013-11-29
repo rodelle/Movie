@@ -9,7 +9,7 @@ SUITE(MCollection_h)
 {
   TEST(AddMovie_default) 
   {
-    std::string input = "f Gore Verbinski, Pirates of the Caribbean, 2003";
+    std::string input = "F Gore Verbinski, Pirates of the Caribbean, 2003";
     std::istringstream istream(input);
 
     MovieCollection movies;
