@@ -11,7 +11,7 @@ InventoryItem::InventoryItem(const Movie& movie)
   : movie_(movie)
 {}
 
-const Movie& InventoryItem::movie()
+const Movie& InventoryItem::movie() const
 {
   return movie_;
 }

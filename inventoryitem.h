@@ -40,7 +40,7 @@ public:
 
 
   // Returns the movie
-  const Movie& movie();
+  const Movie& movie() const;
 
 private:
   // Returns the hash value for a char
