@@ -24,6 +24,7 @@ public:
   Movie* Create(const char) const;
 
   // Returns a previously instantiated Movie object of the correct type 
+  // TODO prevent users from deleting this value
   Movie* InstanceOf(const char) const;
 
 private:
