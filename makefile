@@ -14,6 +14,7 @@ src = movie.cpp \
 			classic.cpp \
 			inventoryitem.cpp \
 			mfactory.cpp \
+			mcollection.cpp \
 
 test_src = test_main.cpp \
 					 test_helper.cpp \
@@ -23,6 +24,7 @@ test_src = test_main.cpp \
 					 classic_test.cpp \
 					 inventoryitem_test.cpp \
 					 mfactory_test.cpp \
+					 mcollection_test.cpp \
 
 objects = $(src:%.cpp=$(OBJ_DIR)/%.o)
 test_objects = $(test_src:%.cpp=$(OBJ_DIR)/%.o)
