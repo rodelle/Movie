@@ -7,32 +7,19 @@
 
 #include "drama.h"
 
-Drama::Drama(const std::string& title, const std::string& director, int year)
-  : Movie(title, director, year)
+Drama::Drama(
+  const std::string& title, 
+  const std::string& director, 
+  const std::string& data)
 {
-  Movie::validate_input();
+  Movie::Init(title, director, data);
 }
 
 Drama::Drama(std::istream& input)
 {
-  std::string title, director, year;
-
-  std::getline(input, director, ',');
-  std::getline(input, title, ',');
-  std::getline(input, year);
-
-  boost::algorithm::trim(title);
-  boost::algorithm::trim(director);
-  boost::algorithm::trim(year);
-
-  if(!input.fail()) {
-    title_ = title;
-    director_ = director;
-    year_ = boost::lexical_cast<int>(year.c_str());
-  }
-
-  Movie::validate_input();
+  Movie::Init(input);
 }
+
 
 std::ostream& operator<<(std::ostream& out, const Drama& movie)
 {

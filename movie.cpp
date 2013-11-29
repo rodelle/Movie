@@ -16,35 +16,67 @@ const int Movie::kMinYear = 1800;
 const int Movie::kMaxYear = 2100;
 
 const int Movie::kDefaultYear = Movie::kMinYear;
-const std::string Movie::kDefaultTitle  = "";
-const std::string Movie::kDefaultDirector = "";
 
-Movie::Movie(const std::string& title, const std::string& director, int year)
-  : title_(title), director_(director), year_(year)
+#ifdef NDEBUG
+const std::string Movie::kDefaultTitle = "Title";
+const std::string Movie::kDefaultDirector = "Director";
+const std::string Moive::kDefaultData = "Data";
+#else
+const std::string Movie::kDefaultTitle = "";
+const std::string Movie::kDefaultDirector = "";
+const std::string Movie::kDefaultData = "";
+#endif
+
+Movie::Movie(std::istream& input)
 {
-  assert(year >= kMinYear); 
-  assert(year <= kMaxYear);
+  Movie::Init(input);
+}
+
+Movie::Movie(
+  const std::string& title, 
+  const std::string& director, 
+  const std::string& data)
+{
+  Movie::Init(title, director, data);
+}
+
+void Movie::Init(
+  const std::string& title, 
+  const std::string& director, 
+  const std::string& additional_data)
+{
+  title_ = title;
+  director_ = director;
+  parse_additional_data(additional_data);
 
   validate_input();
 }
 
-Movie::Movie(std::istream& input)
-  :title_(kDefaultTitle), director_(kDefaultDirector), year_(kDefaultYear)
+void Movie::parse_additional_data(const std::string& additional_data)
 {
-  std::string title, director, year;
+  try {
+    year_ = boost::lexical_cast<int>(additional_data.c_str());
+  } catch (const boost::bad_lexical_cast&) {
+    year_ = kDefaultYear;
+  }
+}
+
+void Movie::Init(std::istream& input)
+{
+  std::string title, director, additional_data;
 
   std::getline(input, director, ',');
   std::getline(input, title, ',');
-  std::getline(input, year);
+  std::getline(input, additional_data);
 
   boost::algorithm::trim(title);
   boost::algorithm::trim(director);
-  boost::algorithm::trim(year);
+  boost::algorithm::trim(additional_data);
 
   if(!input.fail()) {
     title_ = title;
     director_ = director;
-    year_ = boost::lexical_cast<int>(year.c_str());
+    this->parse_additional_data(additional_data);
   }
 
   validate_input();
@@ -133,3 +165,13 @@ bool Movie::operator!=(const Movie& other) const
 {
   return !(*this == other);
 }
+
+std::string Movie::title() const
+{ return title_; }
+
+std::string Movie::director() const
+{ return director_; }
+
+int Movie::year() const
+{ return year_; }
+

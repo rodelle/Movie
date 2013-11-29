@@ -9,8 +9,8 @@ SUITE(Comedy_h)
   // Sorted by title then date
   TEST(OperatorLess_TitleAndDate)
   {
-    Comedy lhs("Star Wars", "George Lucas", 1977); 
-    Comedy rhs("The Fellowship of the Ring", "Peter Jackson", 2000); 
+    Comedy lhs("Star Wars", "George Lucas", "1977"); 
+    Comedy rhs("The Fellowship of the Ring", "Peter Jackson", "2000"); 
      
     CHECK(lhs < rhs);
     CHECK(!(lhs > rhs));
@@ -22,8 +22,8 @@ SUITE(Comedy_h)
   // Sorted by title then date
   TEST(OperatorLess_TitleNotDate)
   {
-    Comedy lhs("Fight Club", "David Finchr", 1999);
-    Comedy rhs("Jurassic Park", "Steven Spielberg", 1993);
+    Comedy lhs("Fight Club", "David Finchr", "1999");
+    Comedy rhs("Jurassic Park", "Steven Spielberg", "1993");
      
     CHECK(lhs < rhs);
     CHECK(!(lhs > rhs));
@@ -35,8 +35,8 @@ SUITE(Comedy_h)
   // Sorted by title then date
   TEST(OperatorLess_DateNotTitle)
   {
-    Comedy lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Comedy rhs("Star Wars", "George Lucas", 1977); 
+    Comedy lhs("Jurassic Park", "Steven Spielberg", "1993");
+    Comedy rhs("Star Wars", "George Lucas", "1977"); 
 
     CHECK(lhs < rhs);
     CHECK(!(lhs > rhs));
@@ -48,8 +48,8 @@ SUITE(Comedy_h)
   // Sorted by title then date
   TEST(OperatorLess_Equal)
   {
-    Comedy lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Comedy rhs("Jurassic Park", "Steven Spielberg", 1993);
+    Comedy lhs("Jurassic Park", "Steven Spielberg", "1993");
+    Comedy rhs("Jurassic Park", "Steven Spielberg", "1993");
 
     CHECK(!(rhs < lhs));
     CHECK(!(rhs > lhs));
@@ -60,32 +60,32 @@ SUITE(Comedy_h)
 
   TEST(OperatorNotEqual_ComedysNotEqual)
   {
-    Comedy lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Comedy rhs("Star Wars", "George Lucas", 1977); 
+    Comedy lhs("Jurassic Park", "Steven Spielberg", "1993");
+    Comedy rhs("Star Wars", "George Lucas", "1977"); 
      
     CHECK(lhs != rhs);
   }
 
   TEST(OperatorNotEqual_ComedysAreEqual)
   {
-    Comedy lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Comedy rhs("Jurassic Park", "Steven Spielberg", 1993);
+    Comedy lhs("Jurassic Park", "Steven Spielberg", "1993");
+    Comedy rhs("Jurassic Park", "Steven Spielberg", "1993");
      
     CHECK(!(lhs != rhs));
   } 
 
   TEST(OperatorEqual_ComedysNotEqual)
   {
-    Comedy lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Comedy rhs("Star Wars", "George Lucas", 1977); 
+    Comedy lhs("Jurassic Park", "Steven Spielberg", "1993");
+    Comedy rhs("Star Wars", "George Lucas", "1977"); 
      
     CHECK(!(lhs == rhs));
   }
 
   TEST(OperatorEqual_ComedysAreEqual)
   {
-    Comedy lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Comedy rhs("Jurassic Park", "Steven Spielberg", 1993); 
+    Comedy lhs("Jurassic Park", "Steven Spielberg", "1993");
+    Comedy rhs("Jurassic Park", "Steven Spielberg", "1993"); 
      
     CHECK(lhs == rhs);
   }
@@ -94,7 +94,7 @@ SUITE(Comedy_h)
     std::string expected_output = 
       "Jurassic Park        Steven Spielberg   1993";
 
-    Comedy copied_movie("Jurassic Park", "Steven Spielberg", 1993); // movie with no initialized data
+    Comedy copied_movie("Jurassic Park", "Steven Spielberg", "1993"); // movie with no initialized data
     Comedy movie(copied_movie);
 
     cout_redirect redirect;
@@ -190,7 +190,7 @@ SUITE(Comedy_h)
     std::string expected_output = 
       "Jurassic Park        Steven Spielberg   1993";
 
-    Comedy movie("Jurassic Park", "Steven Spielberg", 1993); // movie with initial data
+    Comedy movie("Jurassic Park", "Steven Spielberg", "1993"); // movie with initial data
 
     cout_redirect redirect;
     std::cout << movie;

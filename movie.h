@@ -11,18 +11,25 @@ class Movie {
 friend std::ostream& operator<<(std::ostream&, const Movie&);
 
 public:
-  //pre: 1800 <= year <= 2100 
-  //format: "title title, director director, year"
   Movie(std::istream&);
-  Movie(const std::string&  = kDefaultTitle,
-        const std::string&  = kDefaultDirector, 
-        const int year      = kDefaultYear);
-
+  Movie(
+    const std::string& = kDefaultTitle,
+    const std::string& = kDefaultDirector, 
+    const std::string& = kDefaultData);
+  
   // copy ctors
   Movie(const Movie&);
   Movie& operator=(Movie);
 
   virtual ~Movie();
+
+  //format: "title title, director director, year"
+  virtual void Init(
+    const std::string& = kDefaultTitle,
+    const std::string& = kDefaultDirector, 
+    const std::string& = kDefaultData);
+
+  virtual void Init(std::istream&);
 
   // Prints the table headers to view the movie data in a table format
   virtual void PrintTableHeader();
@@ -33,6 +40,11 @@ public:
   virtual bool operator>(const Movie&) const;
   virtual bool operator==(const Movie&) const;
   virtual bool operator!=(const Movie&) const;
+
+  // getters
+  std::string title() const;
+  std::string director() const;
+  int         year() const;
 
 protected:
   std::string title_;
@@ -49,10 +61,14 @@ protected:
   static const int kDefaultYear;
   static const std::string kDefaultTitle;
   static const std::string kDefaultDirector;
+  static const std::string kDefaultData;
 
   // Checks to make sure values are within valid ranges 
   // If they aren't, sets them to default values
-  void validate_input();
+  virtual void validate_input();
+
+  // parses the additional data field and initializes corresponding fields 
+  virtual void parse_additional_data(const std::string&);
 };
 
 #endif

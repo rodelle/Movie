@@ -20,12 +20,11 @@ public:
   //format: "title title, director director, year"
   Classic(std::istream&);
   Classic(
-      const std::string& = kDefaultTitle, 
-      const std::string& = kDefaultDirector, 
-      const std::string& = kDefaultActor, 
-      const int = kDefaultMonth,
-      const int = kMinYear);
+    const std::string& = kDefaultTitle, 
+    const std::string& = kDefaultDirector, 
+    const std::string& = kDefaultData);
   
+
   // copy ctors
   Classic(const Classic&);
   Classic& operator=(Classic);
@@ -51,7 +50,10 @@ protected:
   std::string actor_;
 
   // override
-  void validate_input();
+  virtual void validate_input();
+
+  // override
+  virtual void parse_additional_data(const std::string&);
 };
 
 #endif

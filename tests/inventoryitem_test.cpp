@@ -10,7 +10,7 @@
 struct ZeroItems
 {
   ZeroItems()
-    : movie(new Comedy("Jurassic Park", "Steven Spielberg", 1993)),
+    : movie(new Comedy("Jurassic Park", "Steven Spielberg", "1993")),
       inventory(*movie)
    {}
 

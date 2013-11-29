@@ -21,7 +21,7 @@ public:
   Drama(std::istream&);
   Drama(const std::string& = kDefaultTitle,
         const std::string& = kDefaultDirector,
-        int year = kDefaultYear);
+        const std::string& = kDefaultData);
   
   // copy ctors
   Drama(const Drama&);

@@ -15,14 +15,16 @@ const int Classic::kDefaultMonth = 1;
 const std::string Classic::kDefaultActor = "";
 
 Classic::Classic(
-    const std::string& title, 
-    const std::string& director, 
-    const std::string& actor, 
-    int month,
-    int year)
-  : Movie(title, director, year), month_(month), actor_(actor)
+  const std::string& title, 
+  const std::string& director, 
+  const std::string& data)
 {
-  validate_input();
+  Movie::Init(title, director, data);
+}
+
+Classic::Classic(std::istream& input)
+{
+  Movie::Init(input);
 }
 
 void Classic::validate_input()
@@ -32,36 +34,23 @@ void Classic::validate_input()
    month_ = kDefaultMonth; 
 }
 
-Classic::Classic(std::istream& input)
+void Classic::parse_additional_data(const std::string& additional_data)
 {
-  std::string title, director, actor, month, year;
-  std::string rest_of_line;
-
-  std::getline(input, director, ',');
-  std::getline(input, title, ',');
-  std::getline(input, rest_of_line);
- 
-  if(input.fail()) {
-    validate_input();
-    return;
-  }
-
-  boost::tokenizer<> tok(rest_of_line);
-
+  boost::tokenizer<> tok(additional_data);
   std::vector<std::string> data;
 
   // copy tokens into vector
   std::copy(tok.begin(), tok.end(),
       std::back_inserter<std::vector<std::string> >(data));
 
+
   if(data.size() == 4) {
     // format: actor, actor, month, year
+    std::string actor, month, year;
     actor = data[0] + data[1];
     month = data[2];
     year  = data[3];
 
-    title_ = title;
-    director_ = director;
     actor_ = actor;
 
     try {
@@ -72,8 +61,6 @@ Classic::Classic(std::istream& input)
       year_ = kDefaultYear;
     }
   }
-
-  validate_input();
 }
 
 std::ostream& operator<<(std::ostream& out, const Classic& movie)

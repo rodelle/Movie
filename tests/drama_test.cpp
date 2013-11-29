@@ -9,8 +9,8 @@ SUITE(Drama_h)
   // Sorted by director then title 
   TEST(OperatorLess_DirectorAndTitle)
   {
-    Drama lhs("Star Wars", "George Lucas", 1977); 
-    Drama rhs("The Fellowship of the Ring", "Peter Jackson", 2000); 
+    Drama lhs("Star Wars", "George Lucas", "1977"); 
+    Drama rhs("The Fellowship of the Ring", "Peter Jackson", "2000"); 
      
     CHECK(lhs < rhs);
     CHECK(!(lhs > rhs));
@@ -22,8 +22,8 @@ SUITE(Drama_h)
   // Sorted by director then title
   TEST(OperatorLess_DirectorNotTitle)
   {
-    Drama lhs("Fight Club", "David Fincher", 1999);
-    Drama rhs("Clue", "Jonathan Lynn", 1985);
+    Drama lhs("Fight Club", "David Fincher", "1999");
+    Drama rhs("Clue", "Jonathan Lynn", "1985");
      
     CHECK(lhs < rhs);
     CHECK(!(lhs > rhs));
@@ -35,8 +35,8 @@ SUITE(Drama_h)
   // Sorted by director then title
   TEST(OperatorLess_TitleNotDirector)
   {
-    Drama lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Drama rhs("Star Wars", "George Lucas", 1977); 
+    Drama lhs("Jurassic Park", "Steven Spielberg", "1993");
+    Drama rhs("Star Wars", "George Lucas", "1977"); 
 
     CHECK(rhs < lhs);
     CHECK(!(rhs > lhs));
@@ -48,8 +48,8 @@ SUITE(Drama_h)
   // Sorted by director then title
   TEST(OperatorLess_Equal)
   {
-    Drama lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Drama rhs("Jurassic Park", "Steven Spielberg", 1993);
+    Drama lhs("Jurassic Park", "Steven Spielberg", "1993");
+    Drama rhs("Jurassic Park", "Steven Spielberg", "1993");
 
     CHECK(!(rhs < lhs));
     CHECK(!(rhs > lhs));
@@ -60,32 +60,32 @@ SUITE(Drama_h)
 
   TEST(OperatorNotEqual_DramasNotEqual)
   {
-    Drama lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Drama rhs("Star Wars", "George Lucas", 1977); 
+    Drama lhs("Jurassic Park", "Steven Spielberg", "1993");
+    Drama rhs("Star Wars", "George Lucas", "1977"); 
      
     CHECK(lhs != rhs);
   }
 
   TEST(OperatorNotEqual_DramasAreEqual)
   {
-    Drama lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Drama rhs("Jurassic Park", "Steven Spielberg", 1993);
+    Drama lhs("Jurassic Park", "Steven Spielberg", "1993");
+    Drama rhs("Jurassic Park", "Steven Spielberg", "1993");
      
     CHECK(!(lhs != rhs));
   } 
 
   TEST(OperatorEqual_DramasNotEqual)
   {
-    Drama lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Drama rhs("Star Wars", "George Lucas", 1977); 
+    Drama lhs("Jurassic Park", "Steven Spielberg", "1993");
+    Drama rhs("Star Wars", "George Lucas", "1977"); 
      
     CHECK(!(lhs == rhs));
   }
 
   TEST(OperatorEqual_DramasAreEqual)
   {
-    Drama lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Drama rhs("Jurassic Park", "Steven Spielberg", 1993); 
+    Drama lhs("Jurassic Park", "Steven Spielberg", "1993");
+    Drama rhs("Jurassic Park", "Steven Spielberg", "1993"); 
      
     CHECK(lhs == rhs);
   }
@@ -94,7 +94,7 @@ SUITE(Drama_h)
     std::string expected_output = 
       "Jurassic Park        Steven Spielberg   1993";
 
-    Drama copied_movie("Jurassic Park", "Steven Spielberg", 1993);
+    Drama copied_movie("Jurassic Park", "Steven Spielberg", "1993");
     Drama movie(copied_movie);
 
     cout_redirect redirect;
@@ -190,7 +190,7 @@ SUITE(Drama_h)
     std::string expected_output = 
       "Jurassic Park        Steven Spielberg   1993";
 
-    Drama movie("Jurassic Park", "Steven Spielberg", 1993); // movie with initial data
+    Drama movie("Jurassic Park", "Steven Spielberg", "1993"); // movie with initial data
 
     cout_redirect redirect;
     std::cout << movie;

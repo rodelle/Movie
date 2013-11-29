@@ -4,12 +4,24 @@
 #include "../movie.h"
 #include "test_helper.h"
 
+struct MovieData 
+{
+  MovieData() 
+  {
+    JurassicPark.Init("Jurassic Park", "Steven Spielberg", "1993");
+    StarWars.Init("Star Wars", "George Lucas", "1977"); 
+  };
+
+  Movie JurassicPark;
+  Movie StarWars;
+};
+
 SUITE(OperatorEquality) 
 {
-  TEST(LeftLessThanRight)
+  TEST_FIXTURE(MovieData, LeftLessThanRight)
   {
-    Movie lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Movie rhs("Star Wars", "George Lucas", 1977); 
+    Movie lhs = JurassicPark;//("Jurassic Park", "Steven Spielberg", 1993);
+    Movie rhs = StarWars; //("Star Wars", "George Lucas", 1977); 
      
     CHECK(lhs < rhs);
     CHECK(!(lhs > rhs));
@@ -18,36 +30,22 @@ SUITE(OperatorEquality)
     CHECK(!(rhs < lhs));
   }
 
-  TEST(OperatorNotEqual_MoviesNotEqual)
+  TEST_FIXTURE(MovieData, OperatorEqual_MoviesNotEqual)
   {
-    Movie lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Movie rhs("Star Wars", "George Lucas", 1977); 
+    Movie lhs = JurassicPark; //("Jurassic Park", "Steven Spielberg", 1993);
+    Movie rhs = StarWars; //("Star Wars", "George Lucas", 1977); 
      
     CHECK(lhs != rhs);
-  }
-
-  TEST(OperatorNotEqual_MoviesAreEqual)
-  {
-    Movie lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Movie rhs("Jurassic Park", "Steven Spielberg", 1993);
-     
-    CHECK(!(lhs != rhs));
-  } 
-
-  TEST(OperatorEqual_MoviesNotEqual)
-  {
-    Movie lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Movie rhs("Star Wars", "George Lucas", 1977); 
-     
     CHECK(!(lhs == rhs));
   }
 
-  TEST(OperatorEqual_MoviesAreEqual)
+  TEST_FIXTURE(MovieData, OperatorEqual_MoviesAreEqual)
   {
-    Movie lhs("Jurassic Park", "Steven Spielberg", 1993);
-    Movie rhs("Jurassic Park", "Steven Spielberg", 1993); 
+    Movie lhs = JurassicPark; //("Jurassic Park", "Steven Spielberg", 1993);
+    Movie rhs = JurassicPark; //("Jurassic Park", "Steven Spielberg", 1993); 
      
     CHECK(lhs == rhs);
+    CHECK(!(lhs != rhs));
   }
 }
 
@@ -81,7 +79,8 @@ SUITE(CopyConstructor)
     std::string expected_output = 
       "Jurassic Park        Steven Spielberg   1993";
 
-    Movie copied_movie("Jurassic Park", "Steven Spielberg", 1993); // movie with no initialized data
+    Movie copied_movie;
+    copied_movie.Init("Jurassic Park", "Steven Spielberg", "1993"); // movie with no initialized data
     Movie movie(copied_movie);
 
     cout_redirect redirect;
@@ -184,8 +183,13 @@ SUITE(Constructor)
     std::string expected_output = 
       "Jurassic Park        Steven Spielberg   1993";
 
-    Movie movie("Jurassic Park", "Steven Spielberg", 1993); // movie with initial data
+    Movie movie;
+    movie.Init("Jurassic Park", "Steven Spielberg", "1993"); // movie with initial data
 
+    CHECK_EQUAL(movie.title(), "Jurassic Park");
+    CHECK_EQUAL(movie.director(), "Steven Spielberg");
+    CHECK_EQUAL(movie.year(), 1993);
+    
     cout_redirect redirect;
     std::cout << movie;
     std::string program_output = redirect.get_output();

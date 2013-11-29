@@ -8,34 +8,17 @@
 
 #include "comedy.h"
 
-Comedy::Comedy(const std::string& title, const std::string& director, int year)
-  : Movie(title, director, year)
+Comedy::Comedy(
+  const std::string& title, 
+  const std::string& director, 
+  const std::string& data)
 {
-  assert(year >= kMinYear); 
-  assert(year <= kMaxYear);
-
-  validate_input();
+  Movie::Init(title, director, data);
 }
 
 Comedy::Comedy(std::istream& input)
 {
-  std::string title, director, year;
-
-  std::getline(input, director, ',');
-  std::getline(input, title, ',');
-  std::getline(input, year);
-
-  boost::algorithm::trim(title);
-  boost::algorithm::trim(director);
-  boost::algorithm::trim(year);
-
-  if(!input.fail()) {
-    title_ = title;
-    director_ = director;
-    year_ = boost::lexical_cast<int>(year.c_str());
-  }
-
-  validate_input();
+  Movie::Init(input);
 }
 
 std::ostream& operator<<(std::ostream& out, const Comedy& movie)

@@ -9,8 +9,8 @@ SUITE(Classic_h)
   // Sorted by date then famous actor 
   TEST(OperatorLess_DateAndActor)
   {
-    Classic lhs("Holiday", "George Cukor", "Katherine Hepburn", 9, 1938);
-    Classic rhs("Harold and Maude", "Hal Ashby", "Ruth Gordan", 2, 1971); 
+    Classic lhs("Holiday", "George Cukor", "Katherine Hepburn 9 1938");
+    Classic rhs("Harold and Maude", "Hal Ashby", "Ruth Gordan 2 1971"); 
      
     CHECK(lhs < rhs);
     CHECK(!(lhs > rhs));
@@ -22,8 +22,8 @@ SUITE(Classic_h)
   // Sorted by date then famous actor
   TEST(OperatorLess_YearNotMonth)
   {
-    Classic lhs("Holiday", "George Cukor", "Katherine Hepburn", 2, 1938);
-    Classic rhs("Harold and Maude", "Hal Ashby", "Ruth Gordan", 7, 1938); 
+    Classic lhs("Holiday", "George Cukor", "Katherine Hepburn 2 1938");
+    Classic rhs("Harold and Maude", "Hal Ashby", "Ruth Gordan 7 1938"); 
 
     CHECK(lhs < rhs);
     CHECK(!(lhs > rhs));
@@ -35,8 +35,8 @@ SUITE(Classic_h)
   // Sorted by date then famous actor
   TEST(OperatorLess_ActorNotYear)
   {
-    Classic lhs("Holiday", "George Cukor", "Katherine Hepburn", 7, 1971);
-    Classic rhs("Harold and Maude", "Hal Ashby", "Ruth Gordan", 2, 1938); 
+    Classic lhs("Holiday", "George Cukor", "Katherine Hepburn 7 1971");
+    Classic rhs("Harold and Maude", "Hal Ashby", "Ruth Gordan 2 1938"); 
 
     CHECK(rhs < lhs);
     CHECK(!(rhs > lhs));
@@ -48,8 +48,8 @@ SUITE(Classic_h)
   // Sorted by date then famous actor
   TEST(OperatorLess_Equal)
   {
-    Classic lhs("Holiday", "George Cukor", "Katherine Hepburn", 9, 1938);
-    Classic rhs("Holiday", "George Cukor", "Katherine Hepburn", 9, 1938);
+    Classic lhs("Holiday", "George Cukor", "Katherine Hepburn 9 1938");
+    Classic rhs("Holiday", "George Cukor", "Katherine Hepburn 9 1938");
 
     CHECK(!(rhs < lhs));
     CHECK(!(rhs > lhs));
@@ -61,8 +61,8 @@ SUITE(Classic_h)
 
   TEST(OperatorEqual_ClassicsNotEqual)
   {
-    Classic lhs("Holiday", "George Cukor", "Katherine Hepburn", 9, 1938);
-    Classic rhs("Harold ad Maude", "Hal Ashby", "Ruth Gordan", 2, 1971); 
+    Classic lhs("Holiday", "George Cukor", "Katherine Hepburn 9 1938");
+    Classic rhs("Harold ad Maude", "Hal Ashby", "Ruth Gordan 2 1971"); 
 
     CHECK(!(lhs == rhs));
     CHECK(lhs != rhs);
@@ -70,8 +70,8 @@ SUITE(Classic_h)
 
   TEST(OperatorEqual_ClassicsAreEqual)
   {
-    Classic lhs("Holiday", "George Cukor", "Katherine Hepburn", 9, 1938);
-    Classic rhs("Holiday", "George Cukor", "Katherine Hepburn", 9, 1938);
+    Classic lhs("Holiday", "George Cukor", "Katherine Hepburn 9 1938");
+    Classic rhs("Holiday", "George Cukor", "Katherine Hepburn 9 1938");
 
     CHECK(lhs == rhs);
     CHECK(!(lhs != rhs));
@@ -82,7 +82,7 @@ SUITE(Classic_h)
     std::string expected_output = 
       "Holiday   George Cukor  9 1938  Katherine Hepburn";
 
-    Classic copied_movie("Holiday", "George Cukor", "Katherine Hepburn", 9, 1938);
+    Classic copied_movie("Holiday", "George Cukor", "Katherine Hepburn 9 1938");
     Classic movie(copied_movie);
 
     cout_redirect redirect;
@@ -121,7 +121,7 @@ SUITE(Classic_h)
     std::string expected_output = 
       "Holiday   George Cukor  9 1938  Katherine Hepburn";
 
-    Classic movie("Holiday", "George Cukor", "Katherine Hepburn", 9, 1938);
+    Classic movie("Holiday", "George Cukor", "Katherine Hepburn 9 1938");
 
     cout_redirect redirect;
     std::cout << movie;
