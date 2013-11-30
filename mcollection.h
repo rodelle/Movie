@@ -39,14 +39,14 @@ private:
     std::size_t operator() (const char) const;
   };
 
-  struct MovieHash
+  struct StringHash
   { 
     std::size_t operator() (const std::string&) const;
     static boost::hash<std::string> string_hash;
   };
 
   typedef std::tr1::unordered_map
-    <std::string, InventoryItem*, MovieHash>
+    <std::string, InventoryItem*, StringHash>
     MovieHash;
 
   typedef std::set<InventoryItem*, MovieCompare> MovieSet;
