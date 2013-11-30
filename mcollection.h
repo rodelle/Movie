@@ -65,6 +65,9 @@ private:
 
   void add_movie_to_hash(InventoryItem*);
   void add_movie_to_set(InventoryItem*);
+
+  // The number of movies the inventoy is incrased by
+  static const int kDefaultAddCount;
 };
 
 #endif

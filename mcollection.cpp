@@ -1,6 +1,8 @@
 #include "mcollection.h"
 #include <iostream>
 
+const int MovieCollection::kDefaultAddCount = 10;
+
 MovieCollection::MovieCollection()
 {}
 
@@ -19,19 +21,28 @@ MovieCollection::~MovieCollection()
 
 void MovieCollection::AddMovie(std::istream& input)
 {
-  char type;
-  input >> type;
-  Movie* movie = factory_.Create(type);
+  char movieType;
+  input >> movieType;
+  Movie* movie = factory_.Create(movieType);
 
   if(movie == NULL)
     return;
 
   movie->Init(input);
-  movie_list_.push_back(movie);
-  inventory_list_.push_back(new InventoryItem(*movie));
   
-  add_movie_to_hash(inventory_list_.back());
-  add_movie_to_set(inventory_list_.back());
+  InventoryItem* item = this->search_in_hash(*movie);
+
+  if(item == NULL) { // movie does not exist in hash 
+    movie_list_.push_back(movie);
+    inventory_list_.push_back(new InventoryItem(*movie));
+    item = inventory_list_.back();
+    add_movie_to_hash(item);
+  } else {
+    delete movie; // no longer needed
+  }
+
+  item->AddToInventory(kDefaultAddCount); // increase the existing stock
+  add_movie_to_set(item);
 }
 
 void MovieCollection::add_movie_to_set(InventoryItem* item)
