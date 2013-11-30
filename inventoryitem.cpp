@@ -1,6 +1,6 @@
 #include "inventoryitem.h"
 
-const char InventoryItem::kDefaultMediaType = 'd'; 
+const char InventoryItem::kDefaultMediaType = 'D'; 
 
 std::size_t InventoryItem::CharHash::operator() (char c) const
 {
