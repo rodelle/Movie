@@ -16,9 +16,9 @@ SUITE(Classic_h)
     classic.Init(input);
     populated_classic.Populate(populate_input);
   
-    CHECK_EQUAL(9, populated_classic.month());
-    CHECK_EQUAL(1938, populated_classic.year());
-    CHECK_EQUAL("Katherine Hepburn", populated_classic.actor());
+    CHECK_EQUAL(classic.month(), populated_classic.month());
+    CHECK_EQUAL(classic.year(), populated_classic.year());
+    CHECK_EQUAL(classic.actor(), populated_classic.actor());
 
     CHECK(!(classic < populated_classic) && !(classic > populated_classic));
   }

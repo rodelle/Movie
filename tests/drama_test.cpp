@@ -16,8 +16,8 @@ SUITE(Drama_h)
     drama.Init(input);
     populated_drama.Populate(populate_input);
   
-    CHECK_EQUAL("Schindler's List", populated_drama.title());
-    CHECK_EQUAL("Steven Spielberg", populated_drama.director());
+    CHECK_EQUAL(drama.title(), populated_drama.title());
+    CHECK_EQUAL(drama.director(), populated_drama.director());
 
     CHECK(!(drama < populated_drama) && !(drama > populated_drama));
   }

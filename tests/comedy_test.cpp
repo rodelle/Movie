@@ -16,8 +16,8 @@ SUITE(Comedy_h)
     comedy.Init(input);
     populated_comedy.Populate(populate_input);
   
-    CHECK_EQUAL("Pirates of the Caribbean", populated_comedy.title());
-    CHECK_EQUAL(2003, populated_comedy.year());
+    CHECK_EQUAL(comedy.title(), populated_comedy.title());
+    CHECK_EQUAL(comedy.year(), populated_comedy.year());
 
     CHECK(!(comedy < populated_comedy) && !(comedy > populated_comedy));
   }
