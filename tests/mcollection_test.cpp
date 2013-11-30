@@ -9,11 +9,17 @@ SUITE(MCollection_h)
 {
   TEST(AddMovie_default) 
   {
-    std::string input = "F Gore Verbinski, Pirates of the Caribbean, 2003";
-    std::istringstream istream(input);
+    std::string movie_data = "F Gore Verbinski, Pirates of the Caribbean, 2003";
+    std::string search_data = "D F Pirates of the Caribbean, 2003";
 
+    std::istringstream movie_data_stream(movie_data);
+    std::istringstream search_data_stream(search_data);
+  
     MovieCollection movies;
-    movies.AddMovie(istream);
+    movies.AddMovie(movie_data_stream);
+
+    InventoryItem* item = movies.GetMovie(search_data_stream);
+    //std::cout << item->movie() << std::endl; 
   }
 /*
   TEST(InstanceOf_nonexistent) 
