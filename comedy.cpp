@@ -66,6 +66,7 @@ void Comedy::Populate(std::istream& input)
   std::getline(input, title, ',');
   input >> year;
 
+  boost::algorithm::trim(title);
   boost::algorithm::trim(year);
 
   if(!input.fail()) {
