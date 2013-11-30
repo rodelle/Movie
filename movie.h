@@ -8,7 +8,7 @@ class Movie {
  
 // overloaded <<
 // Prints out the movie's director and title in table format 
-friend std::ostream& operator<<(std::ostream&, const Movie&);
+friend std::ostream& operator<<(std::ostream&, const Movie&); 
 
 public:
   Movie(std::istream&);
@@ -69,6 +69,9 @@ protected:
 
   // parses the additional data field and initializes corresponding fields 
   virtual void parse_additional_data(const std::string&);
+
+  // prints out the object's fields in a table format
+  virtual void print(std::ostream&) const;
 };
 
 #endif

@@ -93,12 +93,16 @@ void Movie::validate_input()
 
 std::ostream& operator<<(std::ostream& out, const Movie& movie)
 {
-  out << std::left 
-    << std::setw(Movie::kTitleDisplayWidth) << movie.title_
-    << std::setw(Movie::kDirectorDisplayWidth) << movie.director_
-    << std::setw(Movie::kYearDisplayWidth) << movie.year_;
+  movie.print(out);
+  return out;
+}
 
- return out;
+void Movie::print(std::ostream& out) const
+{
+  out << std::left 
+    << std::setw(Movie::kTitleDisplayWidth) << title_
+    << std::setw(Movie::kDirectorDisplayWidth) << director_
+    << std::setw(Movie::kYearDisplayWidth) << year_;
 }
 
 Movie::~Movie()
