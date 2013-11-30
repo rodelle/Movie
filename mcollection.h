@@ -34,6 +34,11 @@ private:
     bool operator() (const InventoryItem*, const InventoryItem*) const;
   };
 
+  struct CharHash 
+  { 
+    std::size_t operator() (const char) const;
+  };
+
   struct MovieHash
   { 
     std::size_t operator() (const std::string&) const;
@@ -46,10 +51,14 @@ private:
 
   typedef std::set<InventoryItem*, MovieCompare> MovieSet;
 
+  typedef std::tr1::unordered_map
+    <char, MovieSet, CharHash>
+    MovieSetHash;
+
   std::vector<const Movie*> movie_list_; // holds the raw Movie data
   std::vector<InventoryItem*> inventory_list_;
   MovieHash movie_hash_; // provides constant time lookup
-  MovieSet movie_set_; // used to store movies in sorted order
+  MovieSetHash movie_set_; // used to store movies in sorted order
   
   MovieFactory factory_; // responsible for creating movies
 
@@ -60,11 +69,12 @@ private:
   InventoryItem* search_in_hash(const Movie&);
   
   // Searches for the given movie in the previously stored set of movies
-  // Returns the InventoryItem is found, otherwise returns NULL  
-  InventoryItem* search_in_set(const Movie&);
+  // Returns the InventoryItem is found, otherwise returns NULL
+  // @param movieGenre - the genre of the movie to search for
+  InventoryItem* search_in_set(const char, const Movie&);
 
   void add_movie_to_hash(InventoryItem*);
-  void add_movie_to_set(InventoryItem*);
+  void add_movie_to_set(const char, InventoryItem*);
 
   // The number of movies the inventoy is incrased by
   static const int kDefaultAddCount;

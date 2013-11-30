@@ -46,12 +46,14 @@ void MovieCollection::AddMovie(std::istream& input)
   }
 
   item->AddToInventory(kDefaultAddCount); // increase the existing stock
-  add_movie_to_set(item);
+  add_movie_to_set(movieType, item);
 }
 
-void MovieCollection::add_movie_to_set(InventoryItem* item)
+void MovieCollection::add_movie_to_set(const char movieType, InventoryItem* item)
 {
-  movie_set_.insert(item);
+  movie_set_[movieType].insert(item);
+  for(MovieSet::iterator i = movie_set_[movieType].begin(); i != movie_set_[movieType].end(); ++i)
+    std::cout << "Tree Movie:  " << (*i)->movie() << std::endl;
 }
 
 void MovieCollection::add_movie_to_hash(InventoryItem* item)
@@ -84,15 +86,22 @@ InventoryItem* MovieCollection::GetMovie(std::istream& input)
   if(hash_result != NULL)
     return hash_result;
 
-  return this->search_in_set(*movie);
+  return this->search_in_set(movieType, *movie);
 }
 
-InventoryItem* MovieCollection::search_in_set(const Movie& movie)
+InventoryItem* MovieCollection::search_in_set(const char movieType, const Movie& movie)
 {
-  InventoryItem item(movie);
-  MovieSet::iterator set_iter = movie_set_.find(&item);
+  MovieSetHash::iterator sh_iter = movie_set_.find(movieType);
 
-  if(set_iter != movie_set_.end()) // found in set, return InventoryItem
+  if(sh_iter == movie_set_.end()) // no movies of this type exist
+    return NULL;
+
+  const MovieSet& movie_set = sh_iter->second; 
+
+  InventoryItem item(movie);
+  MovieSet::iterator set_iter = movie_set.find(&item);
+
+  if(set_iter != movie_set.end()) // found in set, return InventoryItem
     return *set_iter;
  
   return NULL; // movie not found in set
@@ -127,4 +136,10 @@ std::size_t MovieCollection::MovieHash::operator() (
   const std::string& key) const
 {
   return MovieCollection::MovieHash::string_hash(key);
+}
+
+std::size_t MovieCollection::CharHash::operator() (
+  const char c) const
+{
+  return c - 'A'; 
 }
