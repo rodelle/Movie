@@ -26,7 +26,7 @@ public:
   // Retrieves previously added movies from the collection. If the identifier can be mapped 
   // to a unique movie, the complexity of this call is O(1). If the identifier cannot be mapped
   // to a unique movie, the complexity of this call is O(logN).
-  InventoryItem GetMovie(std::istream&);
+  InventoryItem* GetMovie(std::istream&);
 
 private:
   struct MovieCompare
@@ -40,19 +40,31 @@ private:
     static boost::hash<std::string> string_hash;
   };
 
-  typedef std::tr1::unordered_map<std::string, const InventoryItem*, MovieHash> MovieHash;
-  typedef std::set<const InventoryItem*, MovieCompare> MovieSet;
+  typedef std::tr1::unordered_map
+    <std::string, InventoryItem*, MovieHash>
+    MovieHash;
 
-  std::vector<Movie*> movie_list_; // holds the raw Movie data
-  std::vector<const InventoryItem*> inventory_list_;
+  typedef std::set<InventoryItem*, MovieCompare> MovieSet;
+
+  std::vector<const Movie*> movie_list_; // holds the raw Movie data
+  std::vector<InventoryItem*> inventory_list_;
   MovieHash movie_hash_; // provides constant time lookup
   MovieSet movie_set_; // used to store movies in sorted order
   
   MovieFactory factory_; // responsible for creating movies
 
-  static std::string get_hash_key(const InventoryItem*);
-  void add_movie_to_hash(const InventoryItem*);
-  void add_movie_to_set(const InventoryItem*);
+  static std::string get_hash_key(const Movie&);
+ 
+  // Searches for the given movie in the hash list of movies
+  // Returns the InventoryItem is found, otherwise returns NULL
+  InventoryItem* search_in_hash(const Movie&);
+  
+  // Searches for the given movie in the previously stored set of movies
+  // Returns the InventoryItem is found, otherwise returns NULL  
+  InventoryItem* search_in_set(const Movie&);
+
+  void add_movie_to_hash(InventoryItem*);
+  void add_movie_to_set(InventoryItem*);
 };
 
 #endif

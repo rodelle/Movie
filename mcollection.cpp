@@ -6,12 +6,12 @@ MovieCollection::MovieCollection()
 
 MovieCollection::~MovieCollection()
 {
-  std::vector<Movie*>::iterator i;
+  std::vector<const Movie*>::iterator i;
   for(i = movie_list_.begin(); i != movie_list_.end(); ++i) {
     delete *i;
   }
 
-  std::vector<InventoryItem const*>::iterator j;
+  std::vector<InventoryItem*>::iterator j;
   for(j = inventory_list_.begin(); j != inventory_list_.end(); ++j) {
     delete *j;
   }
@@ -30,36 +30,65 @@ void MovieCollection::AddMovie(std::istream& input)
   movie_list_.push_back(movie);
   inventory_list_.push_back(new InventoryItem(*movie));
   
-  std::cout << *movie_list_.back() << std::endl;
-
   add_movie_to_hash(inventory_list_.back());
   add_movie_to_set(inventory_list_.back());
 }
 
-void MovieCollection::add_movie_to_set(const InventoryItem* item)
+void MovieCollection::add_movie_to_set(InventoryItem* item)
 {
   movie_set_.insert(item);
 }
 
-void MovieCollection::add_movie_to_hash(const InventoryItem* item)
+void MovieCollection::add_movie_to_hash(InventoryItem* item)
 {
-  std::string movie_key = MovieCollection::get_hash_key(inventory_list_.back());
+  std::string movie_key = MovieCollection::get_hash_key(inventory_list_.back()->movie());
 
-  typedef std::pair<std::string, const InventoryItem*> MovieHashPair;
-  MovieHashPair hash_element(
-    movie_key, 
-    inventory_list_.back()); // inserts newly created InventoryItem
+  typedef std::pair<std::string, InventoryItem*> MovieHashPair;
+  MovieHashPair hash_element(movie_key, item);
 
   movie_hash_.insert(hash_element);
-  std::cout << movie_hash_[movie_key]->movie() << std::endl;
 }
 
-/*
-InventoryItem MovieCollection::GetMovie(std::istream& input)
+InventoryItem* MovieCollection::GetMovie(std::istream& input)
 {
-  re
+  char movieType, mediaType;
+  input >> mediaType >> movieType;
+  Movie* movie = factory_.InstanceOf(movieType);
+
+  if(movie == NULL)
+    return NULL;
+
+  movie->Populate(input); // fill the fields with the search criteria
+
+  InventoryItem* hash_result = this->search_in_hash(*movie);
+
+  if(hash_result != NULL)
+    return hash_result;
+
+  return this->search_in_set(*movie);
 }
-*/
+
+InventoryItem* MovieCollection::search_in_set(const Movie& movie)
+{
+  InventoryItem item(movie);
+  MovieSet::iterator set_iter = movie_set_.find(&item);
+
+  if(set_iter != movie_set_.end()) // found in set, return InventoryItem
+    return *set_iter;
+ 
+  return NULL; // movie not found in set
+}
+
+InventoryItem* MovieCollection::search_in_hash(const Movie& movie)
+{
+  std::string movie_key = MovieCollection::get_hash_key(movie);
+  MovieHash::iterator hash_iter = movie_hash_.find(movie_key);
+
+  if(hash_iter != movie_hash_.end()) // found in hash set, return InventoryItem
+    return hash_iter->second;
+ 
+  return NULL; // movie cannot be mapped to movie in hash set
+}
 
 bool MovieCollection::MovieCompare::operator() (
   const InventoryItem* lhs, 
@@ -68,9 +97,9 @@ bool MovieCollection::MovieCompare::operator() (
   return lhs->movie() < rhs->movie(); 
 }
 
-std::string MovieCollection::get_hash_key(const InventoryItem* item)
+std::string MovieCollection::get_hash_key(const Movie& movie)
 {
-  return item->movie().title() + item->movie().director();
+  return movie.title() + movie.director();
 }
 
 boost::hash<std::string> MovieCollection::MovieHash::string_hash;
