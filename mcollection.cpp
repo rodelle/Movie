@@ -23,6 +23,10 @@ void MovieCollection::AddMovie(std::istream& input)
 {
   char movieType;
   input >> movieType;
+
+  if(input.fail())
+    return;
+
   Movie* movie = factory_.Create(movieType);
 
   if(movie == NULL)
@@ -64,6 +68,10 @@ InventoryItem* MovieCollection::GetMovie(std::istream& input)
 {
   char movieType, mediaType;
   input >> mediaType >> movieType;
+
+  if(input.fail()) // invalid input
+    return NULL;
+
   Movie* movie = factory_.InstanceOf(movieType);
 
   if(movie == NULL)
