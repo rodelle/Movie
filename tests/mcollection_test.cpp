@@ -15,7 +15,15 @@ struct MovieData
 
     SetData(
       data_schindlers_list,"D Steven Spielberg, Schindler's List, 1993",
-      search_schindlers_list, "D Steven Spielberg, Schindler's List,");
+      search_schindlers_list, "D D Steven Spielberg, Schindler's List,");
+
+    SetData(
+      data_holiday_khepburn, "C George Cukor, Holiday, Katherine Hepburn 9 1938",
+      search_holiday_khepburn, "D C 9 1938 Katherine Hepburn");
+
+    SetData(
+      data_holiday_cgrant, "C George Cukor, Holiday, Cary Grant 9 1938",
+      search_holiday_cgrant, "D C 9 1938 Cary Grant");
   }
 
   std::istringstream data_pirates_of_the_caribbean;
@@ -23,6 +31,11 @@ struct MovieData
 
   std::istringstream data_schindlers_list;
   std::istringstream search_schindlers_list;
+
+  std::istringstream data_holiday_khepburn;
+  std::istringstream data_holiday_cgrant;
+  std::istringstream search_holiday_khepburn;
+  std::istringstream search_holiday_cgrant;
 
 private:
   void SetData(
@@ -69,5 +82,30 @@ SUITE(MCollection_h)
     CHECK_EQUAL(10, item->GetInventoryCount('D'));
     CHECK_EQUAL("Schindler's List", item->movie().title());
     CHECK_EQUAL("Steven Spielberg", item->movie().director());
-    CHECK_EQUAL(1993, item->movie().year());  }
+    CHECK_EQUAL(1993, item->movie().year());  
+  }
+
+  TEST_FIXTURE(MovieData, SameHashDifferentSortCriteria) 
+  {
+    MovieCollection movies;
+    movies.AddMovie(data_holiday_khepburn);
+
+    InventoryItem* item = movies.GetMovie(search_holiday_khepburn);
+
+    CHECK_EQUAL(10, item->GetInventoryCount('D'));
+    CHECK_EQUAL("Holiday", item->movie().title());
+    CHECK_EQUAL("George Cukor", item->movie().director());
+    CHECK_EQUAL(1938, item->movie().year());
+
+    movies.AddMovie(data_holiday_cgrant);
+    item = movies.GetMovie(search_holiday_cgrant);
+    if(item == NULL)
+      std::cout << "\nisnull\n";
+/*
+    CHECK_EQUAL(20, item->GetInventoryCount('D'));
+    CHECK_EQUAL("Holiday", item->movie().title());
+    CHECK_EQUAL("George Cukor", item->movie().director());
+    CHECK_EQUAL(1938, item->movie().year());
+*/
+  }
 }
