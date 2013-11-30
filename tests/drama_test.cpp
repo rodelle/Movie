@@ -6,6 +6,22 @@
 
 SUITE(Drama_h) 
 {
+  TEST(Populate_default)
+  { 
+    std::istringstream input("Steven Spielberg, Schindler's List, 1993");
+    std::istringstream populate_input("Steven Spielberg, Schindler's List,");
+
+    Drama drama, populated_drama;
+
+    drama.Init(input);
+    populated_drama.Populate(populate_input);
+  
+    CHECK_EQUAL("Schindler's List", populated_drama.title());
+    CHECK_EQUAL("Steven Spielberg", populated_drama.director());
+
+    CHECK(!(drama < populated_drama) && !(drama > populated_drama));
+  }
+
   // Sorted by director then title 
   TEST(OperatorLess_DirectorAndTitle)
   {

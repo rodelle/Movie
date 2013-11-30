@@ -6,6 +6,23 @@
 
 SUITE(Classic_h) 
 {
+  TEST(Populate_default)
+  { 
+    std::istringstream input("George Cukor, Holiday, Katherine Hepburn 9 1938");
+    std::istringstream populate_input("9 1938 Katherine Hepburn");
+
+    Classic classic, populated_classic;
+
+    classic.Init(input);
+    populated_classic.Populate(populate_input);
+  
+    CHECK_EQUAL(9, populated_classic.month());
+    CHECK_EQUAL(1938, populated_classic.year());
+    CHECK_EQUAL("Katherine Hepburn", populated_classic.actor());
+
+    CHECK(!(classic < populated_classic) && !(classic > populated_classic));
+  }
+
   // Sorted by date then famous actor 
   TEST(OperatorLess_DateAndActor)
   {

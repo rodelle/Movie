@@ -5,7 +5,23 @@
 #include "test_helper.h"
 
 SUITE(Comedy_h) 
-{
+{  
+  TEST(Populate_default)
+  { 
+    std::istringstream input("Gore Verbinski, Pirates of the Caribbean, 2003");
+    std::istringstream populate_input("Pirates of the Caribbean, 2003");
+
+    Comedy comedy, populated_comedy;
+
+    comedy.Init(input);
+    populated_comedy.Populate(populate_input);
+  
+    CHECK_EQUAL("Pirates of the Caribbean", populated_comedy.title());
+    CHECK_EQUAL(2003, populated_comedy.year());
+
+    CHECK(!(comedy < populated_comedy) && !(comedy > populated_comedy));
+  }
+
   // Sorted by title then date
   TEST(OperatorLess_TitleAndDate)
   {
