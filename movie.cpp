@@ -115,43 +115,6 @@ void Movie::PrintTableHeader()
     << std::setw(kYearDisplayWidth) << "YEAR"; 
 }
 
-// Sorted by title then director
-bool Movie::operator<(const Movie& other) const
-{
-  int compare = 0;
-  compare = title_.compare(other.title_);
-
-  if(compare < 0)
-    return true;
-  else if(compare > 0)
-    return false;
-  
-  compare = director_.compare(other.director_);
-
-  if(compare < 0)
-    return true;
-  else if(compare > 0)
-    return false;
-
-  return false; // equal to each other
-}
-
-bool Movie::operator>(const Movie& other) const
-{
-  return !(*this < other); 
-}
-
-bool Movie::operator==(const Movie& other) const
-{
-  return (director_.compare(other.director_) == 0)
-      && (title_.compare(other.title_) == 0);
-}
-
-bool Movie::operator!=(const Movie& other) const
-{
-  return !(*this == other);
-}
-
 std::string Movie::title() const
 { return title_; }
 

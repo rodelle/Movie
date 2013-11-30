@@ -36,10 +36,10 @@ public:
     
   // returns true if the left movie is less than the right movie
   // Sorted by title then director
-  virtual bool operator<(const Movie&) const;
-  virtual bool operator>(const Movie&) const;
-  virtual bool operator==(const Movie&) const;
-  virtual bool operator!=(const Movie&) const;
+  virtual bool operator<(const Movie&) const = 0;
+  virtual bool operator>(const Movie&) const = 0;
+  virtual bool operator==(const Movie&) const = 0;
+  virtual bool operator!=(const Movie&) const = 0;
 
   // getters
   std::string title() const;
