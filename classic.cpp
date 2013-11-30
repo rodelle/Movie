@@ -116,7 +116,7 @@ void Classic::Populate(std::istream& input)
 
   input >> month;
   input >> year;
-  input >> actor;
+  std::getline(input, actor);
 
   boost::algorithm::trim(month);
   boost::algorithm::trim(year);
