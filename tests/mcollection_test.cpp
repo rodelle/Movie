@@ -19,7 +19,11 @@ SUITE(MCollection_h)
     movies.AddMovie(movie_data_stream);
 
     InventoryItem* item = movies.GetMovie(search_data_stream);
-    //std::cout << item->movie() << std::endl; 
+
+    CHECK_EQUAL(10, item->GetInventoryCount('D'));
+    CHECK_EQUAL("Pirates of the Caribbean", item->movie().title());
+    CHECK_EQUAL("Gore Verbinski", item->movie().director());
+    CHECK_EQUAL(2003, item->movie().year());
   }
 /*
   TEST(InstanceOf_nonexistent) 
