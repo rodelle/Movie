@@ -178,3 +178,9 @@ bool Classic::operator!=(const Movie& other) const
 {
   return !(*this == other);
 }
+
+std::string Classic::actor() const
+{ return actor_; }
+
+int Classic::month() const
+{ return month_; }

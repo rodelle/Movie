@@ -44,6 +44,10 @@ public:
   virtual bool operator==(const Movie&) const;
   virtual bool operator!=(const Movie&) const;
 
+  // getters
+  int month() const;
+  std::string actor() const;
+
 protected:
   static const int kDefaultMonth;
   static const int kMonthDisplayWidth;
