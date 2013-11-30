@@ -5,105 +5,69 @@
 #include "../movie.h"
 #include "test_helper.h"
 
+struct MovieData
+{
+  MovieData()
+  {
+    SetData(
+      data_pirates_of_the_caribbean, "F Gore Verbinski, Pirates of the Caribbean, 2003",
+      search_pirates_of_the_caribbean, "D F Pirates of the Caribbean, 2003");
+
+    SetData(
+      data_schindlers_list,"D Steven Spielberg, Schindler's List, 1993",
+      search_schindlers_list, "D Steven Spielberg, Schindler's List,");
+  }
+
+  std::istringstream data_pirates_of_the_caribbean;
+  std::istringstream search_pirates_of_the_caribbean;
+
+  std::istringstream data_schindlers_list;
+  std::istringstream search_schindlers_list;
+
+private:
+  void SetData(
+    std::istringstream& movie_data,
+    const std::string& data_string,
+    std::istringstream& search_data,
+    const std::string& search_string) 
+  {
+    movie_data.str(data_string); 
+    search_data.str(search_string); 
+  }
+  
+};
+
 SUITE(MCollection_h) 
 {
-  TEST(AddMovie_default) 
+  TEST_FIXTURE(MovieData, AddMovie_default) 
   {
-    std::string movie_data = "F Gore Verbinski, Pirates of the Caribbean, 2003";
-    std::string search_data = "D F Pirates of the Caribbean, 2003";
-
-    std::istringstream movie_data_stream(movie_data);
-    std::istringstream search_data_stream(search_data);
-  
     MovieCollection movies;
-    movies.AddMovie(movie_data_stream);
+    movies.AddMovie(data_pirates_of_the_caribbean);
 
-    InventoryItem* item = movies.GetMovie(search_data_stream);
+    InventoryItem* item = movies.GetMovie(search_pirates_of_the_caribbean);
 
     CHECK_EQUAL(10, item->GetInventoryCount('D'));
     CHECK_EQUAL("Pirates of the Caribbean", item->movie().title());
     CHECK_EQUAL("Gore Verbinski", item->movie().director());
     CHECK_EQUAL(2003, item->movie().year());
   }
-/*
-  TEST(InstanceOf_nonexistent) 
+
+  TEST_FIXTURE(MovieData, MultipleMovieTypes) 
   {
-    MovieFactory factory;
+    MovieCollection movies;
+    movies.AddMovie(data_pirates_of_the_caribbean);
+    movies.AddMovie(data_schindlers_list);
 
-    Movie* movie = factory.InstanceOf('x');
-  
-    Comedy* comedy = dynamic_cast<Comedy*>(movie);
-    Drama* drama = dynamic_cast<Drama*>(movie);
-    Classic* classic = dynamic_cast<Classic*>(movie);
+    InventoryItem* item = movies.GetMovie(search_pirates_of_the_caribbean);
 
-    CHECK(movie == NULL);
-    CHECK(comedy == NULL);
-    CHECK(drama == NULL);
-    CHECK(classic == NULL);
-  }
+    CHECK_EQUAL(10, item->GetInventoryCount('D'));
+    CHECK_EQUAL("Pirates of the Caribbean", item->movie().title());
+    CHECK_EQUAL("Gore Verbinski", item->movie().director());
+    CHECK_EQUAL(2003, item->movie().year());
 
-  TEST(Create_nonexistent) 
-  {
-    MovieFactory factory;
-
-    Movie* movie = factory.Create('x');
-  
-    Comedy* comedy = dynamic_cast<Comedy*>(movie);
-    Drama* drama = dynamic_cast<Drama*>(movie);
-    Classic* classic = dynamic_cast<Classic*>(movie);
-
-    CHECK(movie == NULL);
-    CHECK(comedy == NULL);
-    CHECK(drama == NULL);
-    CHECK(classic == NULL);
-  }
-
-  TEST(Create_drama) 
-  {
-    MovieFactory factory;
-
-    Movie* movie = factory.Create('d');
-
-    Comedy* comedy = dynamic_cast<Comedy*>(movie);
-    Drama* drama = dynamic_cast<Drama*>(movie);
-    Classic* classic = dynamic_cast<Classic*>(movie);
-
-    CHECK(movie != NULL);
-    CHECK(comedy == NULL);
-    CHECK(drama != NULL);
-    CHECK(classic == NULL);
-  }
-
-  TEST(Create_classic) 
-  {
-    MovieFactory factory;
-
-    Movie* movie = factory.Create('c');
-
-    Comedy* comedy = dynamic_cast<Comedy*>(movie);
-    Drama* drama = dynamic_cast<Drama*>(movie);
-    Classic* classic = dynamic_cast<Classic*>(movie);
-
-    CHECK(movie != NULL);
-    CHECK(comedy == NULL);
-    CHECK(drama == NULL);
-    CHECK(classic != NULL);
-  }
-
-  TEST(Create_comedy) 
-  {
-    MovieFactory factory;
-
-    Movie* movie = factory.Create('f');
-
-    Comedy* comedy = dynamic_cast<Comedy*>(movie);
-    Drama* drama = dynamic_cast<Drama*>(movie);
-    Classic* classic = dynamic_cast<Classic*>(movie);
-
-    CHECK(movie != NULL);
-    CHECK(comedy != NULL);
-    CHECK(drama == NULL);
-    CHECK(classic == NULL);
-  }
-*/
+    item = movies.GetMovie(search_schindlers_list);
+    CHECK_EQUAL(10, item->GetInventoryCount('D'));
+    CHECK_EQUAL("Schindler's List", item->movie().title());
+    CHECK_EQUAL("Steven Spielberg", item->movie().director());
+    CHECK_EQUAL(1993, item->movie().year());  }
 }
