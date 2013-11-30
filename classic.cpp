@@ -43,11 +43,10 @@ void Classic::parse_additional_data(const std::string& additional_data)
   std::copy(tok.begin(), tok.end(),
       std::back_inserter<std::vector<std::string> >(data));
 
-
   if(data.size() == 4) {
     // format: actor, actor, month, year
     std::string actor, month, year;
-    actor = data[0] + data[1];
+    actor = data[0] + " " +  data[1];
     month = data[2];
     year  = data[3];
 
@@ -131,39 +130,38 @@ void Classic::Populate(std::istream& input)
   validate_input();
 }
 
-// Sorted by date then famous actor 
+// Sorted by year, month, then famous actor 
+int Classic::compare(const Classic& lhs, const Classic& rhs)
+{
+  if(lhs.year_ - rhs.year_ != 0)
+    return lhs.year_ - rhs.year_;
+  
+  else if(lhs.month_ - rhs.month_ != 0)
+    return lhs.month_ - rhs.month_;
+
+  else
+    return lhs.actor_.compare(rhs.actor_);
+}
+
+// Sorted by year, month, then famous actor 
 bool Classic::operator<(const Movie& other) const
 {
-  int compare = 0;
   const Classic& o = static_cast<const Classic&>(other);
-  
-  compare = year_ - o.year_;
-  
-  if(compare < 0)
+
+  if(Classic::compare(*this, o) < 0)
     return true;
-  else if(compare > 0)
+  else
     return false;
-
-  compare = month_ - o.month_;
-
-  if(compare < 0)
-    return true;
-  else if(compare > 0)
-    return false;
-
-  compare = actor_.compare(o.actor_);
-
-  if(compare < 0)
-    return true;
-  else if(compare > 0)
-    return false;
-
-  return false; // equal to each other
 }
 
 bool Classic::operator>(const Movie& other) const
 {
-  return !((*this < other) || (*this == other)); 
+  const Classic& o = static_cast<const Classic&>(other);
+
+  if(Classic::compare(*this, o) > 0)
+    return true;
+  else
+    return false;
 }
 
 bool Classic::operator==(const Movie& other) const

@@ -41,6 +41,8 @@ public:
   virtual bool operator>(const Movie&) const;
   virtual bool operator==(const Movie&) const;
   virtual bool operator!=(const Movie&) const;
+
+  static int compare(const Drama&, const Drama&);
 };
 
 #endif

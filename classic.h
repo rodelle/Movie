@@ -61,6 +61,8 @@ protected:
 
   // override
   virtual void parse_additional_data(const std::string&);
+
+  static int compare(const Classic&, const Classic&);
 };
 
 #endif
