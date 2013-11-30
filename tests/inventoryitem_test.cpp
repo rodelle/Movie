@@ -40,51 +40,51 @@ SUITE(InventoryItem_h)
     CHECK_EQUAL(expected_output, program_output);
   }
 
-  TEST_FIXTURE(ZeroItems, RemoveFromInventory)
+  TEST_FIXTURE(ZeroItems, RemoveFromInventory_default)
   {
-    inventory.AddToInventory('a', 10); // 10 remaining
+    inventory.AddToInventory(10); // 10 remaining
 
-    CHECK(!inventory.Contains('a', 11));
-    CHECK(inventory.Contains('a', 10));
-    CHECK(inventory.Contains('a', 3));
-    CHECK(inventory.Contains('a', 1));
+    CHECK(!inventory.Contains(11));
+    CHECK(inventory.Contains(10));
+    CHECK(inventory.Contains(3));
+    CHECK(inventory.Contains(1));
 
-    if(inventory.Contains('a', 3))
-      inventory.RemoveFromInventory('a', 3); // 7 remaining
+    if(inventory.Contains(3))
+      inventory.RemoveFromInventory(3); // 7 remaining
 
-    CHECK(inventory.GetInventoryCount('a') == 7);
-    CHECK(!inventory.Contains('a', 10));
-    CHECK(!inventory.Contains('a', 8));
-    CHECK(inventory.Contains('a', 7));
-    CHECK(inventory.Contains('a'));
+    CHECK(inventory.GetInventoryCount() == 7);
+    CHECK(!inventory.Contains(10));
+    CHECK(!inventory.Contains(8));
+    CHECK(inventory.Contains(7));
+    CHECK(inventory.Contains());
 
-    if(inventory.Contains('a'))
-      inventory.RemoveFromInventory('a'); // 6 remainint
+    if(inventory.Contains())
+      inventory.RemoveFromInventory(); // 6 remainint
 
-    CHECK(!inventory.Contains('a', 10));
-    CHECK(!inventory.Contains('a', 7));
-    CHECK(inventory.Contains('a', 6));
-    CHECK(inventory.Contains('a'));
+    CHECK(!inventory.Contains(10));
+    CHECK(!inventory.Contains(7));
+    CHECK(inventory.Contains(6));
+    CHECK(inventory.Contains());
  } 
 
   TEST_FIXTURE(ZeroItems, AddToInventory)
   {
     // adding previously non-existent type
-    inventory.AddToInventory('a'); 
-    CHECK(inventory.GetInventoryCount('a') == 1);
+    inventory.AddToInventory(); 
+    CHECK(inventory.GetInventoryCount() == 1);
     CHECK(inventory.GetInventoryCount('b') == 0);
     
-    inventory.AddToInventory('a');
-    CHECK(inventory.GetInventoryCount('a') == 2);
+    inventory.AddToInventory();
+    CHECK(inventory.GetInventoryCount() == 2);
     CHECK(inventory.GetInventoryCount('b') == 0);
 
-    inventory.AddToInventory('a', 5);
-    CHECK(inventory.GetInventoryCount('a') == 7);
+    inventory.AddToInventory(5);
+    CHECK(inventory.GetInventoryCount() == 7);
     CHECK(inventory.GetInventoryCount('b') == 0);
 
     // adding non-existent type, non-default amount 
-    inventory.AddToInventory('b', 5); 
-    CHECK(inventory.GetInventoryCount('a') == 7);
+    inventory.AddToInventory(5, 'b'); 
+    CHECK(inventory.GetInventoryCount() == 7);
     CHECK(inventory.GetInventoryCount('b') == 5);
   }
 

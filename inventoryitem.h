@@ -20,24 +20,23 @@ public:
   // reduced by the given amount.
   // @param mediaType - media type to be removed
   // @param amount - the number of items to remove from the inventory 
-  void RemoveFromInventory(char = kDefaultMediaType, int = 1); // defaults to DVD
+  void RemoveFromInventory(const int = 1, const char = kDefaultMediaType);
 
   // Adds additional items to the available inventory for this item. The
   // remaining movies will be increased by the given amount.
   // @param mediaType - the type of media being added to the inventory 
   // @param amount - the number of items to add to the inventory   
-  void AddToInventory(char = kDefaultMediaType, int = 1); // defaults to DVD
+  void AddToInventory(const int = 1, const char = kDefaultMediaType);
 
   // Returns how many movies of the given type are remaining
   // @param mediaType - the media type inventory count to return
-  int GetInventoryCount(char = kDefaultMediaType);
+  int GetInventoryCount(const char = kDefaultMediaType);
 
   // Returns whether there are enough items remaining to fulfill the request
   // order size
   // @param mediaType - the media type to check for
   // @param orderSize - the requested number of items to provide 
-  bool Contains(char = kDefaultMediaType, int = 1);
-
+  bool Contains(const int = 1, const char = kDefaultMediaType);
 
   // Returns the movie
   const Movie& movie() const;
@@ -46,7 +45,7 @@ private:
   // Returns the hash value for a char
   struct CharHash
   {
-    std::size_t operator() (char) const;
+    std::size_t operator() (const char) const;
   };
   typedef std::tr1::unordered_map<char, int, CharHash> MediaInventory;
 

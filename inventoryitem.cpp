@@ -16,7 +16,7 @@ const Movie& InventoryItem::movie() const
   return movie_;
 }
 
-void InventoryItem::RemoveFromInventory(char mediaType, int amount)
+void InventoryItem::RemoveFromInventory(const int amount, const char mediaType)
 {
   if(inventory_.count(mediaType) == 0) // media type does not exist
     return; // throw exception 
@@ -24,7 +24,7 @@ void InventoryItem::RemoveFromInventory(char mediaType, int amount)
   inventory_[mediaType] -= amount;
 } 
 
-void InventoryItem::AddToInventory(char mediaType, int amount)
+void InventoryItem::AddToInventory(const int amount, const char mediaType)
 {
    if(inventory_.count(mediaType) == 0) { // media type does not exist
      std::pair<char, int> mediaInventory(mediaType, 0);
@@ -34,7 +34,7 @@ void InventoryItem::AddToInventory(char mediaType, int amount)
   inventory_[mediaType] += amount;
 }
 
-int InventoryItem::GetInventoryCount(char mediaType)
+int InventoryItem::GetInventoryCount(const char mediaType)
 {
   if(inventory_.count(mediaType) == 0) // media type does not exist
     return 0; 
@@ -43,7 +43,7 @@ int InventoryItem::GetInventoryCount(char mediaType)
 }
 
 
-bool InventoryItem::Contains(char mediaType, int orderSize)
+bool InventoryItem::Contains(const int orderSize, const char mediaType)
 {
   if(inventory_.count(mediaType) == 0)
     return false;
