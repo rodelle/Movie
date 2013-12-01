@@ -14,6 +14,7 @@ src = movie.cpp \
 			classic.cpp \
 			inventoryitem.cpp \
 			mfactory.cpp \
+			tfactory.cpp \
 			mcollection.cpp \
 			customer.cpp \
 			scustomer.cpp \
@@ -30,6 +31,7 @@ test_src = test_main.cpp \
 					 classic_test.cpp \
 					 inventoryitem_test.cpp \
 					 mfactory_test.cpp \
+					 tfactory_test.cpp \
 					 mcollection_test.cpp \
 					 customer_test.cpp \
 					 scustomer_test.cpp \
