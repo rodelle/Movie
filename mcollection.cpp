@@ -131,12 +131,12 @@ std::string MovieCollection::get_hash_key(const Movie& movie)
   return movie.title() + movie.director();
 }
 
-boost::hash<std::string> MovieCollection::MovieHash::string_hash;
+boost::hash<std::string> MovieCollection::StringHash::string_hash;
 
-std::size_t MovieCollection::MovieHash::operator() (
+std::size_t MovieCollection::StringHash::operator() (
   const std::string& key) const
 {
-  return MovieCollection::MovieHash::string_hash(key);
+  return MovieCollection::StringHash::string_hash(key);
 }
 
 std::size_t MovieCollection::CharHash::operator() (
