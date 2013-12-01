@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "return.h"
 #include "scustomer.h"
 #include "inventoryitem.h"
