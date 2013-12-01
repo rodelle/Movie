@@ -22,6 +22,7 @@ src = movie.cpp \
 			transaction.cpp \
 			borrow.cpp \
 			return.cpp \
+			store.cpp \
 
 test_src = test_main.cpp \
 					 test_helper.cpp \
@@ -37,6 +38,7 @@ test_src = test_main.cpp \
 					 scustomer_test.cpp \
 					 ccollection_test.cpp \
 					 transaction_test.cpp \
+					 store_test.cpp \
 
 objects = $(src:%.cpp=$(OBJ_DIR)/%.o)
 test_objects = $(test_src:%.cpp=$(OBJ_DIR)/%.o)
