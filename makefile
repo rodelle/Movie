@@ -24,6 +24,7 @@ src = movie.cpp \
 
 test_src = test_main.cpp \
 					 test_helper.cpp \
+					 data.cpp \
 					 drama_test.cpp \
 					 comedy_test.cpp \
 					 classic_test.cpp \
