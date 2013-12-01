@@ -5,7 +5,7 @@ OBJ_DIR=obj
 TEST_DIR=tests
 
 TESTLIB=-Ltests/lib -lUnitTest++
-TESTINCLUDE=-Itests/lib 
+TESTINCLUDE=-Itests/lib
 BOOSTINCLUDE=-I/usr/include -L/usr/lib
 
 src = movie.cpp \
@@ -16,6 +16,7 @@ src = movie.cpp \
 			mfactory.cpp \
 			mcollection.cpp \
 			customer.cpp \
+			scustomer.cpp \
 			ccollection.cpp \
 
 test_src = test_main.cpp \
@@ -27,6 +28,7 @@ test_src = test_main.cpp \
 					 mfactory_test.cpp \
 					 mcollection_test.cpp \
 					 customer_test.cpp \
+					 scustomer_test.cpp \
 					 ccollection_test.cpp \
 
 objects = $(src:%.cpp=$(OBJ_DIR)/%.o)
