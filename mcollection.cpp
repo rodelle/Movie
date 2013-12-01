@@ -67,7 +67,7 @@ void MovieCollection::add_movie_to_hash(InventoryItem* item)
   movie_hash_.insert(hash_element);
 }
 
-InventoryItem* MovieCollection::GetMovie(std::istream& input)
+InventoryItem* MovieCollection::GetMovie(std::istream& input) const
 {
   char movieType, mediaType;
   input >> mediaType >> movieType;
@@ -90,9 +90,11 @@ InventoryItem* MovieCollection::GetMovie(std::istream& input)
   return this->search_in_set(movieType, *movie);
 }
 
-InventoryItem* MovieCollection::search_in_set(const char movieType, const Movie& movie)
+InventoryItem* MovieCollection::search_in_set(
+  const char movieType, 
+  const Movie& movie) const
 {
-  MovieSetHash::iterator sh_iter = movie_set_.find(movieType);
+  MovieSetHash::const_iterator sh_iter = movie_set_.find(movieType);
 
   if(sh_iter == movie_set_.end()) // no movies of this type exist
     return NULL;
@@ -100,7 +102,7 @@ InventoryItem* MovieCollection::search_in_set(const char movieType, const Movie&
   const MovieSet& movie_set = sh_iter->second; 
 
   InventoryItem item(movie);
-  MovieSet::iterator set_iter = movie_set.find(&item);
+  MovieSet::const_iterator set_iter = movie_set.find(&item);
 
   if(set_iter != movie_set.end()) // found in set, return InventoryItem
     return *set_iter;
@@ -108,10 +110,10 @@ InventoryItem* MovieCollection::search_in_set(const char movieType, const Movie&
   return NULL; // movie not found in set
 }
 
-InventoryItem* MovieCollection::search_in_hash(const Movie& movie)
+InventoryItem* MovieCollection::search_in_hash(const Movie& movie) const
 {
   std::string movie_key = MovieCollection::get_hash_key(movie);
-  MovieHash::iterator hash_iter = movie_hash_.find(movie_key);
+  MovieHash::const_iterator hash_iter = movie_hash_.find(movie_key);
 
   if(hash_iter != movie_hash_.end()) // found in hash set, return InventoryItem
     return hash_iter->second;

@@ -21,12 +21,13 @@ public:
   ~MovieCollection();
 
   // 10 new copies of the movie are added to the store’s inventory.
+  // format: movieType director director, title title, additional information
   void AddMovie(std::istream&);
 
   // Retrieves previously added movies from the collection. If the identifier can be mapped 
   // to a unique movie, the complexity of this call is O(1). If the identifier cannot be mapped
   // to a unique movie, the complexity of this call is O(logN).
-  InventoryItem* GetMovie(std::istream&);
+  InventoryItem* GetMovie(std::istream&) const;
 
 private:
   struct MovieCompare
@@ -66,12 +67,12 @@ private:
  
   // Searches for the given movie in the hash list of movies
   // Returns the InventoryItem is found, otherwise returns NULL
-  InventoryItem* search_in_hash(const Movie&);
+  InventoryItem* search_in_hash(const Movie&) const;
   
   // Searches for the given movie in the previously stored set of movies
   // Returns the InventoryItem is found, otherwise returns NULL
   // @param movieGenre - the genre of the movie to search for
-  InventoryItem* search_in_set(const char, const Movie&);
+  InventoryItem* search_in_set(const char, const Movie&) const;
 
   void add_movie_to_hash(InventoryItem*);
   void add_movie_to_set(const char, InventoryItem*);
