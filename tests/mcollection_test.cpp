@@ -5,9 +5,9 @@
 #include "../movie.h"
 #include "test_helper.h"
 
-struct MovieData
+struct MovieCollectionMovieData
 {
-  MovieData()
+  MovieCollectionMovieData()
   {
     SetData(
       data_pirates_of_the_caribbean, "F Gore Verbinski, Pirates of the Caribbean, 2003",
@@ -52,7 +52,7 @@ private:
 
 SUITE(MCollection_h) 
 {
-  TEST_FIXTURE(MovieData, AddMovie_default) 
+  TEST_FIXTURE(MovieCollectionMovieData, AddMovie_default) 
   {
     MovieCollection movies;
     movies.AddMovie(data_pirates_of_the_caribbean);
@@ -65,7 +65,7 @@ SUITE(MCollection_h)
     CHECK_EQUAL(2003, item->movie().year());
   }
 
-  TEST_FIXTURE(MovieData, MultipleMovieTypes) 
+  TEST_FIXTURE(MovieCollectionMovieData, MultipleMovieTypes) 
   {
     MovieCollection movies;
     movies.AddMovie(data_pirates_of_the_caribbean);
@@ -85,7 +85,7 @@ SUITE(MCollection_h)
     CHECK_EQUAL(1993, item->movie().year());  
   }
 
-  TEST_FIXTURE(MovieData, SameHashDifferentSortCriteria) 
+  TEST_FIXTURE(MovieCollectionMovieData, SameHashDifferentSortCriteria) 
   {
     MovieCollection movies;
     movies.AddMovie(data_holiday_khepburn);
