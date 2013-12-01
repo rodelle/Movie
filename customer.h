@@ -19,12 +19,13 @@ public:
   int id() const; 
   const std::string& name() const;
 
+  static const int kMinIdNumber;
+  static const int kMaxIdNumber;
+
 protected:
   int id_;
   std::string name_;
 
-  static const int kMinIdNumber;
-  static const int kMaxIdNumber;
   void validate_input();
 };
 
