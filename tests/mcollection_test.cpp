@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <UnitTest++.h>
 #include <iostream>
 

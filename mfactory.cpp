@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <tr1/unordered_map>
 #include "mfactory.h"
 #include "movie.h"

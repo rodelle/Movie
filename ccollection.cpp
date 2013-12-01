@@ -1,3 +1,4 @@
+#include <cstddef>
 #include "ccollection.h"
 
 CustomerCollection::CustomerCollection()

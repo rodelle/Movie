@@ -1,4 +1,6 @@
+#include <cstddef>
 #include <tr1/unordered_map>
+
 #include "tfactory.h"
 #include "transaction.h"
 #include "borrow.h"
