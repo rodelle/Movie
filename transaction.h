@@ -18,11 +18,14 @@ public:
   virtual ~Transaction();
 
   // Performs the necessary operations to execute the transaction
-  virtual void ExecuteTransaction() = 0;
+  virtual bool ExecuteTransaction() = 0;
 
-private:
+protected:
   StoreCustomer& customer_;
   InventoryItem& item_;
+
+  // Transactions can only be completed once
+  bool isTransactionComplete_;
 };
 
 #endif
