@@ -6,7 +6,7 @@
 #include "../inventoryitem.h"
 #include "../drama.h"
 #include "../movie.h"
-#include "../rent.h"
+#include "../borrow.h"
 #include "../return.h"
 #include "../scustomer.h"
 #include "../transaction.h"
@@ -55,7 +55,7 @@ struct DefaultData
   StoreCustomer mickey_mouse;
 };
 
-SUITE(Rent_h) 
+SUITE(Borrow_h) 
 {
   TEST_FIXTURE(DefaultData, NotEnoughMovies)
   {
@@ -63,7 +63,7 @@ SUITE(Rent_h)
 
     using namespace TransactionTestHelperFunctions;  
 
-    Transaction* transaction = new Rent(mickey_mouse, item);
+    Transaction* transaction = new Borrow(mickey_mouse, item);
 
     CHECK_EQUAL(0, item.GetInventoryCount());
     CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
@@ -95,7 +95,7 @@ SUITE(Rent_h)
 
     using namespace TransactionTestHelperFunctions;  
 
-    Transaction* transaction = new Rent(mickey_mouse, item);
+    Transaction* transaction = new Borrow(mickey_mouse, item);
 
     CHECK_EQUAL(10, item.GetInventoryCount());
     CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
@@ -118,7 +118,7 @@ SUITE(Rent_h)
 
     using namespace TransactionTestHelperFunctions;  
 
-    Transaction* transaction = new Rent(mickey_mouse, item);
+    Transaction* transaction = new Borrow(mickey_mouse, item);
 
     // Multiple transactions should have no effect after the first
     bool transactionComplete = transaction->ExecuteTransaction(); // first transaction

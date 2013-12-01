@@ -19,7 +19,7 @@ src = movie.cpp \
 			scustomer.cpp \
 			ccollection.cpp \
 			transaction.cpp \
-			rent.cpp \
+			borrow.cpp \
 			return.cpp \
 
 test_src = test_main.cpp \

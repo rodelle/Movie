@@ -1,15 +1,15 @@
-#include "rent.h"
+#include "borrow.h"
 #include "scustomer.h"
 #include "inventoryitem.h"
 
-Rent::Rent(StoreCustomer& customer, InventoryItem& item)
+Borrow::Borrow(StoreCustomer& customer, InventoryItem& item)
   : Transaction(customer, item) 
 {}
 
-Rent::~Rent()
+Borrow::~Borrow()
 {}
 
-bool Rent::ExecuteTransaction()
+bool Borrow::ExecuteTransaction()
 {
   if(isTransactionComplete_) // transactions can only occur once
     return false; 
