@@ -99,9 +99,9 @@ SUITE(MCollection_h)
 
     movies.AddMovie(data_holiday_cgrant);
     item = movies.GetMovie(search_holiday_cgrant);
-    if(item == NULL)
-      std::cout << "\nisnull\n";
+    
 /*
+    CHECK(item != NULL);
     CHECK_EQUAL(20, item->GetInventoryCount('D'));
     CHECK_EQUAL("Holiday", item->movie().title());
     CHECK_EQUAL("George Cukor", item->movie().director());

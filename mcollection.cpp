@@ -52,8 +52,9 @@ void MovieCollection::AddMovie(std::istream& input)
 void MovieCollection::add_movie_to_set(const char movieType, InventoryItem* item)
 {
   movie_set_[movieType].insert(item);
-  for(MovieSet::iterator i = movie_set_[movieType].begin(); i != movie_set_[movieType].end(); ++i)
+/*  for(MovieSet::iterator i = movie_set_[movieType].begin(); i != movie_set_[movieType].end(); ++i)
     std::cout << "Tree Movie:  " << (*i)->movie() << std::endl;
+    */
 }
 
 void MovieCollection::add_movie_to_hash(InventoryItem* item)
