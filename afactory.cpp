@@ -1,47 +1,41 @@
 #include <cstddef>
 #include <tr1/unordered_map>
 
-#include "tfactory.h"
+#include "afactory.h"
+#include "action.h"
 #include "transaction.h"
 #include "borrow.h"
 #include "return.h"
 
-TransactionFactory::TransactionFactory()
+ActionFactory::ActionFactory()
 {
-  typedef std::pair<char, TransactionFactory::TransactionBuilder> Pair;
+  typedef std::pair<char, ActionFactory::ActionBuilder> Pair;
 
-  transaction_builder_.insert(Pair('B', TransactionFactory::MakeBorrow));
-  transaction_builder_.insert(Pair('R', TransactionFactory::MakeReturn));
+  action_builder_.insert(Pair('B', ActionFactory::MakeBorrow));
+  action_builder_.insert(Pair('R', ActionFactory::MakeReturn));
 }
 
-TransactionFactory::~TransactionFactory()
+ActionFactory::~ActionFactory()
 {}
 
-Transaction* TransactionFactory::Create(
-  const char transactionType, 
-  StoreCustomer& customer,
-  InventoryItem& item) const
+Action* ActionFactory::Create(const char actionType, Store& store) const
 {
-  if(transaction_builder_.count(transactionType) == 1) {
-    TransactionBuilder builder = 
-      transaction_builder_.find(transactionType)->second;
-    return builder(customer, item);
-  } 
-  
-  return NULL; // transaction type does not exist
+  if(action_builder_.count(actionType) == 1) {
+    ActionBuilder builder =
+      action_builder_.find(actionType)->second;
+    return builder(store);
+  }
+
+  return NULL; // action type does not exist
 }
 
-Transaction* TransactionFactory::MakeBorrow(
-  StoreCustomer& customer, 
-  InventoryItem& item)
-{ return new Borrow(customer, item); }
+Action* ActionFactory::MakeBorrow(Store& store)
+{ return new Borrow(store); }
 
-Transaction* TransactionFactory::MakeReturn(
-  StoreCustomer& customer, 
-  InventoryItem& item)
-{ return new Return(customer, item); }
+Action* ActionFactory::MakeReturn(Store& store)
+{ return new Return(store); }
 
-std::size_t TransactionFactory::CharHash::operator() (const char c) const
+std::size_t ActionFactory::CharHash::operator() (const char c) const
 {
   return c - 'A';
 }

@@ -13,16 +13,16 @@ Borrow::~Borrow()
 
 bool Borrow::ExecuteAction(std::istream& input)
 {
-  if(isTransactionComplete_) // transactions can only occur once
+  if(isActionComplete_) // transactions can only occur once
     return false;
 
-  if(item_.GetInventoryCount() <= 0) // not enough movies exist
+  if(item_->GetInventoryCount() <= 0) // not enough movies exist
     return false;
 
-  item_.RemoveFromInventory(1);
-  customer_.CheckoutMovie(&item_.movie());
-  customer_.AddTransaction(this);
-  isTransactionComplete_ = true;
+  item_->RemoveFromInventory(1);
+  customer_->CheckoutMovie(&item_->movie());
+  customer_->AddTransaction(this);
+  isActionComplete_ = true;
 
   return true;
 }
