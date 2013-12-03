@@ -2,7 +2,7 @@
 #define CSS343_LAB4_MOVIE_H
 
 #include <string>
-#include <istream>
+#include <iostream>
 
 class Movie {
  
