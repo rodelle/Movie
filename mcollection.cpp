@@ -146,3 +146,8 @@ std::size_t MovieCollection::CharHash::operator() (
 {
   return c - 'A'; 
 }
+
+const MovieCollection::MovieSetHash& MovieCollection::GetAllMovies() const
+{
+  return movie_set_; 
+}

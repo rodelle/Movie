@@ -15,7 +15,19 @@
 #include "mfactory.h"
 #include "movie.h"
 
+
 class MovieCollection {
+private:
+  struct MovieCompare
+  { 
+    bool operator() (const InventoryItem*, const InventoryItem*) const;
+  };
+
+  struct CharHash 
+  { 
+    std::size_t operator() (const char) const;
+  };
+
 public:
   MovieCollection();
   ~MovieCollection();
@@ -29,16 +41,15 @@ public:
   // to a unique movie, the complexity of this call is O(logN).
   InventoryItem* GetMovie(std::istream&) const;
 
-private:
-  struct MovieCompare
-  { 
-    bool operator() (const InventoryItem*, const InventoryItem*) const;
-  };
+  typedef std::set<InventoryItem*, MovieCompare> MovieSet;
 
-  struct CharHash 
-  { 
-    std::size_t operator() (const char) const;
-  };
+  typedef std::tr1::unordered_map
+    <char, MovieSet, CharHash>
+    MovieSetHash;
+
+  const MovieSetHash& GetAllMovies() const;
+
+private:
 
   struct StringHash
   { 
@@ -49,13 +60,7 @@ private:
   typedef std::tr1::unordered_map
     <std::string, InventoryItem*, StringHash>
     MovieHash;
-
-  typedef std::set<InventoryItem*, MovieCompare> MovieSet;
-
-  typedef std::tr1::unordered_map
-    <char, MovieSet, CharHash>
-    MovieSetHash;
-
+  
   std::vector<const Movie*> movie_list_; // holds the raw Movie data
   std::vector<InventoryItem*> inventory_list_;
   MovieHash movie_hash_; // provides constant time lookup
