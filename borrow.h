@@ -12,11 +12,11 @@
 class Borrow : public Transaction {
 public:
   // Transactions can only exist between a Customer and a MovieItem
-  Borrow(StoreCustomer&, InventoryItem&);
+  Borrow(Store&);
   virtual ~Borrow();
 
   // Performs the necessary operations to execute the transaction
-  virtual bool ExecuteTransaction();
+  virtual bool ExecuteAction(std::istream&);
 };
 
 #endif

@@ -12,7 +12,7 @@ Return::Return(StoreCustomer& customer, InventoryItem& item)
 Return::~Return()
 {}
 
-bool Return::ExecuteTransaction()
+bool Return::ExecuteAction(std::istream& input)
 {
   if(isTransactionComplete_) // transactions can only occur once
     return false;

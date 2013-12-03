@@ -2,8 +2,8 @@
 #include "scustomer.h"
 #include "inventoryitem.h"
 
-Borrow::Borrow(StoreCustomer& customer, InventoryItem& item)
-  : Transaction(customer, item)
+Borrow::Borrow(Store& store)
+  : Transaction(store)
 {
   name_ = "BORROW";
 }
@@ -11,7 +11,7 @@ Borrow::Borrow(StoreCustomer& customer, InventoryItem& item)
 Borrow::~Borrow()
 {}
 
-bool Borrow::ExecuteTransaction()
+bool Borrow::ExecuteAction(std::istream& input)
 {
   if(isTransactionComplete_) // transactions can only occur once
     return false;

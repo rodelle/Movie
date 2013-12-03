@@ -14,11 +14,11 @@ src = movie.cpp \
 			classic.cpp \
 			inventoryitem.cpp \
 			mfactory.cpp \
-			tfactory.cpp \
 			mcollection.cpp \
 			customer.cpp \
 			scustomer.cpp \
 			ccollection.cpp \
+			afactory.cpp \
 			transaction.cpp \
 			borrow.cpp \
 			return.cpp \
@@ -35,11 +35,11 @@ test_src = test_main.cpp \
 					 classic_test.cpp \
 					 inventoryitem_test.cpp \
 					 mfactory_test.cpp \
-					 tfactory_test.cpp \
 					 mcollection_test.cpp \
 					 customer_test.cpp \
 					 scustomer_test.cpp \
 					 ccollection_test.cpp \
+					 afactory_test.cpp \
 					 transaction_test.cpp \
 					 store_test.cpp \
 					 storeaction_test.cpp \
