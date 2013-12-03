@@ -25,6 +25,7 @@ src = movie.cpp \
 			store.cpp \
 			saction.cpp \
 			showmovies.cpp \
+			displaycustomerhistory.cpp \
 
 test_src = test_main.cpp \
 					 test_helper.cpp \
