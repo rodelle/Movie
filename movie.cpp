@@ -91,6 +91,15 @@ void Movie::validate_input()
     year_ = kMaxYear;
 }
 
+// Prints the table headers to view the movie data in a table format
+void Movie::PrintTableHeader(std::ostream& out) const
+{
+  out << std::left
+    << std::setw(kTitleDisplayWidth) << "TITLE"
+    << std::setw(kDirectorDisplayWidth) << "DIRECTOR"
+    << std::setw(kYearDisplayWidth) << "YEAR";
+}
+
 std::ostream& operator<<(std::ostream& out, const Movie& movie)
 {
   movie.print(out);
@@ -108,15 +117,6 @@ void Movie::print(std::ostream& out) const
 Movie::~Movie()
 {
 
-}
-
-// Prints the table headers to view the movie data in a table format
-void Movie::PrintTableHeader()
-{
-  std::cout << std::left 
-    << std::setw(kTitleDisplayWidth) << "TITLE"
-    << std::setw(kDirectorDisplayWidth) << "DIRECTOR" 
-    << std::setw(kYearDisplayWidth) << "YEAR"; 
 }
 
 std::string Movie::title() const

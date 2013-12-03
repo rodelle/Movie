@@ -30,9 +30,6 @@ public:
   Comedy& operator=(Comedy);
 
   virtual ~Comedy();
-
-  // Prints the table headers to view the movie data in a table format
-  virtual void PrintTableHeader();
     
   // returns true if the left movie is less than the right movie
   // Sorted by title then date 

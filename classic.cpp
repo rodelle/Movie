@@ -62,6 +62,17 @@ void Classic::parse_additional_data(const std::string& additional_data)
   }
 }
 
+// Prints the table headers to view the movie data in a table format
+void Classic::PrintTableHeader(std::ostream& out) const
+{
+  out << std::left 
+    << std::setw(kTitleDisplayWidth) << "TITLE"
+    << std::setw(kDirectorDisplayWidth) << "DIRECTOR" 
+    << std::setw(kMonthDisplayWidth) << "MONTH" 
+    << std::setw(kYearDisplayWidth) << "YEAR" 
+    << "MAJOR ACTOR"; 
+}
+
 std::ostream& operator<<(std::ostream& out, const Classic& movie)
 {
   out << std::left 
@@ -171,17 +182,6 @@ std::string Classic::actor() const
 
 int Classic::month() const
 { return month_; }
-
-// Prints the table headers to view the movie data in a table format
-void Classic::PrintTableHeader()
-{
-  std::cout << std::left 
-    << std::setw(kTitleDisplayWidth) << "TITLE"
-    << std::setw(kDirectorDisplayWidth) << "DIRECTOR" 
-    << std::setw(kMonthDisplayWidth) << "MONTH" 
-    << std::setw(kYearDisplayWidth) << "YEAR" 
-    << "MAJOR ACTOR"; 
-}
 
 void Classic::print(std::ostream& out) const
 {

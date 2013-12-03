@@ -51,15 +51,6 @@ Comedy& Comedy::operator=(Comedy other)
   return *this;
 }
 
-// Prints the table headers to view the movie data in a table format
-void Comedy::PrintTableHeader()
-{
-  std::cout << std::left 
-    << std::setw(kTitleDisplayWidth) << "TITLE"
-    << std::setw(kDirectorDisplayWidth) << "DIRECTOR" 
-    << std::setw(kYearDisplayWidth) << "YEAR"; 
-}
-
 void Comedy::Populate(std::istream& input)
 {
   std::string title, year;

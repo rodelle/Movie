@@ -226,7 +226,7 @@ SUITE(Drama_h)
       "TITLE   DIRECTOR   YEAR";
 
     cout_redirect redirect;
-    movie.PrintTableHeader(); 
+    movie.PrintTableHeader(std::cout); 
     std::string program_output = redirect.get_output();
 
     remove_spaces(program_output);

@@ -20,7 +20,6 @@ Drama::Drama(std::istream& input)
   Movie::Init(input);
 }
 
-
 std::ostream& operator<<(std::ostream& out, const Drama& movie)
 {
   out << std::left 
@@ -49,15 +48,6 @@ Drama& Drama::operator=(Drama other)
   std::swap(title_, other.title_);
   std::swap(year_, other.year_);
   return *this;
-}
-
-// Prints the table headers to view the movie data in a table format
-void Drama::PrintTableHeader()
-{
-  std::cout << std::left 
-    << std::setw(kTitleDisplayWidth) << "TITLE"
-    << std::setw(kDirectorDisplayWidth) << "DIRECTOR" 
-    << std::setw(kYearDisplayWidth) << "YEAR"; 
 }
 
 void Drama::Populate(std::istream& input)

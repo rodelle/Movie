@@ -6,6 +6,7 @@
 
 #include "movie.h"
 
+
 // a concrete class that inherits from the abstract Movie class, represents
 // the classic genre of movie
 class Classic: public Movie 
@@ -24,7 +25,6 @@ public:
     const std::string& = kDefaultDirector, 
     const std::string& = kDefaultData);
   
-
   // copy ctors
   Classic(const Classic&);
   Classic& operator=(Classic);
@@ -32,7 +32,7 @@ public:
   virtual ~Classic();
 
   // Prints the table headers to view the movie data in a table format
-  virtual void PrintTableHeader();
+  virtual void PrintTableHeader(std::ostream& = std::cout) const;
 
   // override
   virtual void Populate(std::istream&);

@@ -29,9 +29,6 @@ public:
 
   virtual ~Drama();
 
-  // Prints the table headers to view the movie data in a table format
-  virtual void PrintTableHeader();
-
   // override
   virtual void Populate(std::istream&);
 
