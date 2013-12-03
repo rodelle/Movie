@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 // StoreCustomer.h
-// Extends customer and adds a list of transactions and checked out movies 
+// Extends customer and adds a list of transactions and checked out movies
 ///////////////////////////////////////////////////////////////////////////////
-#ifndef CSS343_LAB4_STORECUSTOMER_H 
+#ifndef CSS343_LAB4_STORECUSTOMER_H
 #define CSS343_LAB4_STORECUSTOMER_H
 
 #include "customer.h"
@@ -14,7 +14,7 @@ class Movie;
 
 class StoreCustomer : public Customer {
 public:
-  // Appends the transaction to the customer's list of transactions 
+  // Appends the transaction to the customer's list of transactions
   void AddTransaction(const Transaction*);
 
   // modifes the list of checked out movies
@@ -27,7 +27,7 @@ public:
   const std::vector<const Transaction*>& GetTransactions() const;
   const std::list<const Movie*>& GetMovies() const;
 private:
-  // list of of the transactions involving this customer 
+  // list of of the transactions involving this customer
   std::vector<const Transaction*> transactions_;
 
   // list of items that the customer currently has checked out.
