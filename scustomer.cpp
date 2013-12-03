@@ -9,7 +9,7 @@ void StoreCustomer::AddTransaction(const Transaction* transaction)
 
 void StoreCustomer::CheckoutMovie(const Movie* movie)
 {
-  movies_.push_back(movie); 
+  movies_.push_back(movie);
 }
 
 void StoreCustomer::ReturnMovie(const Movie* movie)
@@ -19,16 +19,16 @@ void StoreCustomer::ReturnMovie(const Movie* movie)
 
 void StoreCustomer::Print()
 {
- 
+
 }
 
 const std::vector<const Transaction*>& StoreCustomer::GetTransactions() const
 {
-  return transactions_; 
+  return transactions_;
 }
 
 const std::list<const Movie*>& StoreCustomer::GetMovies() const
 {
-  return movies_; 
+  return movies_;
 }
 

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // inventoryitem.h
-// Responsible for keeping track of current number of movies that a store 
+// Responsible for keeping track of current number of movies that a store
 // owns.
 //////////////////////////////////////////////////////////////////////////////
 #ifndef CSS343_LAB4_INVENTORYITEM_H
@@ -13,19 +13,19 @@
 class InventoryItem {
 public:
   // default ctor
-  // @param movie the movie referenced by the media types 
+  // @param movie the movie referenced by the media types
   InventoryItem(const Movie&);
 
   // Removes the media item from the inventory. The remaining movies will be
   // reduced by the given amount.
   // @param mediaType - media type to be removed
-  // @param amount - the number of items to remove from the inventory 
+  // @param amount - the number of items to remove from the inventory
   void RemoveFromInventory(const int = 1, const char = kDefaultMediaType);
 
   // Adds additional items to the available inventory for this item. The
   // remaining movies will be increased by the given amount.
-  // @param mediaType - the type of media being added to the inventory 
-  // @param amount - the number of items to add to the inventory   
+  // @param mediaType - the type of media being added to the inventory
+  // @param amount - the number of items to add to the inventory
   void AddToInventory(const int = 1, const char = kDefaultMediaType);
 
   // Returns how many movies of the given type are remaining

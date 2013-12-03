@@ -4,8 +4,10 @@
 #include "inventoryitem.h"
 
 Return::Return(StoreCustomer& customer, InventoryItem& item)
-  : Transaction(customer, item) 
-{}
+  : Transaction(customer, item)
+{
+  name_ = "RETURN";
+}
 
 Return::~Return()
 {}
@@ -13,13 +15,13 @@ Return::~Return()
 bool Return::ExecuteTransaction()
 {
   if(isTransactionComplete_) // transactions can only occur once
-    return false; 
-  
+    return false;
+
   if(!user_has_movie(customer_, &(item_.movie()))) // not enough movies exist
     return false;
 
   item_.AddToInventory(1);
-  customer_.ReturnMovie(&item_.movie()); 
+  customer_.ReturnMovie(&item_.movie());
   isTransactionComplete_ = true;
 
   return true;
@@ -29,7 +31,7 @@ bool Return::user_has_movie(const StoreCustomer& customer, const Movie* movie)
 {
   typedef std::list<const Movie*> MovieContainer;
   MovieContainer movies = customer.GetMovies();
-  MovieContainer::iterator movie_iter = 
+  MovieContainer::iterator movie_iter =
     std::find(movies.begin(), movies.end(), movie);
 
   return (movie_iter != movies.end());

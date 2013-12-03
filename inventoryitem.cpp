@@ -19,10 +19,10 @@ const Movie& InventoryItem::movie() const
 void InventoryItem::RemoveFromInventory(const int amount, const char mediaType)
 {
   if(inventory_.count(mediaType) == 0) // media type does not exist
-    return; // throw exception 
+    return; // throw exception
 
   inventory_[mediaType] -= amount;
-} 
+}
 
 void InventoryItem::AddToInventory(const int amount, const char mediaType)
 {
@@ -37,7 +37,7 @@ void InventoryItem::AddToInventory(const int amount, const char mediaType)
 int InventoryItem::GetInventoryCount(const char mediaType) const
 {
   if(inventory_.count(mediaType) == 0) // media type does not exist
-    return 0; 
+    return 0;
 
   return inventory_.find(mediaType)->second;
 }
