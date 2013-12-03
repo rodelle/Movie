@@ -22,6 +22,7 @@ bool Return::ExecuteTransaction()
 
   item_.AddToInventory(1);
   customer_.ReturnMovie(&item_.movie());
+  customer_.AddTransaction(this);
   isTransactionComplete_ = true;
 
   return true;
