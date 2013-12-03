@@ -34,19 +34,19 @@ void InventoryItem::AddToInventory(const int amount, const char mediaType)
   inventory_[mediaType] += amount;
 }
 
-int InventoryItem::GetInventoryCount(const char mediaType)
+int InventoryItem::GetInventoryCount(const char mediaType) const
 {
   if(inventory_.count(mediaType) == 0) // media type does not exist
     return 0; 
 
-  return inventory_[mediaType]; 
+  return inventory_.find(mediaType)->second;
 }
 
 
-bool InventoryItem::Contains(const int orderSize, const char mediaType)
+bool InventoryItem::Contains(const int orderSize, const char mediaType) const
 {
   if(inventory_.count(mediaType) == 0)
     return false;
 
-  return inventory_[mediaType] >= orderSize;
+  return inventory_.find(mediaType)->second >= orderSize;
 }

@@ -30,13 +30,13 @@ public:
 
   // Returns how many movies of the given type are remaining
   // @param mediaType - the media type inventory count to return
-  int GetInventoryCount(const char = kDefaultMediaType);
+  int GetInventoryCount(const char = kDefaultMediaType) const;
 
   // Returns whether there are enough items remaining to fulfill the request
   // order size
   // @param mediaType - the media type to check for
   // @param orderSize - the requested number of items to provide 
-  bool Contains(const int = 1, const char = kDefaultMediaType);
+  bool Contains(const int = 1, const char = kDefaultMediaType) const;
 
   // Returns the movie
   const Movie& movie() const;
