@@ -35,11 +35,15 @@ public:
   // Returns whether there are enough items remaining to fulfill the request
   // order size
   // @param mediaType - the media type to check for
-  // @param orderSize - the requested number of items to provide 
+  // @param orderSize - the requested number of items to provide
   bool Contains(const int = 1, const char = kDefaultMediaType) const;
 
   // Returns the movie
   const Movie& movie() const;
+
+  // default media type used for operations
+  static const char kDefaultMediaType;
+  static const char* kDefaultMediaName;
 
 private:
   // Returns the hash value for a char
@@ -49,10 +53,7 @@ private:
   };
   typedef std::tr1::unordered_map<char, int, CharHash> MediaInventory;
 
-  // default media type used for operations 
-  static const char kDefaultMediaType; 
-
-  const Movie& movie_; // the movie 
+  const Movie& movie_; // the movie
   MediaInventory inventory_; // holds the available number of movies of a type
 };
 
