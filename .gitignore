@@ -1,5 +1,6 @@
-# Test suite executable
+# Generated executable
 RunAllTests
+MOVIE
 
 # Needs to be compiled for each platform
 tests/lib/libUnitTest++.a

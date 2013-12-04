@@ -46,6 +46,10 @@ test_src = test_main.cpp \
 objects = $(src:%.cpp=$(OBJ_DIR)/%.o)
 test_objects = $(test_src:%.cpp=$(OBJ_DIR)/%.o)
 
+main: $(objects) main.cpp
+	$(CXX) -Wall -pedantic $(objects) main.cpp -o MOVIE
+	./MOVIE
+
 test: $(objects) $(test_objects)
 	$(CXX) -Wall -pedantic $(objects) $(test_objects) $(TESTLIB) -o RunAllTests 
 	./RunAllTests
