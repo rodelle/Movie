@@ -40,7 +40,8 @@ bool ShowMovies::ExecuteAction(std::istream& input)
     }
     std::cout << std::endl;
   }
-  return true;
+
+  return false;
 }
 
 void ShowMovies::print_table_header(const InventoryItem& item) const

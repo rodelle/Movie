@@ -30,7 +30,7 @@ bool DisplayCustomerHistory::ExecuteAction(std::istream& input)
   print_transaction_history(*customer);
   std::cout << std::endl;
 
-  return true;
+  return false;
 }
 
 const int DisplayCustomerHistory::kIdDisplayWidth = 4;
