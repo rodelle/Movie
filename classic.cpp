@@ -18,6 +18,7 @@ Classic::Classic(
   const std::string& title,
   const std::string& director,
   const std::string& data)
+  : month_(kDefaultMonth)
 {
   Movie::Init(title, director, data);
 }

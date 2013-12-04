@@ -9,6 +9,7 @@ const int Customer::kMinIdNumber = 1000;
 const int Customer::kMaxIdNumber = 9999;
 
 Customer::Customer()
+  : id_(kMinIdNumber)
 {}
 
 // format: id_num, name name
