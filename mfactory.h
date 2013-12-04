@@ -4,6 +4,8 @@
 // It takes as input a char which represents the specific concrete movie class
 // desired.  It uses a hash function to determine which object to create based
 // on that char, then returns a pointer to that new movie object.
+//
+// author: Rodelle Ladia Jr.
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifndef CSS343_LAB4_MOVIEFACTORY_H

@@ -3,12 +3,15 @@
 // Transaction is a base class from which the different concrete types of
 // derived transactions inherit. Each transaction represents an association
 // between a customer and an inventoryitem
+//
+// author: Rodelle Ladia Jr.
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifndef CSS343_LAB4_TRANSACTION_H
 #define CSS343_LAB4_TRANSACTION_H
 
 #include <string>
+
 #include "action.h"
 
 class StoreCustomer;
@@ -17,7 +20,6 @@ class InventoryItem;
 class Transaction : public Action {
 friend std::ostream& operator<<(std::ostream&, const Transaction&);
 public:
-  // Transactions can only exist between a Customer and a MovieItem
   Transaction(Store&);
   virtual ~Transaction();
 
@@ -35,6 +37,7 @@ protected:
   // from the stream
   virtual void initialize_data(std::istream&);
 
+  // Transactions exist between a customer and an inventory item
   StoreCustomer* customer_;
   InventoryItem* item_;
 };

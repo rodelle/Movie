@@ -2,6 +2,8 @@
 // inventoryitem.h
 // Responsible for keeping track of current number of movies that a store
 // owns.
+//
+// author: Rodelle Ladia Jr.
 //////////////////////////////////////////////////////////////////////////////
 #ifndef CSS343_LAB4_INVENTORYITEM_H
 #define CSS343_LAB4_INVENTORYITEM_H

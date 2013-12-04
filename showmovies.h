@@ -2,6 +2,8 @@
 // ShowMovies.h
 // Allows the store to display the current stock of all movies sorted by their
 // categories and then by their respective sorting criteria.
+//
+// author: Rodelle Ladia Jr.
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifndef CSS343_LAB4_SHOWMOVIES_H
@@ -18,7 +20,8 @@ public:
   ShowMovies(Store&);
   virtual ~ShowMovies();
 
-  // Does nothing
+  // performs the action of retreiving and printing the list of movies
+  // that the store owns
   virtual bool ExecuteAction(std::istream&);
 
 private:

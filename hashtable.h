@@ -2,6 +2,8 @@
 // HashTable.h
 // Represents an unordered container of key-value pairs. HashTables provide
 // constant time insertion and lookup of elements by their key.
+//
+// author: Rodelle Ladia Jr.
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifndef CSS343_LAB4_HASHTABLE_H

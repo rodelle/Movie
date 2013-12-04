@@ -1,7 +1,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 // DisplayCustomerHistory.h
-// Allows the store to display the current stock of all movies sorted by their
-// categories and then by their respective sorting criteria.
+// Contains logic needed to access a customer's rental history and print that
+// information to the screen
+//
+// author: Rodelle Ladia Jr.
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifndef CSS343_LAB4_DISPLAYCUSTOMERHISTORY_H
@@ -14,7 +16,6 @@ class StoreCustomer;
 
 class DisplayCustomerHistory : public Action {
 public:
-  // Transactions can only exist between a Customer and a MovieItem
   DisplayCustomerHistory(Store&);
   virtual ~DisplayCustomerHistory();
 
@@ -23,7 +24,11 @@ public:
 
 private:
   static const int kIdDisplayWidth;
+  // prints the list of transactions by the customer with one
+  // transaction per line
   void print_transaction_history(const StoreCustomer&) const;
+
+  // Prints out the customers id number and name
   void print_customer_information(const StoreCustomer&) const;
 };
 

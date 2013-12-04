@@ -2,29 +2,32 @@
 // MovieCollection.h
 // MovieCollection is a collection of movies owned by a store. Movies can be
 // added and retrieved from the collection.
+//
+// author: Rodelle Ladia Jr.
 ///////////////////////////////////////////////////////////////////////////////
+
 #ifndef CSS343_LAB4_MOVIECOLLECTION_H
 #define CSS343_LAB4_MOVIECOLLECTION_H
 
 #include <boost/functional/hash.hpp>
-#include <set>
 #include <tr1/unordered_map>
+
+#include <set>
 #include <vector>
 
 #include "inventoryitem.h"
 #include "mfactory.h"
 #include "movie.h"
 
-
 class MovieCollection {
 private:
-  struct MovieCompare
-  {
+  // Returns true if the left movie is less than the right movie
+  struct MovieCompare {
     bool operator() (const InventoryItem*, const InventoryItem*) const;
   };
 
-  struct CharHash
-  {
+  // Returns the hash value of a character
+  struct CharHash {
     std::size_t operator() (const char) const;
   };
 
@@ -41,24 +44,21 @@ public:
   // to a unique movie, the complexity of this call is O(logN).
   InventoryItem* GetMovie(std::istream&) const;
 
+  // public typedefs
   typedef std::set<InventoryItem*, MovieCompare> MovieSet;
+  typedef std::tr1::unordered_map <char, MovieSet, CharHash> MovieSetHash;
 
-  typedef std::tr1::unordered_map
-    <char, MovieSet, CharHash>
-    MovieSetHash;
-
+  // getters
   const MovieSetHash& GetAllMovies() const;
 
 private:
-
-  struct StringHash
-  {
+  // Generates a hash value for a string
+  struct StringHash {
     std::size_t operator() (const std::string&) const;
     static boost::hash<std::string> string_hash;
   };
 
-  typedef std::tr1::unordered_map
-    <std::string, InventoryItem*, StringHash>
+  typedef std::tr1::unordered_map <std::string, InventoryItem*, StringHash>
     MovieHash;
 
   std::vector<const Movie*> movie_list_; // holds the raw Movie data
