@@ -1,3 +1,7 @@
+#include <cstddef>
+
+#include "action.h"
+#include "afactory.h"
 #include "mcollection.h"
 #include "ccollection.h"
 #include "store.h"
@@ -18,11 +22,25 @@ void Store::AddMovies(std::istream& input)
 
 void Store::ProcessTransactions(std::istream& input)
 {
+  while(true) {
+    char actionType;
+    input >> actionType;
 
+    if(input.fail())
+      break;
+
+    input.get(); // get rid of extra space
+
+    Action* action = factory_.Create(actionType, *this);
+
+    if(action != NULL) // valid action type
+      if(action->ExecuteAction(input) == false)
+        delete action; // action was not completed
+  }
 }
 
-const MovieCollection& Store::movies()
+MovieCollection& Store::movies()
 { return movies_; }
 
-const CustomerCollection& Store::customers()
+CustomerCollection& Store::customers()
 { return customers_; }

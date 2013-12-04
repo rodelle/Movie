@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Store.h
-// The store class receives user input and calls the underlying logic to 
+// The store class receives user input and calls the underlying logic to
 // perform the command
 ///////////////////////////////////////////////////////////////////////////////
 #ifndef CSS343_LAB4_STORE_H
@@ -10,6 +10,7 @@
 
 #include "mcollection.h"
 #include "ccollection.h"
+#include "afactory.h"
 
 class StoreCustomer;
 
@@ -19,8 +20,8 @@ public:
   void AddMovies(std::istream&);
   void ProcessTransactions(std::istream&);
 
-  const MovieCollection& movies();
-  const CustomerCollection& customers();
+  MovieCollection& movies();
+  CustomerCollection& customers();
 
 private:
   // collection of MovieItems
@@ -28,6 +29,8 @@ private:
 
   // collection of CustomerRecords
   CustomerCollection customers_;
+
+  ActionFactory factory_;
 };
 
 #endif
