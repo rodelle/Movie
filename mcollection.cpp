@@ -33,10 +33,10 @@ void MovieCollection::AddMovie(std::istream& input)
     return;
 
   movie->Init(input);
-  
+
   InventoryItem* item = this->search_in_hash(*movie);
 
-  if(item == NULL) { // movie does not exist in hash 
+  if(item == NULL) { // movie does not exist in hash
     movie_list_.push_back(movie);
     inventory_list_.push_back(new InventoryItem(*movie));
     item = inventory_list_.back();
@@ -69,8 +69,8 @@ void MovieCollection::add_movie_to_hash(InventoryItem* item)
 
 InventoryItem* MovieCollection::GetMovie(std::istream& input) const
 {
-  char movieType, mediaType;
-  input >> mediaType >> movieType;
+  char movieType;
+  input >> movieType;
 
   if(input.fail()) // invalid input
     return NULL;
@@ -91,7 +91,7 @@ InventoryItem* MovieCollection::GetMovie(std::istream& input) const
 }
 
 InventoryItem* MovieCollection::search_in_set(
-  const char movieType, 
+  const char movieType,
   const Movie& movie) const
 {
   MovieSetHash::const_iterator sh_iter = movie_set_.find(movieType);
@@ -99,14 +99,14 @@ InventoryItem* MovieCollection::search_in_set(
   if(sh_iter == movie_set_.end()) // no movies of this type exist
     return NULL;
 
-  const MovieSet& movie_set = sh_iter->second; 
+  const MovieSet& movie_set = sh_iter->second;
 
   InventoryItem item(movie);
   MovieSet::const_iterator set_iter = movie_set.find(&item);
 
   if(set_iter != movie_set.end()) // found in set, return InventoryItem
     return *set_iter;
- 
+
   return NULL; // movie not found in set
 }
 
@@ -117,15 +117,15 @@ InventoryItem* MovieCollection::search_in_hash(const Movie& movie) const
 
   if(hash_iter != movie_hash_.end()) // found in hash set, return InventoryItem
     return hash_iter->second;
- 
+
   return NULL; // movie cannot be mapped to movie in hash set
 }
 
 bool MovieCollection::MovieCompare::operator() (
-  const InventoryItem* lhs, 
+  const InventoryItem* lhs,
   const InventoryItem* rhs) const
 {
-  return lhs->movie() < rhs->movie(); 
+  return lhs->movie() < rhs->movie();
 }
 
 std::string MovieCollection::get_hash_key(const Movie& movie)
@@ -144,10 +144,10 @@ std::size_t MovieCollection::StringHash::operator() (
 std::size_t MovieCollection::CharHash::operator() (
   const char c) const
 {
-  return c - 'A'; 
+  return c - 'A';
 }
 
 const MovieCollection::MovieSetHash& MovieCollection::GetAllMovies() const
 {
-  return movie_set_; 
+  return movie_set_;
 }
