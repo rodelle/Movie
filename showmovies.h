@@ -7,23 +7,20 @@
 #ifndef CSS343_LAB4_SHOWMOVIES_H
 #define CSS343_LAB4_SHOWMOVIES_H
 
-#include "saction.h"
+#include "action.h"
 
-class StoreCustomer;
-class MovieCollection;
+class Store;
 class InventoryItem;
 
-class ShowMovies : public StoreAction {
+class ShowMovies : public Action {
 public:
   // Transactions can only exist between a Customer and a MovieItem
-  ShowMovies();
+  ShowMovies(Store&);
   virtual ~ShowMovies();
 
   // Does nothing
-  virtual void ExecuteAction(const StoreCustomer&);
+  virtual bool ExecuteAction(std::istream&);
 
-  // Performs the necessary operations to execute the action 
-  virtual void ExecuteAction(const MovieCollection&);
 private:
   static const int kDvdCountDisplayWidth;
   static const int kMovieDisplayWidth;

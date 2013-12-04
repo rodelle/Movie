@@ -1,24 +1,39 @@
 #include <iomanip>
 #include <iostream>
 
+#include "ccollection.h"
 #include "displaycustomerhistory.h"
 #include "scustomer.h"
-#include "mcollection.h"
+#include "store.h"
 #include "transaction.h"
 
-DisplayCustomerHistory::DisplayCustomerHistory()
+DisplayCustomerHistory::DisplayCustomerHistory(Store& store)
+  : Action(store)
 {}
 
 DisplayCustomerHistory::~DisplayCustomerHistory()
 {}
 
-void DisplayCustomerHistory::ExecuteAction(const MovieCollection& movie_collection)
-{}
-
-void DisplayCustomerHistory::ExecuteAction(const StoreCustomer& customer)
+bool DisplayCustomerHistory::ExecuteAction(std::istream& input)
 {
-  print_customer_information(customer);
+  CustomerCollection& customers = store_.customers();
 
+  int customer_id;
+  input >> customer_id;
+
+  StoreCustomer& customer = *customers.GetCustomer(customer_id);
+
+  print_customer_information(customer);
+  print_transaction_history(customer);
+
+  return true;
+}
+
+const int DisplayCustomerHistory::kIdDisplayWidth = 4;
+
+void DisplayCustomerHistory::print_transaction_history(
+  const StoreCustomer& customer) const
+{
   typedef std::vector<const Transaction*> Transactions;
 
   Transactions trans_list = customer.GetTransactions();
@@ -26,16 +41,8 @@ void DisplayCustomerHistory::ExecuteAction(const StoreCustomer& customer)
 
   // iterate over the list of transactions
   for(; transaction != trans_list.end(); ++transaction) {
-    print_transaction_information(**transaction);
+    std::cout << **transaction << std::endl;
   }
-}
-
-const int DisplayCustomerHistory::kIdDisplayWidth = 4;
-
-void DisplayCustomerHistory::print_transaction_information(
-  const Transaction& transaction) const
-{
-  std::cout << transaction << std::endl;
 }
 
 void DisplayCustomerHistory::print_customer_information(

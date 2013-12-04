@@ -7,27 +7,23 @@
 #ifndef CSS343_LAB4_DISPLAYCUSTOMERHISTORY_H
 #define CSS343_LAB4_DISPLAYCUSTOMERHISTORY_H
 
-#include "saction.h"
+#include "action.h"
 
+class Store;
 class StoreCustomer;
-class MovieCollection;
-class Transaction;
 
-class DisplayCustomerHistory : public StoreAction {
+class DisplayCustomerHistory : public Action {
 public:
   // Transactions can only exist between a Customer and a MovieItem
-  DisplayCustomerHistory();
+  DisplayCustomerHistory(Store&);
   virtual ~DisplayCustomerHistory();
 
   // Prints out the customer's rental history
-  virtual void ExecuteAction(const StoreCustomer&);
-
-  // Does nothing
-  virtual void ExecuteAction(const MovieCollection&);
+  virtual bool ExecuteAction(std::istream&);
 
 private:
   static const int kIdDisplayWidth;
-  void print_transaction_information(const Transaction&) const;
+  void print_transaction_history(const StoreCustomer&) const;
   void print_customer_information(const StoreCustomer&) const;
 };
 
