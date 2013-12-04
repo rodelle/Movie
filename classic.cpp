@@ -137,37 +137,17 @@ void Classic::Populate(std::istream& input)
 }
 
 // Sorted by year, month, then famous actor
-int Classic::compare(const Classic& lhs, const Classic& rhs)
-{
-  if(lhs.year_ - rhs.year_ != 0)
-    return lhs.year_ - rhs.year_;
-
-  else if(lhs.month_ - rhs.month_ != 0)
-    return lhs.month_ - rhs.month_;
-
-  else
-    return lhs.actor_.compare(rhs.actor_);
-}
-
-// Sorted by year, month, then famous actor
-bool Classic::operator<(const Movie& other) const
+int Classic::compare(const Movie& other) const
 {
   const Classic& o = static_cast<const Classic&>(other);
+  if(year_ - o.year_ != 0)
+    return year_ - o.year_;
 
-  if(Classic::compare(*this, o) < 0)
-    return true;
+  else if(month_ - o.month_ != 0)
+    return month_ - o.month_;
+
   else
-    return false;
-}
-
-bool Classic::operator>(const Movie& other) const
-{
-  const Classic& o = static_cast<const Classic&>(other);
-
-  if(Classic::compare(*this, o) > 0)
-    return true;
-  else
-    return false;
+    return actor_.compare(o.actor_);
 }
 
 bool Classic::operator==(const Movie& other) const

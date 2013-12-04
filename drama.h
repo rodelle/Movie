@@ -32,13 +32,8 @@ public:
   // override
   virtual void Populate(std::istream&);
 
-  // returns true if the left movie is less than the right movie
-  // Sorted by director then title
-  virtual bool operator<(const Movie&) const;
-  virtual bool operator>(const Movie&) const;
-
 private:
-  static int compare(const Drama&, const Drama&);
+  virtual int compare(const Movie&) const;
 };
 
 #endif

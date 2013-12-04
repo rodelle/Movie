@@ -37,10 +37,6 @@ public:
   // override
   virtual void Populate(std::istream&);
 
-  // returns true if the left movie is less than the right movie
-  // Sorted by date then famous actor
-  virtual bool operator<(const Movie&) const;
-  virtual bool operator>(const Movie&) const;
   virtual bool operator==(const Movie&) const;
   virtual bool operator!=(const Movie&) const;
 
@@ -56,15 +52,11 @@ protected:
   int month_; // number corresponding to the month the movie was released
   std::string actor_;
 
-  // override
   virtual void validate_input();
-
-  // override
   virtual void parse_additional_data(const std::string&);
 
-  static int compare(const Classic&, const Classic&);
-
-  // overrid
+  // Sorted by date then famous actor
+  virtual int compare(const Movie&) const;
   virtual void print(std::ostream&) const;
 
   virtual std::size_t calculate_hash() const;

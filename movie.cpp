@@ -135,6 +135,22 @@ std::size_t Movie::calculate_hash() const
   return string_hash(hash_value_) + year_;
 }
 
+bool Movie::operator<(const Movie& other) const
+{
+  if(this->compare(other) < 0)
+    return true;
+  else
+    return false;
+}
+
+bool Movie::operator>(const Movie& other) const
+{
+  if(this->compare(other) > 0)
+    return true;
+  else
+    return false;
+}
+
 bool Movie::operator==(const Movie& other) const
 {
   return (year_ == other.year_)

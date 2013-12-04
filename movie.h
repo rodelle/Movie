@@ -38,8 +38,8 @@ public:
 
   // returns true if the left movie is less than the right movie
   // Sorted by title then director
-  virtual bool operator<(const Movie&) const = 0;
-  virtual bool operator>(const Movie&) const = 0;
+  virtual bool operator<(const Movie&) const;
+  virtual bool operator>(const Movie&) const;
   virtual bool operator==(const Movie&) const;
   virtual bool operator!=(const Movie&) const;
 
@@ -77,6 +77,7 @@ protected:
 
   // prints out the object's fields in a table format
   virtual void print(std::ostream&) const;
+  virtual int compare(const Movie&) const = 0;
 
   static boost::hash<std::string> string_hash;
   virtual std::size_t calculate_hash() const;

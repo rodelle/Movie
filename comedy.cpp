@@ -68,32 +68,13 @@ void Comedy::Populate(std::istream& input)
   validate_input();
 }
 
-int Comedy::compare(const Comedy& lhs, const Comedy& rhs)
+int Comedy::compare(const Movie& other) const
 {
-  int compare = lhs.title_.compare(rhs.title_);
+  const Comedy& o = static_cast<const Comedy&>(other);
+  int compare = title_.compare(o.title_);
 
   if(compare != 0)
     return compare;
 
-  return lhs.year_ - rhs.year_;
-}
-
-// Sorted by title then date
-bool Comedy::operator<(const Movie& other) const
-{
-  const Comedy& o = static_cast<const Comedy&>(other);
-
-  if(Comedy::compare(*this, o) < 0)
-    return true;
-  else
-    return false;
-}
-
-bool Comedy::operator>(const Movie& other) const
-{
-  const Comedy& o = static_cast<const Comedy&>(other);
-  if(Comedy::compare(*this, o) > 0)
-    return true;
-  else
-    return false;
+  return year_ - o.year_;
 }

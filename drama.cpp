@@ -69,32 +69,13 @@ void Drama::Populate(std::istream& input)
 }
 
 // Sorted by director then title
-int Drama::compare(const Drama& lhs, const Drama& rhs)
+int Drama::compare(const Movie& other) const
 {
-  int compare = lhs.director_.compare(rhs.director_);
+  const Drama& o = static_cast<const Drama&>(other);
+  int compare = director_.compare(o.director_);
 
   if(compare != 0)
     return compare;
 
-  return lhs.title_.compare(rhs.title_);
-}
-
-// Sorted by director then title
-bool Drama::operator<(const Movie& other) const
-{
-  const Drama& o = static_cast<const Drama&>(other);
-
-  if(Drama::compare(*this, o) < 0)
-    return true;
-  else
-    return false;
-}
-
-bool Drama::operator>(const Movie& other) const
-{
-  const Drama& o = static_cast<const Drama&>(other);
-  if(Drama::compare(*this, o) > 0)
-    return true;
-  else
-    return false;
+  return title_.compare(o.title_);
 }

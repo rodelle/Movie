@@ -31,13 +31,8 @@ public:
 
   virtual ~Comedy();
 
-  // returns true if the left movie is less than the right movie
-  // Sorted by title then date
-  virtual bool operator<(const Movie&) const;
-  virtual bool operator>(const Movie&) const;
-
 private:
-  static int compare(const Comedy&, const Comedy&);
+  virtual int compare(const Movie&) const;
 };
 
 #endif
