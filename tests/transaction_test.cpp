@@ -117,7 +117,6 @@ SUITE(Return_h)
   }
 }
 
-/*
 SUITE(ShowMovie_h)
 {
   TEST(Default)
@@ -142,7 +141,7 @@ SUITE(ShowMovie_h)
     action->ExecuteAction(action_data);
   }
 }
-*/
+
 SUITE(DisplayCustomerHistory_h)
 {
   TEST(DisplayCustomerHistory_Default)
