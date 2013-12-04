@@ -17,10 +17,8 @@ public:
   Return(Store&);
   virtual ~Return();
 
-  // Performs the necessary operations to execute the transaction
-  virtual bool ExecuteAction(std::istream&);
-
 private:
+  virtual bool commit_transaction();
   static bool user_has_movie(const StoreCustomer&, const Movie*);
 };
 

@@ -22,11 +22,19 @@ public:
   virtual ~Transaction();
 
   // Performs the necessary operations to execute the transaction
-  virtual bool ExecuteAction(std::istream&) = 0;
+  virtual bool ExecuteAction(std::istream&);
 
-  virtual const std::string& name() const;
+  const StoreCustomer& customer() const;
+  const InventoryItem& item() const;
 
 protected:
+  // performs the actual transaction
+  virtual bool commit_transaction() = 0;
+
+  // populates customer and item using data from the store and parameters
+  // from the stream
+  virtual void initialize_data(std::istream&);
+
   StoreCustomer* customer_;
   InventoryItem* item_;
 };

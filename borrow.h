@@ -15,8 +15,8 @@ public:
   Borrow(Store&);
   virtual ~Borrow();
 
-  // Performs the necessary operations to execute the transaction
-  virtual bool ExecuteAction(std::istream&);
+protected:
+  virtual bool commit_transaction();
 };
 
 #endif

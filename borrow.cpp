@@ -1,4 +1,5 @@
 #include "borrow.h"
+#include "store.h"
 #include "scustomer.h"
 #include "inventoryitem.h"
 
@@ -11,18 +12,14 @@ Borrow::Borrow(Store& store)
 Borrow::~Borrow()
 {}
 
-bool Borrow::ExecuteAction(std::istream& input)
+bool Borrow::commit_transaction()
 {
-  if(isActionComplete_) // transactions can only occur once
-    return false;
-
   if(item_->GetInventoryCount() <= 0) // not enough movies exist
     return false;
 
   item_->RemoveFromInventory(1);
-  customer_->CheckoutMovie(&item_->movie());
+  customer_->CheckoutMovie(&(item_->movie()));
   customer_->AddTransaction(this);
-  isActionComplete_ = true;
 
   return true;
 }

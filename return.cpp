@@ -12,18 +12,14 @@ Return::Return(Store& store)
 Return::~Return()
 {}
 
-bool Return::ExecuteAction(std::istream& input)
+bool Return::commit_transaction()
 {
-  if(isActionComplete_) // transactions can only occur once
-    return false;
-
   if(!user_has_movie(*customer_, &item_->movie())) // not enough movies exist
     return false;
 
   item_->AddToInventory(1);
   customer_->ReturnMovie(&item_->movie());
   customer_->AddTransaction(this);
-  isActionComplete_ = true;
 
   return true;
 }
