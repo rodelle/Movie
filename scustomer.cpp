@@ -2,6 +2,14 @@
 #include "scustomer.h"
 #include "transaction.h"
 
+StoreCustomer::~StoreCustomer()
+{
+  std::vector<const Transaction*>::iterator i;
+  for(i = transactions_.begin(); i != transactions_.end(); ++i) {
+    delete *i;
+  }
+}
+
 void StoreCustomer::AddTransaction(const Transaction* transaction)
 {
   transactions_.push_back(transaction);

@@ -14,7 +14,11 @@ class Movie;
 
 class StoreCustomer : public Customer {
 public:
+  ~StoreCustomer();
+
   // Appends the transaction to the customer's list of transactions
+  // This class takes ownership of the memory allocated for the Transaction
+  // and is reponsible for cleaning it up
   void AddTransaction(const Transaction*);
 
   // modifes the list of checked out movies
