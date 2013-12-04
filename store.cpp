@@ -20,7 +20,7 @@ void Store::AddMovies(std::istream& input)
   } while(!input.fail());
 }
 
-void Store::ProcessTransactions(std::istream& input)
+void Store::ProcessActions(std::istream& input)
 {
   while(true) {
     char actionType;

@@ -18,7 +18,7 @@ class Store {
 public:
   void AddCustomers(std::istream&);
   void AddMovies(std::istream&);
-  void ProcessTransactions(std::istream&);
+  void ProcessActions(std::istream&);
 
   MovieCollection& movies();
   CustomerCollection& customers();

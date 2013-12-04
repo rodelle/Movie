@@ -168,7 +168,7 @@ SUITE(DisplayCustomerHistory_h)
     Store store;
     store.AddMovies(movie_data);
     store.AddCustomers(customer_data);
-    store.ProcessTransactions(transaction_data);
+    store.ProcessActions(transaction_data);
 
     Action* action = new DisplayCustomerHistory(store);
 
