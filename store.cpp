@@ -33,9 +33,13 @@ void Store::ProcessActions(std::istream& input)
 
     Action* action = factory_.Create(actionType, *this);
 
-    if(action != NULL) // valid action type
+    if(action != NULL) {// valid action type
       if(action->ExecuteAction(input) == false)
         delete action; // action was not completed
+    } else {
+      std::string discarded_line;
+      std::getline(input, discarded_line);
+    }
   }
 }
 
