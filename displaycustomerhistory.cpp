@@ -21,10 +21,13 @@ bool DisplayCustomerHistory::ExecuteAction(std::istream& input)
   int customer_id;
   input >> customer_id;
 
-  StoreCustomer& customer = *customers.GetCustomer(customer_id);
+  StoreCustomer* customer = customers.GetCustomer(customer_id);
 
-  print_customer_information(customer);
-  print_transaction_history(customer);
+  if(customer == NULL) // customer does not exist
+    return false;
+
+  print_customer_information(*customer);
+  print_transaction_history(*customer);
   std::cout << std::endl;
 
   return true;
