@@ -1,8 +1,16 @@
+///////////////////////////////////////////////////////////////////////////////
+// Comedy.h
+// a concrete class that inherits from the abstract Movie class, represents
+// the comedy genre of movie
+//
+// author: Rodelle Ladia Jr.
+///////////////////////////////////////////////////////////////////////////////
+
 #ifndef CSS343_LAB4_COMEDY_H
 #define CSS343_LAB4_COMEDY_H
 
-#include <string>
 #include <istream>
+#include <string>
 
 #include "movie.h"
 
@@ -13,8 +21,10 @@ class Comedy: public Movie
 friend std::ostream& operator<<(std::ostream&, const Comedy&);
 
 public:
-  //pre: 1800 <= year <= 2100
-  //format: "title title, director director, year"
+  // Default constructor
+  // @param stream in the following format
+  // format: "title  title, director director, year"
+  //          string string string   string    int
   Comedy(std::istream&);
   Comedy(
     const std::string& = kDefaultTitle,
@@ -32,6 +42,11 @@ public:
   virtual ~Comedy();
 
 private:
+  // Returns < 0 if this movie is less than the other movie
+  // Returns > 0 if this movie is greater than the other movie
+  // Returns 0 if this movie is equivalent to the other movie
+  // sorted by title then by date
+  // @param - the movie to compare to
   virtual int compare(const Movie&) const;
 };
 

@@ -1,14 +1,19 @@
+///////////////////////////////////////////////////////////////////////////////
+// Classic.h
+// a concrete class that inherits from the abstract Movie class, represents
+// the classic genre of movie
+//
+// author: Rodelle Ladia Jr.
+///////////////////////////////////////////////////////////////////////////////
+
 #ifndef CSS343_LAB4_CLASSIC_H
 #define CSS343_LAB4_CLASSIC_H
 
-#include <string>
 #include <istream>
+#include <string>
 
 #include "movie.h"
 
-
-// a concrete class that inherits from the abstract Movie class, represents
-// the classic genre of movie
 class Classic: public Movie
 {
 // overloaded <<
@@ -17,8 +22,8 @@ class Classic: public Movie
 friend std::ostream& operator<<(std::ostream&, const Classic&);
 
 public:
-  //pre: 1900 <= year <= 2100
-  //format: "title title, director director, year"
+  //format: "director director, title, actor  actor  month year"
+  //         string   string    string string string int   int
   Classic(std::istream&);
   Classic(
     const std::string& = kDefaultTitle,
@@ -34,9 +39,15 @@ public:
   // Prints the table headers to view the movie data in a table format
   virtual void PrintTableHeader(std::ostream& = std::cout) const;
 
-  // override
+  // Populates the fields needed to uniquely identify the movie
+  //
+  // @param input - stream with the following format
+  // format: month  year  actor
+  //         int    int   string
   virtual void Populate(std::istream&);
 
+  // Returns true if both movies have the same director, title, year, month
+  // and actor
   virtual bool operator==(const Movie&) const;
   virtual bool operator!=(const Movie&) const;
 
@@ -45,20 +56,27 @@ public:
   std::string actor() const;
 
 protected:
+  static const std::string kDefaultActor;
   static const int kDefaultMonth;
   static const int kMonthDisplayWidth;
-  static const std::string kDefaultActor;
 
   int month_; // number corresponding to the month the movie was released
   std::string actor_;
 
+  // Validates that the years and months are within valid ranges
+  // Calculates hash_value
   virtual void validate_input();
+
+  // Reads in the actor, month, and year and populates the class' fields
   virtual void parse_additional_data(const std::string&);
 
   // Sorted by date then famous actor
   virtual int compare(const Movie&) const;
+
+  // Prints out the movie information in a table format
   virtual void print(std::ostream&) const;
 
+  // returns the hash value that uniquely identifies this movie
   virtual std::size_t calculate_hash() const;
 };
 

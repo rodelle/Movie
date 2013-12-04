@@ -21,20 +21,24 @@ public:
   ~ActionFactory();
 
   // Returns an instantiated Action object of the correct type
+  // @param actionType - character representing the action to return
+  //        'B' -> Borrow
+  //        'S' -> ShowMovie
+  // @param store - the store whose data will be used by the action
   Action* Create(const char, Store&) const;
 
 private:
+  // Returns the concrete objects
   static Action* MakeBorrow(Store&);
   static Action* MakeReturn(Store&);
   static Action* MakeDisplayCustomerHistory(Store&);
   static Action* MakeShowMovies(Store&);
 
-  struct CharHash
-  {
+  struct CharHash { // creates hash value for characters
     std::size_t operator() (const char) const;
   };
 
-  static const int kNumActionTypes;
+  // fcn pointer: Action* ActionBuilder(Store&)
   typedef Action* (*ActionBuilder)(Store&);
   typedef std::tr1::unordered_map<char, ActionBuilder, CharHash> BuilderHash;
 

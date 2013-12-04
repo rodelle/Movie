@@ -11,11 +11,12 @@
 
 class Borrow : public Transaction {
 public:
-  // Transactions can only exist between a Customer and a MovieItem
   Borrow(Store&);
   virtual ~Borrow();
 
 protected:
+  // Performs the logic that needs to take place for a customer to
+  // borrow a movie
   virtual bool commit_transaction();
 };
 
