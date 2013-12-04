@@ -30,6 +30,5 @@ int main()
   store.AddCustomers(customer_data);
   store.ProcessActions(action_data);
 
-  std::cout << "Main complete\n";
   return 0;
 }
