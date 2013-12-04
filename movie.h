@@ -1,8 +1,10 @@
 #ifndef CSS343_LAB4_MOVIE_H
 #define CSS343_LAB4_MOVIE_H
 
-#include <string>
+#include <boost/functional/hash.hpp>
+
 #include <iostream>
+#include <string>
 
 class Movie {
 
@@ -41,12 +43,15 @@ public:
   virtual bool operator==(const Movie&) const;
   virtual bool operator!=(const Movie&) const;
 
+  static std::size_t hash(const Movie&);
+
   // getters
   std::string title() const;
   std::string director() const;
   int         year() const;
 
 protected:
+  std::string hash_value_;
   std::string title_;
   std::string director_;
   int year_;
@@ -72,6 +77,9 @@ protected:
 
   // prints out the object's fields in a table format
   virtual void print(std::ostream&) const;
+
+  static boost::hash<std::string> string_hash;
+  virtual std::size_t calculate_hash() const;
 };
 
 #endif

@@ -32,8 +32,14 @@ void Classic::validate_input()
   Movie::validate_input();
   if(month_ < 1 || month_ > 12)
    month_ = kDefaultMonth;
+
+  hash_value_ = director_ + title_ + actor_;
 }
 
+std::size_t Classic::calculate_hash() const
+{
+  return Movie::string_hash(hash_value_) + year_ + month_;
+}
 void Classic::parse_additional_data(const std::string& additional_data)
 {
   boost::tokenizer<> tok(additional_data);

@@ -89,6 +89,8 @@ void Movie::validate_input()
     year_ = kMinYear;
   if(year_ > kMaxYear)
     year_ = kMaxYear;
+
+  hash_value_ = director_ + title_;
 }
 
 // Prints the table headers to view the movie data in a table format
@@ -119,6 +121,18 @@ void Movie::print(std::ostream& out) const
 Movie::~Movie()
 {
 
+}
+
+boost::hash<std::string> Movie::string_hash;
+
+std::size_t Movie::hash(const Movie& movie)
+{
+  return movie.calculate_hash();
+}
+
+std::size_t Movie::calculate_hash() const
+{
+  return string_hash(hash_value_) + year_;
 }
 
 bool Movie::operator==(const Movie& other) const

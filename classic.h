@@ -66,6 +66,8 @@ protected:
 
   // overrid
   virtual void print(std::ostream&) const;
+
+  virtual std::size_t calculate_hash() const;
 };
 
 #endif
