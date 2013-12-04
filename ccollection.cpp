@@ -19,7 +19,7 @@ void CustomerCollection::AddCustomer(std::istream& input)
   Customer* customer = new Customer();
   customer->Init(input);
 
-  if(this->search_in_hash(customer->id()) == NULL) { // customer does not exist 
+  if(this->search_in_hash(customer->id()) == NULL) { // customer does not exist
     customer_list_.push_back(customer);
     this->add_to_hash(customer);
   }
@@ -37,7 +37,7 @@ std::size_t CustomerCollection::IdHash::operator() (const int id) const
 
 Customer* CustomerCollection::search_in_hash(const int id) const
 {
-  CustomerHash::const_iterator result = customer_hash_.find(id); 
+  CustomerHash::const_iterator result = customer_hash_.find(id);
 
   if(result != customer_hash_.end())
     return result->second;
