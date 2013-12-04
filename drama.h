@@ -36,9 +36,8 @@ public:
   // Sorted by director then title
   virtual bool operator<(const Movie&) const;
   virtual bool operator>(const Movie&) const;
-  virtual bool operator==(const Movie&) const;
-  virtual bool operator!=(const Movie&) const;
 
+private:
   static int compare(const Drama&, const Drama&);
 };
 

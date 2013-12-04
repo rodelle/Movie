@@ -8,8 +8,8 @@
 #include "drama.h"
 
 Drama::Drama(
-  const std::string& title, 
-  const std::string& director, 
+  const std::string& title,
+  const std::string& director,
   const std::string& data)
 {
   Movie::Init(title, director, data);
@@ -22,7 +22,7 @@ Drama::Drama(std::istream& input)
 
 std::ostream& operator<<(std::ostream& out, const Drama& movie)
 {
-  out << std::left 
+  out << std::left
     << std::setw(Drama::kTitleDisplayWidth) << movie.title_
     << std::setw(Drama::kDirectorDisplayWidth) << movie.director_
     << std::setw(Drama::kYearDisplayWidth) << movie.year_;
@@ -59,7 +59,7 @@ void Drama::Populate(std::istream& input)
 
   boost::algorithm::trim(director);
   boost::algorithm::trim(title);
- 
+
   if(!input.fail()) {
     title_ = title;
     director_ = director;
@@ -68,7 +68,7 @@ void Drama::Populate(std::istream& input)
   validate_input();
 }
 
-// Sorted by director then title 
+// Sorted by director then title
 int Drama::compare(const Drama& lhs, const Drama& rhs)
 {
   int compare = lhs.director_.compare(rhs.director_);
@@ -79,7 +79,7 @@ int Drama::compare(const Drama& lhs, const Drama& rhs)
   return lhs.title_.compare(rhs.title_);
 }
 
-// Sorted by director then title 
+// Sorted by director then title
 bool Drama::operator<(const Movie& other) const
 {
   const Drama& o = static_cast<const Drama&>(other);
@@ -97,17 +97,4 @@ bool Drama::operator>(const Movie& other) const
     return true;
   else
     return false;
-}
-
-bool Drama::operator==(const Movie& other) const
-{
-  const Drama& o = static_cast<const Drama&>(other);
-  return (year_ == o.year_) 
-    && (director_.compare(o.director_) == 0)
-    && (title_.compare(o.title_) == 0);
-}
-
-bool Drama::operator!=(const Movie& other) const
-{
-  return !(*this == other);
 }

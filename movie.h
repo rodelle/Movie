@@ -38,8 +38,8 @@ public:
   // Sorted by title then director
   virtual bool operator<(const Movie&) const = 0;
   virtual bool operator>(const Movie&) const = 0;
-  virtual bool operator==(const Movie&) const = 0;
-  virtual bool operator!=(const Movie&) const = 0;
+  virtual bool operator==(const Movie&) const;
+  virtual bool operator!=(const Movie&) const;
 
   // getters
   std::string title() const;

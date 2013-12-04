@@ -35,9 +35,8 @@ public:
   // Sorted by title then date
   virtual bool operator<(const Movie&) const;
   virtual bool operator>(const Movie&) const;
-  virtual bool operator==(const Movie&) const;
-  virtual bool operator!=(const Movie&) const;
 
+private:
   static int compare(const Comedy&, const Comedy&);
 };
 

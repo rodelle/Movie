@@ -97,16 +97,3 @@ bool Comedy::operator>(const Movie& other) const
   else
     return false;
 }
-
-bool Comedy::operator==(const Movie& other) const
-{
-  const Comedy& o = static_cast<const Comedy&>(other);
-  return (year_ == o.year_)
-    && (director_.compare(o.director_) == 0)
-    && (title_.compare(o.title_) == 0);
-}
-
-bool Comedy::operator!=(const Movie& other) const
-{
-  return !(*this == other);
-}

@@ -119,6 +119,18 @@ Movie::~Movie()
 
 }
 
+bool Movie::operator==(const Movie& other) const
+{
+  return (year_ == other.year_)
+    && (director_.compare(other.director_) == 0)
+    && (title_.compare(other.title_) == 0);
+}
+
+bool Movie::operator!=(const Movie& other) const
+{
+  return !(*this == other);
+}
+
 std::string Movie::title() const
 { return title_; }
 
