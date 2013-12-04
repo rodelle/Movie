@@ -138,6 +138,7 @@ SUITE(ShowMovie_h)
 
     Action* action = new ShowMovies(store);
 
+    cout_redirect redirect;
     action->ExecuteAction(action_data);
   }
 }
@@ -170,7 +171,7 @@ SUITE(DisplayCustomerHistory_h)
     store.ProcessActions(transaction_data);
 
     Action* action = new DisplayCustomerHistory(store);
-
+    cout_redirect redirect;
     action->ExecuteAction(action_data);
   }
 }
