@@ -36,27 +36,24 @@ void MovieCollection::AddMovie(std::istream& input)
 
   movie->Init(input);
 
-  InventoryItem* item = this->search_in_hash(*movie);
+  InventoryItem* item = this->search_in_set(movieType, *movie);
 
-  if(item == NULL) { // movie does not exist in hash
+  if(item == NULL) { // movie does not exist in hash or set
     movie_list_.push_back(movie);
     inventory_list_.push_back(new InventoryItem(*movie));
     item = inventory_list_.back();
+    add_movie_to_set(movieType, item);
     add_movie_to_hash(item);
   } else {
     delete movie; // no longer needed
   }
 
   item->AddToInventory(kDefaultAddCount); // increase the existing stock
-  add_movie_to_set(movieType, item);
 }
 
 void MovieCollection::add_movie_to_set(const char movieType, InventoryItem* item)
 {
   movie_set_[movieType].insert(item);
-/*  for(MovieSet::iterator i = movie_set_[movieType].begin(); i != movie_set_[movieType].end(); ++i)
-    std::cout << "Tree Movie:  " << (*i)->movie() << std::endl;
-    */
 }
 
 void MovieCollection::add_movie_to_hash(InventoryItem* item)
