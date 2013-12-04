@@ -5,24 +5,27 @@
 #include <limits>
 
 #include "../inventoryitem.h"
+#include "../displaycustomerhistory.h"
 #include "../drama.h"
 #include "../movie.h"
 #include "../borrow.h"
 #include "../return.h"
 #include "../scustomer.h"
+#include "../showmovies.h"
+#include "../store.h"
 #include "../transaction.h"
 
 #include "test_helper.h"
 
 static const int kIntMin = std::numeric_limits<int>::min();
 
-namespace TransactionTestHelperFunctions 
+namespace TransactionTestHelperFunctions
 {
   bool CustomerContainsMovie(const StoreCustomer& customer, const Movie* movie)
   {
     typedef std::list<const Movie*> MovieContainer;
     MovieContainer movies = customer.GetMovies();
-    MovieContainer::iterator movie_iter = 
+    MovieContainer::iterator movie_iter =
       std::find(movies.begin(), movies.end(), movie);
     return (movie_iter != movies.end());
   }
@@ -32,15 +35,16 @@ struct DefaultData
 {
   DefaultData()
   {
+    std::stringstream mickey_mouse_data("1234 Mickey Mouse");
+    std::stringstream phillippe_data("Phillippe De Broca, King of Hearts, 1967");
+    std::stringstream schindler_data("D Steven Spielberg, Schindler's List, 1993");
+
     schindlers_list = new Drama();
-    std::istringstream schindlers_list_data("D Steven Spielberg, Schindler's List, 1993");
-    schindlers_list->Init(schindlers_list_data);
+    schindlers_list->Init(schindler_data);
 
     phillippe = new Drama();
-    std::istringstream phillippe_data("Phillippe De Broca, King of Hearts, 1967");
     phillippe->Init(phillippe_data);
 
-    std::istringstream mickey_mouse_data("1234 Mickey Mouse"); 
     mickey_mouse.Init(mickey_mouse_data);
   }
 
@@ -50,193 +54,124 @@ struct DefaultData
     delete phillippe;
   }
 
+  StoreCustomer mickey_mouse;
   Movie* schindlers_list;
   Movie* phillippe;
-
-  StoreCustomer mickey_mouse;
 };
 
-SUITE(Borrow_h) 
+SUITE(Borrow_h)
 {
-  TEST_FIXTURE(DefaultData, NotEnoughMovies)
-  {
-    InventoryItem item(*schindlers_list);
-
-    using namespace TransactionTestHelperFunctions;  
-
-    Transaction* transaction = new Borrow(mickey_mouse, item);
-
-    CHECK_EQUAL(0, item.GetInventoryCount());
-    CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
-
-    // should fail because there are 0 items available
-    bool transactionComplete = transaction->ExecuteTransaction();
-
-    CHECK(!transactionComplete);
-    CHECK_EQUAL(0, item.GetInventoryCount());
-    CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
-
-    // continues to fail
-    transactionComplete = transaction->ExecuteTransaction();
-
-    CHECK(!transactionComplete);
-    CHECK_EQUAL(0, item.GetInventoryCount());
-    CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
-
-    delete transaction;
-  } 
-
   TEST_FIXTURE(DefaultData, Default)
   {
-    InventoryItem item(*schindlers_list);
-    item.AddToInventory(10); 
+    std::istringstream mickey_data("1234 Mickey Mouse");
+    std::istringstream phillippe_data("D Phillippe De Broca, King of Hearts, 1967");
+    std::istringstream schindler_data("D Steven Spielberg, Schindler's List, 1993");
 
-    using namespace TransactionTestHelperFunctions;  
+    std::istringstream borrow_data("1234 D D Steven Spielberg, Schindler's List,");
 
-    Transaction* transaction = new Borrow(mickey_mouse, item);
+    Store store;
+    store.AddMovies(schindler_data);
+    store.AddMovies(phillippe_data);
+    store.AddCustomers(mickey_data);
 
-    CHECK_EQUAL(10, item.GetInventoryCount());
-    CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
+    Transaction* transaction = new Borrow(store);
 
-    bool transactionComplete = transaction->ExecuteTransaction();
-
+    bool transactionComplete = transaction->ExecuteAction(borrow_data);
     CHECK(transactionComplete);
-    CHECK_EQUAL(9, item.GetInventoryCount());
-    CHECK(CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
-
-    delete transaction;
-  }
-
-  TEST_FIXTURE(DefaultData, MultipleExecutions)
-  {
-    InventoryItem item(*schindlers_list);
-    item.AddToInventory(10); 
-
-    using namespace TransactionTestHelperFunctions;  
-
-    Transaction* transaction = new Borrow(mickey_mouse, item);
-
-    // Multiple transactions should have no effect after the first
-    bool transactionComplete = transaction->ExecuteTransaction(); // first transaction
-
-    CHECK(transactionComplete);
-    CHECK_EQUAL(9, item.GetInventoryCount());
-    CHECK(CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
-
-    transactionComplete = transaction->ExecuteTransaction(); // second transaction
-    
-    CHECK(!transactionComplete);
-    CHECK_EQUAL(9, item.GetInventoryCount());
-    CHECK(CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
-
-    transactionComplete = transaction->ExecuteTransaction(); // third transaction
-    
-    CHECK(!transactionComplete);
-    CHECK_EQUAL(9, item.GetInventoryCount());
-    CHECK(CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
-
-    delete transaction;
+    CHECK_EQUAL(9, transaction->item().GetInventoryCount());
+    CHECK_EQUAL("Schindler's List", transaction->item().movie().title());
+    CHECK_EQUAL("Mickey Mouse", transaction->customer().name());
   }
 }
 
-SUITE(Return_h) 
+SUITE(Return_h)
 {
   TEST_FIXTURE(DefaultData, Default)
   {
-    InventoryItem item(*schindlers_list);
-    item.AddToInventory(10); 
+    std::istringstream mickey_data("1234 Mickey Mouse");
+    std::istringstream phillippe_data("D Phillippe De Broca, King of Hearts, 1967");
+    std::istringstream schindler_data("D Steven Spielberg, Schindler's List, 1993");
 
-    using namespace TransactionTestHelperFunctions;  
+    std::istringstream borrow_data("1234 D D Steven Spielberg, Schindler's List,");
+    std::istringstream return_data("1234 D D Steven Spielberg, Schindler's List,");
 
-    Transaction* transaction = new Return(mickey_mouse, item);
-    mickey_mouse.CheckoutMovie(schindlers_list);
+    Store store;
+    store.AddMovies(schindler_data);
+    store.AddMovies(phillippe_data);
+    store.AddCustomers(mickey_data);
 
-    CHECK_EQUAL(10, item.GetInventoryCount());
-    CHECK(CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
+    Transaction* borrowAction = new Borrow(store);
+    Transaction* returnAction = new Return(store);
 
-    bool transactionComplete = transaction->ExecuteTransaction();
+    borrowAction->ExecuteAction(borrow_data);
+    CHECK_EQUAL(9, borrowAction->item().GetInventoryCount());
+    CHECK_EQUAL("Schindler's List", borrowAction->item().movie().title());
+    CHECK_EQUAL("Mickey Mouse", borrowAction->customer().name());
+
+    bool transactionComplete = returnAction->ExecuteAction(return_data);
 
     CHECK(transactionComplete);
-    CHECK_EQUAL(11, item.GetInventoryCount());
-    CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
-
-    delete transaction;
+    CHECK_EQUAL(10, returnAction->item().GetInventoryCount());
+    CHECK_EQUAL("Schindler's List", returnAction->item().movie().title());
+    CHECK_EQUAL("Mickey Mouse", returnAction->customer().name());
   }
+}
 
-  TEST_FIXTURE(DefaultData, UserDoesNotHaveMovie)
+/*
+SUITE(ShowMovie_h)
+{
+  TEST(Default)
   {
-    InventoryItem item(*schindlers_list);
+     std::istringstream movie_data(
+       "D Barry Levinson, Good Morning Vietnam, 1988\n \
+       D Gus Van Sant, Good Will Hunting, 2000\n \
+       F Woody Allen, Annie Hall, 1977\n \
+       D Phillippe De Broca, King of Hearts, 1967\n \
+       C George Cukor, The Philadelphia Story, Katherine Hepburn 5 1940\n \
+       C Stanley Kubrick, A Clockwork Orange, Malcolm McDowell 2 1971\n \
+       F Nora Ephron, You've Got Mail, 1998\n \
+     ");
 
-    using namespace TransactionTestHelperFunctions;  
+    std::istringstream action_data("1234 D D Steven Spielberg, Schindler's List,");
 
-    Transaction* transaction = new Return(mickey_mouse, item);
+    Store store;
+    store.AddMovies(movie_data);
 
-    CHECK_EQUAL(0, item.GetInventoryCount());
-    CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
+    Action* action = new ShowMovies(store);
 
-    // should fail because user never rented the movie 
-    bool transactionComplete = transaction->ExecuteTransaction();
-
-    CHECK(!transactionComplete);
-    CHECK_EQUAL(0, item.GetInventoryCount());
-    CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
-
-    // continues to fail
-    transactionComplete = transaction->ExecuteTransaction();
-
-    CHECK(!transactionComplete);
-    CHECK_EQUAL(0, item.GetInventoryCount());
-    CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
-
-    delete transaction;
-  } 
-
-  TEST_FIXTURE(DefaultData, MultipleExecutions)
+    action->ExecuteAction(action_data);
+  }
+}
+*/
+SUITE(DisplayCustomerHistory_h)
+{
+  TEST(DisplayCustomerHistory_Default)
   {
-    InventoryItem item(*schindlers_list);
-    item.AddToInventory(10); 
+     std::istringstream movie_data(
+      "D Barry Levinson, Good Morning Vietnam, 1988\n \
+       D Gus Van Sant, Good Will Hunting, 2000\n \
+       F Woody Allen, Annie Hall, 1977\n \
+       D Phillippe De Broca, King of Hearts, 1967\n \
+       C George Cukor, The Philadelphia Story, Katherine Hepburn 5 1940\n \
+       C Stanley Kubrick, A Clockwork Orange, Malcolm McDowell 2 1971\n \
+       F Nora Ephron, You've Got Mail, 1998\n \
+     ");
+    std::stringstream customer_data("1000 Mickey Mouse");
+    std::istringstream transaction_data(
+      "B 1000 D F You've Got Mail, 1998\n \
+       B 1000 D D Barry Levinson, Good Morning Vietnam,\n \
+       R 1000 D D Barry Levinson, Good Morning Vietnam,\n \
+      ");
 
-    using namespace TransactionTestHelperFunctions;  
+    std::istringstream action_data("1000");
 
-    mickey_mouse.CheckoutMovie(schindlers_list);
-    Transaction* transaction = new Return(mickey_mouse, item);
+    Store store;
+    store.AddMovies(movie_data);
+    store.AddCustomers(customer_data);
+    store.ProcessTransactions(transaction_data);
 
-    CHECK_EQUAL(10, item.GetInventoryCount());
-    CHECK(CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
+    Action* action = new DisplayCustomerHistory(store);
 
-    bool transactionComplete = transaction->ExecuteTransaction(); // first transaction
-
-    CHECK(transactionComplete);
-    CHECK_EQUAL(11, item.GetInventoryCount());
-    CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
-
-    // Multiple transactions should have no effect after the first
-    transactionComplete = transaction->ExecuteTransaction(); // second transaction
-    
-    CHECK(!transactionComplete);
-    CHECK_EQUAL(11, item.GetInventoryCount());
-    CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
-
-    transactionComplete = transaction->ExecuteTransaction(); // third transaction
-    
-    CHECK(!transactionComplete);
-    CHECK_EQUAL(11, item.GetInventoryCount());
-    CHECK(!CustomerContainsMovie(mickey_mouse, schindlers_list));
-    CHECK(!CustomerContainsMovie(mickey_mouse, phillippe));
-
-    delete transaction;
+    action->ExecuteAction(action_data);
   }
 }

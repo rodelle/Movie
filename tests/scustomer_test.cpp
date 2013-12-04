@@ -10,19 +10,19 @@
 
 static const int kIntMin = std::numeric_limits<int>::min();
 
-namespace StoreCustomerTestFunctions 
+namespace StoreCustomerTestFunctions
 {
   bool CustomerContainsMovie(const StoreCustomer& customer, const Movie* movie)
   {
     typedef std::list<const Movie*> MovieContainer;
     MovieContainer movies = customer.GetMovies();
-    MovieContainer::iterator movie_iter = 
+    MovieContainer::iterator movie_iter =
       std::find(movies.begin(), movies.end(), movie);
     return (movie_iter != movies.end());
   }
 }
 
-SUITE(StoreCustomer_h) 
+SUITE(StoreCustomer_h)
 {
   TEST(AddMovie_default)
   {
@@ -34,14 +34,14 @@ SUITE(StoreCustomer_h)
     Movie* phillippe = new Drama();
     phillippe->Init(phillippe_data);
 
-    std::istringstream customer_data("1234 Mickey Mouse"); 
+    std::istringstream customer_data("1234 Mickey Mouse");
     StoreCustomer customer;
     customer.Init(customer_data);
 
     customer.CheckoutMovie(schindlers_list);
     customer.CheckoutMovie(phillippe);
 
-    using namespace StoreCustomerTestFunctions;  
+    using namespace StoreCustomerTestFunctions;
     CHECK(CustomerContainsMovie(customer, schindlers_list));
     CHECK(CustomerContainsMovie(customer, phillippe));
 
@@ -52,11 +52,14 @@ SUITE(StoreCustomer_h)
     customer.ReturnMovie(phillippe);
     CHECK(!CustomerContainsMovie(customer, schindlers_list));
     CHECK(!CustomerContainsMovie(customer, phillippe));
+
+    delete schindlers_list;
+    delete phillippe;
   }
 
   TEST(Construction_default)
   {
-    std::istringstream default_data("1234 Mickey Mouse"); 
+    std::istringstream default_data("1234 Mickey Mouse");
     StoreCustomer customer;
     customer.Init(default_data);
 
@@ -66,17 +69,17 @@ SUITE(StoreCustomer_h)
 
   TEST(InvalidId)
   {
-    std::istringstream id_too_small("0 Mickey Mouse"); 
+    std::istringstream id_too_small("0 Mickey Mouse");
     StoreCustomer customer;
     customer.Init(id_too_small);
 
     CHECK_EQUAL(kIntMin, customer.id());
     CHECK_EQUAL("Mickey Mouse", customer.name());
 
-    std::istringstream id_too_large("12345 Mickey Mouse"); 
+    std::istringstream id_too_large("12345 Mickey Mouse");
     customer.Init(id_too_large);
 
     CHECK_EQUAL(kIntMin, customer.id());
-    CHECK_EQUAL("Mickey Mouse", customer.name());  
+    CHECK_EQUAL("Mickey Mouse", customer.name());
   }
 }

@@ -6,7 +6,7 @@
 #include "../store.h"
 #include "test_helper.h"
 
-SUITE(Store_h) 
+SUITE(Store_h)
 {
   TEST(Customers_default)
   {
@@ -39,32 +39,32 @@ SUITE(Store_h)
       C Stanley Kubrick, A Clockwork Orange, Malcolm McDowell 2 1971\n \
       F Nora Ephron, You've Got Mail, 1998\n \
     ");
-  
+
     typedef std::istringstream iss;
     typedef std::pair<std::string, std::string> SearchStream;
     std::vector<SearchStream> search_data;
 
     search_data.push_back(SearchStream(
-      "You've Got Mail", 
-      "D F You've Got Mail, 1998"));
+      "You've Got Mail",
+      "F You've Got Mail, 1998"));
     search_data.push_back(SearchStream(
-      "Good Morning Vietnam", 
-      "D D Barry Levinson, Good Morning Vietnam,"));
+      "Good Morning Vietnam",
+      "D Barry Levinson, Good Morning Vietnam,"));
     search_data.push_back(SearchStream(
-      "The Philadelphia Story", 
-      "D C 5 1940 Katherine Hepburn"));
+      "The Philadelphia Story",
+      "C 5 1940 Katherine Hepburn"));
     search_data.push_back(SearchStream(
-      "A Clockwork Orange", 
-      "D C 2 1971 Malcolm McDowell"));
+      "A Clockwork Orange",
+      "C 2 1971 Malcolm McDowell"));
     search_data.push_back(SearchStream(
-      "Annie Hall", 
-      "D F Annie Hall, 1977"));
+      "Annie Hall",
+      "F Annie Hall, 1977"));
     search_data.push_back(SearchStream(
-      "Good Will Hunting", 
-      "D D Gus Van Sant, Good Will Hunting,"));
+      "Good Will Hunting",
+      "D Gus Van Sant, Good Will Hunting,"));
     search_data.push_back(SearchStream(
-      "King of Hearts", 
-      "D D Phillippe De Broca, King of Hearts,"));
+      "King of Hearts",
+      "D Phillippe De Broca, King of Hearts,"));
 
     Store store;
 
@@ -76,9 +76,9 @@ SUITE(Store_h)
       std::string title = i->first;
       std::istringstream search_stream(i->second);
 
-      std::string return_title = mc.GetMovie(search_stream)->movie().title(); 
+      std::string return_title = mc.GetMovie(search_stream)->movie().title();
 
-      CHECK_EQUAL(title, return_title); 
+      CHECK_EQUAL(title, return_title);
     }
   }
 }

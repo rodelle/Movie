@@ -12,19 +12,19 @@ struct MovieCollectionMovieData
   {
     SetData(
       data_pirates_of_the_caribbean, "F Gore Verbinski, Pirates of the Caribbean, 2003",
-      search_pirates_of_the_caribbean, "D F Pirates of the Caribbean, 2003");
+      search_pirates_of_the_caribbean, "F Pirates of the Caribbean, 2003");
 
     SetData(
       data_schindlers_list,"D Steven Spielberg, Schindler's List, 1993",
-      search_schindlers_list, "D D Steven Spielberg, Schindler's List,");
+      search_schindlers_list, "D Steven Spielberg, Schindler's List,");
 
     SetData(
       data_holiday_khepburn, "C George Cukor, Holiday, Katherine Hepburn 9 1938",
-      search_holiday_khepburn, "D C 9 1938 Katherine Hepburn");
+      search_holiday_khepburn, "C 9 1938 Katherine Hepburn");
 
     SetData(
       data_holiday_cgrant, "C George Cukor, Holiday, Cary Grant 9 1938",
-      search_holiday_cgrant, "D C 9 1938 Cary Grant");
+      search_holiday_cgrant, "C 9 1938 Cary Grant");
   }
 
   std::istringstream data_pirates_of_the_caribbean;
@@ -43,17 +43,17 @@ private:
     std::istringstream& movie_data,
     const std::string& data_string,
     std::istringstream& search_data,
-    const std::string& search_string) 
+    const std::string& search_string)
   {
-    movie_data.str(data_string); 
-    search_data.str(search_string); 
+    movie_data.str(data_string);
+    search_data.str(search_string);
   }
-  
+
 };
 
-SUITE(MCollection_h) 
+SUITE(MCollection_h)
 {
-  TEST_FIXTURE(MovieCollectionMovieData, AddMovie_default) 
+  TEST_FIXTURE(MovieCollectionMovieData, AddMovie_default)
   {
     MovieCollection movies;
     movies.AddMovie(data_pirates_of_the_caribbean);
@@ -66,7 +66,7 @@ SUITE(MCollection_h)
     CHECK_EQUAL(2003, item->movie().year());
   }
 
-  TEST_FIXTURE(MovieCollectionMovieData, MultipleMovieTypes) 
+  TEST_FIXTURE(MovieCollectionMovieData, MultipleMovieTypes)
   {
     MovieCollection movies;
     movies.AddMovie(data_pirates_of_the_caribbean);
@@ -83,10 +83,10 @@ SUITE(MCollection_h)
     CHECK_EQUAL(10, item->GetInventoryCount('D'));
     CHECK_EQUAL("Schindler's List", item->movie().title());
     CHECK_EQUAL("Steven Spielberg", item->movie().director());
-    CHECK_EQUAL(1993, item->movie().year());  
+    CHECK_EQUAL(1993, item->movie().year());
   }
 
-  TEST_FIXTURE(MovieCollectionMovieData, SameHashDifferentSortCriteria) 
+  TEST_FIXTURE(MovieCollectionMovieData, SameHashDifferentSortCriteria)
   {
     MovieCollection movies;
     movies.AddMovie(data_holiday_khepburn);
@@ -100,7 +100,7 @@ SUITE(MCollection_h)
 
     movies.AddMovie(data_holiday_cgrant);
     item = movies.GetMovie(search_holiday_cgrant);
-    
+
 /*
     CHECK(item != NULL);
     CHECK_EQUAL(20, item->GetInventoryCount('D'));
