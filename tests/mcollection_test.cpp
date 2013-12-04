@@ -101,12 +101,10 @@ SUITE(MCollection_h)
     movies.AddMovie(data_holiday_cgrant);
     item = movies.GetMovie(search_holiday_cgrant);
 
-/*
     CHECK(item != NULL);
-    CHECK_EQUAL(20, item->GetInventoryCount('D'));
+    CHECK_EQUAL(10, item->GetInventoryCount('D'));
     CHECK_EQUAL("Holiday", item->movie().title());
     CHECK_EQUAL("George Cukor", item->movie().director());
     CHECK_EQUAL(1938, item->movie().year());
-*/
   }
 }
