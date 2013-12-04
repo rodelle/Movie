@@ -19,13 +19,13 @@ src = movie.cpp \
 			scustomer.cpp \
 			ccollection.cpp \
 			afactory.cpp \
+			action.cpp \
 			transaction.cpp \
 			borrow.cpp \
 			return.cpp \
-			store.cpp \
-			saction.cpp \
 			showmovies.cpp \
 			displaycustomerhistory.cpp \
+			store.cpp \
 
 test_src = test_main.cpp \
 					 test_helper.cpp \
@@ -42,7 +42,6 @@ test_src = test_main.cpp \
 					 afactory_test.cpp \
 					 transaction_test.cpp \
 					 store_test.cpp \
-					 storeaction_test.cpp \
 
 objects = $(src:%.cpp=$(OBJ_DIR)/%.o)
 test_objects = $(test_src:%.cpp=$(OBJ_DIR)/%.o)
