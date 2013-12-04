@@ -42,7 +42,8 @@ StoreCustomer* CustomerCollection::search_in_hash(const int id) const
   CustomerHash::const_iterator result = customer_hash_.find(id);
 
   if(result != customer_hash_.end())
-    return result->second;
+    //return result->second;
+    return *result;
 
   return NULL;
 }
@@ -50,6 +51,6 @@ StoreCustomer* CustomerCollection::search_in_hash(const int id) const
 void CustomerCollection::add_to_hash(StoreCustomer* customer)
 {
   std::pair<int, StoreCustomer*> hash_element(customer->id(), customer);
-  customer_hash_.insert(hash_element);
+  //customer_hash_.insert(hash_element);
+  customer_hash_.insert(customer->id(), customer);
 }
-
