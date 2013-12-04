@@ -15,8 +15,8 @@ const int Classic::kDefaultMonth = 1;
 const std::string Classic::kDefaultActor = "";
 
 Classic::Classic(
-  const std::string& title, 
-  const std::string& director, 
+  const std::string& title,
+  const std::string& director,
   const std::string& data)
 {
   Movie::Init(title, director, data);
@@ -30,8 +30,8 @@ Classic::Classic(std::istream& input)
 void Classic::validate_input()
 {
   Movie::validate_input();
-  if(month_ < 1 || month_ > 12) 
-   month_ = kDefaultMonth; 
+  if(month_ < 1 || month_ > 12)
+   month_ = kDefaultMonth;
 }
 
 void Classic::parse_additional_data(const std::string& additional_data)
@@ -65,17 +65,17 @@ void Classic::parse_additional_data(const std::string& additional_data)
 // Prints the table headers to view the movie data in a table format
 void Classic::PrintTableHeader(std::ostream& out) const
 {
-  out << std::left 
+  out << std::left
     << std::setw(kTitleDisplayWidth) << "TITLE"
-    << std::setw(kDirectorDisplayWidth) << "DIRECTOR" 
-    << std::setw(kMonthDisplayWidth) << "MONTH" 
-    << std::setw(kYearDisplayWidth) << "YEAR" 
-    << "MAJOR ACTOR"; 
+    << std::setw(kDirectorDisplayWidth) << "DIRECTOR"
+    << std::setw(kMonthDisplayWidth) << "MO "
+    << std::setw(kYearDisplayWidth) << "YEAR"
+    << "MAJOR ACTOR";
 }
 
 std::ostream& operator<<(std::ostream& out, const Classic& movie)
 {
-  out << std::left 
+  out << std::left
     << std::setw(Classic::kTitleDisplayWidth) << movie.title_
     << std::setw(Classic::kDirectorDisplayWidth) << movie.director_
     << std::setw(Classic::kMonthDisplayWidth) << movie.month_
@@ -130,12 +130,12 @@ void Classic::Populate(std::istream& input)
   validate_input();
 }
 
-// Sorted by year, month, then famous actor 
+// Sorted by year, month, then famous actor
 int Classic::compare(const Classic& lhs, const Classic& rhs)
 {
   if(lhs.year_ - rhs.year_ != 0)
     return lhs.year_ - rhs.year_;
-  
+
   else if(lhs.month_ - rhs.month_ != 0)
     return lhs.month_ - rhs.month_;
 
@@ -143,7 +143,7 @@ int Classic::compare(const Classic& lhs, const Classic& rhs)
     return lhs.actor_.compare(rhs.actor_);
 }
 
-// Sorted by year, month, then famous actor 
+// Sorted by year, month, then famous actor
 bool Classic::operator<(const Movie& other) const
 {
   const Classic& o = static_cast<const Classic&>(other);
@@ -167,7 +167,9 @@ bool Classic::operator>(const Movie& other) const
 bool Classic::operator==(const Movie& other) const
 {
   const Classic& o = static_cast<const Classic&>(other);
-  return (year_ == o.year_) 
+  return (year_ == o.year_)
+    && (month_ == o.month_)
+    && (actor_.compare(o.actor_) == 0)
     && (director_.compare(o.director_) == 0)
     && (title_.compare(o.title_) == 0);
 }
@@ -185,10 +187,10 @@ int Classic::month() const
 
 void Classic::print(std::ostream& out) const
 {
-  out << std::left 
-    << std::setw(Classic::kTitleDisplayWidth) << title_
-    << std::setw(Classic::kDirectorDisplayWidth) << director_
-    << std::setw(Classic::kMonthDisplayWidth) << month_
+  Movie::print(out);
+  out << std::right
+    << std::setw(Classic::kMonthDisplayWidth) << month_ << " "
+    << std::left
     << std::setw(Classic::kYearDisplayWidth) << year_
     << actor_;
 }

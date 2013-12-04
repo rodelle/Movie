@@ -7,10 +7,10 @@
 #include <boost/lexical_cast.hpp>
 
 #include "movie.h"
- 
-const int Movie::kTitleDisplayWidth = 25;
-const int Movie::kDirectorDisplayWidth = 20;
-const int Movie::kYearDisplayWidth = 4;
+
+const int Movie::kTitleDisplayWidth = 22;
+const int Movie::kDirectorDisplayWidth = 16;
+const int Movie::kYearDisplayWidth = 5;
 
 const int Movie::kMinYear = 1800;
 const int Movie::kMaxYear = 2100;
@@ -33,16 +33,16 @@ Movie::Movie(std::istream& input)
 }
 
 Movie::Movie(
-  const std::string& title, 
-  const std::string& director, 
+  const std::string& title,
+  const std::string& director,
   const std::string& data)
 {
   Movie::Init(title, director, data);
 }
 
 void Movie::Init(
-  const std::string& title, 
-  const std::string& director, 
+  const std::string& title,
+  const std::string& director,
   const std::string& additional_data)
 {
   title_ = title;
@@ -108,9 +108,11 @@ std::ostream& operator<<(std::ostream& out, const Movie& movie)
 
 void Movie::print(std::ostream& out) const
 {
-  out << std::left 
-    << std::setw(Movie::kTitleDisplayWidth) << title_
-    << std::setw(Movie::kDirectorDisplayWidth) << director_
+  out << std::left
+    << std::setw(Movie::kTitleDisplayWidth)
+    << title_.substr(0, kTitleDisplayWidth - 1)
+    << std::setw(Movie::kDirectorDisplayWidth)
+    << director_.substr(0, kDirectorDisplayWidth - 1)
     << std::setw(Movie::kYearDisplayWidth) << year_;
 }
 
