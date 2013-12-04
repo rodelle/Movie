@@ -26,6 +26,8 @@ public:
 private:
   static Action* MakeBorrow(Store&);
   static Action* MakeReturn(Store&);
+  static Action* MakeDisplayCustomerHistory(Store&);
+  static Action* MakeShowMovies(Store&);
 
   struct CharHash
   {
@@ -35,10 +37,8 @@ private:
   static const int kNumActionTypes;
   typedef Action* (*ActionBuilder)(Store&);
   typedef std::tr1::unordered_map<char, ActionBuilder, CharHash> BuilderHash;
-  typedef std::tr1::unordered_map<char, Action*, CharHash> ActionHash;
 
   BuilderHash action_builder_; // hash of functions to create new movies
-  ActionHash action_instance_; // hash of a single movie instance
 };
 
 #endif
