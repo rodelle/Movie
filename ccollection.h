@@ -9,7 +9,7 @@
 #include <tr1/unordered_map>
 #include <vector>
 
-#include "customer.h"
+#include "scustomer.h"
 
 class CustomerCollection {
 public:
@@ -21,7 +21,7 @@ public:
   // format: id, name name
   void AddCustomer(std::istream&);
 
-  Customer* GetCustomer(const int) const;
+  StoreCustomer* GetCustomer(const int) const;
 
 private:
   struct IdHash
@@ -30,17 +30,17 @@ private:
   };
 
   typedef std::tr1::unordered_map
-    <int, Customer*, IdHash>
+    <int, StoreCustomer*, IdHash>
     CustomerHash;
 
-  std::vector<const Customer*> customer_list_; // holds the raw Customer data
+  std::vector<const StoreCustomer*> customer_list_; // holds the raw Customer data
   CustomerHash customer_hash_; // provides constant time lookup
 
   // Searches for the given customer in the hash list of customers
   // Returns the InventoryItem is found, otherwise returns NULL
-  Customer* search_in_hash(const int) const;
+  StoreCustomer* search_in_hash(const int) const;
 
-  void add_to_hash(Customer*);
+  void add_to_hash(StoreCustomer*);
 };
 
 #endif

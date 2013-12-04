@@ -9,14 +9,14 @@ CustomerCollection::CustomerCollection()
 
 CustomerCollection::~CustomerCollection()
 {
-  std::vector<const Customer*>::iterator i;
+  std::vector<const StoreCustomer*>::iterator i;
   for(i = customer_list_.begin(); i != customer_list_.end(); ++i)
     delete *i;
 }
 
 void CustomerCollection::AddCustomer(std::istream& input)
 {
-  Customer* customer = new Customer();
+  StoreCustomer* customer = new StoreCustomer();
   customer->Init(input);
 
   if(this->search_in_hash(customer->id()) == NULL) { // customer does not exist
@@ -25,17 +25,17 @@ void CustomerCollection::AddCustomer(std::istream& input)
   }
 }
 
-Customer* CustomerCollection::GetCustomer(const int id) const
+StoreCustomer* CustomerCollection::GetCustomer(const int id) const
 {
   return this->search_in_hash(id);
 }
 
 std::size_t CustomerCollection::IdHash::operator() (const int id) const
 {
-  return id - Customer::kMinIdNumber;
+  return id;
 }
 
-Customer* CustomerCollection::search_in_hash(const int id) const
+StoreCustomer* CustomerCollection::search_in_hash(const int id) const
 {
   CustomerHash::const_iterator result = customer_hash_.find(id);
 
@@ -45,9 +45,9 @@ Customer* CustomerCollection::search_in_hash(const int id) const
   return NULL;
 }
 
-void CustomerCollection::add_to_hash(Customer* customer)
+void CustomerCollection::add_to_hash(StoreCustomer* customer)
 {
-  std::pair<int, Customer*> hash_element(customer->id(), customer);
+  std::pair<int, StoreCustomer*> hash_element(customer->id(), customer);
   customer_hash_.insert(hash_element);
 }
 
