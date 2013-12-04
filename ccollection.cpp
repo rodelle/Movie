@@ -22,6 +22,8 @@ void CustomerCollection::AddCustomer(std::istream& input)
   if(this->search_in_hash(customer->id()) == NULL) { // customer does not exist
     customer_list_.push_back(customer);
     this->add_to_hash(customer);
+  } else {
+    delete customer; // no longer needed
   }
 }
 
