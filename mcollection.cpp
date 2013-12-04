@@ -29,8 +29,10 @@ void MovieCollection::AddMovie(std::istream& input)
 
   Movie* movie = factory_.Create(movieType);
 
-  if(movie == NULL)
+  if(movie == NULL) {
+    input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return;
+  }
 
   movie->Init(input);
 
