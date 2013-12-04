@@ -213,7 +213,7 @@ SUITE(Classic_h)
     Classic movie;
 
     std::string expected_output =
-      "TITLE   DIRECTOR   MONTH  YEAR  MAJOR ACTOR";
+      "TITLE   DIRECTOR   MO  YEAR  MAJOR ACTOR";
 
     cout_redirect redirect;
     movie.PrintTableHeader();

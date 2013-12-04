@@ -28,7 +28,7 @@ SUITE(InventoryItem_h)
   TEST_FIXTURE(ZeroItems, GetMovie)
   {
     std::string expected_output =
-      "Jurassic Park   Steven Spielberg   1993";
+      "Jurassic Park   Steven Spielber   1993";
 
     cout_redirect redirect;
     std::cout << inventory.movie();
