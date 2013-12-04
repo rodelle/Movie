@@ -14,7 +14,7 @@ Borrow::~Borrow()
 
 bool Borrow::commit_transaction()
 {
-  if(item_->GetInventoryCount() <= 0) // not enough movies exist
+  if(item_->GetRemaining() <= 0) // not enough movies exist
     return false;
 
   item_->RemoveFromInventory(1);

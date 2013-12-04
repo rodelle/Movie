@@ -26,11 +26,16 @@ public:
   // remaining movies will be increased by the given amount.
   // @param mediaType - the type of media being added to the inventory
   // @param amount - the number of items to add to the inventory
-  void AddToInventory(const int = 1, const char = kDefaultMediaType);
+  void AddToTotal(const int = 1, const char = kDefaultMediaType);
+  void AddToRemaining(const int = 1, const char = kDefaultMediaType);
 
   // Returns how many movies of the given type are remaining
   // @param mediaType - the media type inventory count to return
-  int GetInventoryCount(const char = kDefaultMediaType) const;
+  int GetRemaining(const char = kDefaultMediaType) const;
+
+  // Returns the total number of movies owned by the store
+  // @param mediaType - the media type inventory count to return
+  int GetTotal(const char = kDefaultMediaType) const;
 
   // Returns whether there are enough items remaining to fulfill the request
   // order size
@@ -46,14 +51,17 @@ public:
   static const char* kDefaultMediaName;
 
 private:
-  // Returns the hash value for a char
-  struct CharHash
-  {
+  struct Inventory {
+    int total;
+    int remaining;
+  };
+
+  struct CharHash { // Returns the hash value for a char
     std::size_t operator() (const char) const;
   };
-  typedef std::tr1::unordered_map<char, int, CharHash> MediaInventory;
+  typedef std::tr1::unordered_map<char, Inventory, CharHash> MediaInventory;
 
-  const Movie& movie_; // the movie
+  const Movie& movie_;
   MediaInventory inventory_; // holds the available number of movies of a type
 };
 

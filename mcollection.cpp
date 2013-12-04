@@ -48,7 +48,7 @@ void MovieCollection::AddMovie(std::istream& input)
     delete movie; // no longer needed
   }
 
-  item->AddToInventory(kDefaultAddCount); // increase the existing stock
+  item->AddToTotal(kDefaultAddCount); // increase the existing stock
 }
 
 void MovieCollection::add_movie_to_set(const char movieType, InventoryItem* item)

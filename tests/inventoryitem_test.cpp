@@ -42,7 +42,7 @@ SUITE(InventoryItem_h)
 
   TEST_FIXTURE(ZeroItems, RemoveFromInventory_default)
   {
-    inventory.AddToInventory(10); // 10 remaining
+    inventory.AddToTotal(10); // 10 remaining
 
     CHECK(!inventory.Contains(11));
     CHECK(inventory.Contains(10));
@@ -52,40 +52,19 @@ SUITE(InventoryItem_h)
     if(inventory.Contains(3))
       inventory.RemoveFromInventory(3); // 7 remaining
 
-    CHECK(inventory.GetInventoryCount() == 7);
+    CHECK(inventory.GetRemaining() == 7);
     CHECK(!inventory.Contains(10));
     CHECK(!inventory.Contains(8));
     CHECK(inventory.Contains(7));
     CHECK(inventory.Contains());
 
     if(inventory.Contains())
-      inventory.RemoveFromInventory(); // 6 remainint
+      inventory.RemoveFromInventory(); // 6 remaining
 
     CHECK(!inventory.Contains(10));
     CHECK(!inventory.Contains(7));
     CHECK(inventory.Contains(6));
     CHECK(inventory.Contains());
- }
-
-  TEST_FIXTURE(ZeroItems, AddToInventory)
-  {
-    // adding previously non-existent type
-    inventory.AddToInventory();
-    CHECK(inventory.GetInventoryCount() == 1);
-    CHECK(inventory.GetInventoryCount('b') == 0);
-
-    inventory.AddToInventory();
-    CHECK(inventory.GetInventoryCount() == 2);
-    CHECK(inventory.GetInventoryCount('b') == 0);
-
-    inventory.AddToInventory(5);
-    CHECK(inventory.GetInventoryCount() == 7);
-    CHECK(inventory.GetInventoryCount('b') == 0);
-
-    // adding non-existent type, non-default amount
-    inventory.AddToInventory(5, 'b');
-    CHECK(inventory.GetInventoryCount() == 7);
-    CHECK(inventory.GetInventoryCount('b') == 5);
   }
 
   TEST_FIXTURE(ZeroItems, Contains_ZeroItems)

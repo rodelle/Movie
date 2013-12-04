@@ -60,7 +60,7 @@ SUITE(MCollection_h)
 
     InventoryItem* item = movies.GetMovie(search_pirates_of_the_caribbean);
 
-    CHECK_EQUAL(10, item->GetInventoryCount('D'));
+    CHECK_EQUAL(10, item->GetRemaining('D'));
     CHECK_EQUAL("Pirates of the Caribbean", item->movie().title());
     CHECK_EQUAL("Gore Verbinski", item->movie().director());
     CHECK_EQUAL(2003, item->movie().year());
@@ -74,13 +74,13 @@ SUITE(MCollection_h)
 
     InventoryItem* item = movies.GetMovie(search_pirates_of_the_caribbean);
 
-    CHECK_EQUAL(10, item->GetInventoryCount('D'));
+    CHECK_EQUAL(10, item->GetRemaining('D'));
     CHECK_EQUAL("Pirates of the Caribbean", item->movie().title());
     CHECK_EQUAL("Gore Verbinski", item->movie().director());
     CHECK_EQUAL(2003, item->movie().year());
 
     item = movies.GetMovie(search_schindlers_list);
-    CHECK_EQUAL(10, item->GetInventoryCount('D'));
+    CHECK_EQUAL(10, item->GetRemaining('D'));
     CHECK_EQUAL("Schindler's List", item->movie().title());
     CHECK_EQUAL("Steven Spielberg", item->movie().director());
     CHECK_EQUAL(1993, item->movie().year());
@@ -93,7 +93,7 @@ SUITE(MCollection_h)
 
     InventoryItem* item = movies.GetMovie(search_holiday_khepburn);
 
-    CHECK_EQUAL(10, item->GetInventoryCount('D'));
+    CHECK_EQUAL(10, item->GetRemaining('D'));
     CHECK_EQUAL("Holiday", item->movie().title());
     CHECK_EQUAL("George Cukor", item->movie().director());
     CHECK_EQUAL(1938, item->movie().year());
@@ -102,7 +102,7 @@ SUITE(MCollection_h)
     item = movies.GetMovie(search_holiday_cgrant);
 
     CHECK(item != NULL);
-    CHECK_EQUAL(10, item->GetInventoryCount('D'));
+    CHECK_EQUAL(10, item->GetRemaining('D'));
     CHECK_EQUAL("Holiday", item->movie().title());
     CHECK_EQUAL("George Cukor", item->movie().director());
     CHECK_EQUAL(1938, item->movie().year());

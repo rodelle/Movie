@@ -78,7 +78,7 @@ SUITE(Borrow_h)
 
     bool transactionComplete = transaction->ExecuteAction(borrow_data);
     CHECK(transactionComplete);
-    CHECK_EQUAL(9, transaction->item().GetInventoryCount());
+    CHECK_EQUAL(9, transaction->item().GetRemaining());
     CHECK_EQUAL("Schindler's List", transaction->item().movie().title());
     CHECK_EQUAL("Mickey Mouse", transaction->customer().name());
   }
@@ -104,14 +104,14 @@ SUITE(Return_h)
     Transaction* returnAction = new Return(store);
 
     borrowAction->ExecuteAction(borrow_data);
-    CHECK_EQUAL(9, borrowAction->item().GetInventoryCount());
+    CHECK_EQUAL(9, borrowAction->item().GetRemaining());
     CHECK_EQUAL("Schindler's List", borrowAction->item().movie().title());
     CHECK_EQUAL("Mickey Mouse", borrowAction->customer().name());
 
     bool transactionComplete = returnAction->ExecuteAction(return_data);
 
     CHECK(transactionComplete);
-    CHECK_EQUAL(10, returnAction->item().GetInventoryCount());
+    CHECK_EQUAL(10, returnAction->item().GetRemaining());
     CHECK_EQUAL("Schindler's List", returnAction->item().movie().title());
     CHECK_EQUAL("Mickey Mouse", returnAction->customer().name());
   }

@@ -57,9 +57,12 @@ void ShowMovies::print_table_header(const InventoryItem& item) const
 
 void ShowMovies::print_movie_info(const InventoryItem& item) const
 {
+  int remaining = item.GetRemaining();
+  int total = item.GetTotal();
+
   std::cout << std::left
-    << std::setw(kDvdCountDisplayWidth) << item.GetInventoryCount()
-    << std::setw(kDvdCountDisplayWidth) << 5
+    << std::setw(kDvdCountDisplayWidth) << total
+    << std::setw(kDvdCountDisplayWidth) << total - remaining
     << std::setw(kMovieDisplayWidth) << item.movie()
     << std::endl;
 }
