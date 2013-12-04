@@ -40,12 +40,9 @@ HashTable::const_iterator HashTable::find(const K& key) const
   return data_[hash];
 }
 
-#include <iostream>
-
 // inserts the element into the hash table
 void HashTable::insert(const K& key, const V& value)
 {
-  std::cout << "Inserting!\n";
   std::size_t hash = calculate_hash(key);
 
   if(data_[hash] != NULL) // already exists
