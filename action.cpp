@@ -9,10 +9,9 @@ Action::Action(Store& store)
 Action::~Action()
 {}
 
-
 std::ostream& operator<<(std::ostream& out, const Action& transaction)
 {
-  out << transaction.name_
+  out << transaction.name_;
   return out;
 }
 
