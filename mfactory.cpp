@@ -34,8 +34,8 @@ Movie* MovieFactory::Create(const char movieType) const
   if(movie_builder_.count(movieType) == 1) {
     MovieBuilder movieBuilder = movie_builder_.find(movieType)->second;
     return movieBuilder();
-  } 
-  
+  }
+
   return NULL; // movie type does not exist
 }
 
@@ -43,7 +43,7 @@ Movie* MovieFactory::InstanceOf(const char movieType) const
 {
   if(movie_instance_.count(movieType) == 1)
     return movie_instance_.find(movieType)->second;
-  
+
   return NULL; // movie type does not exist
 }
 

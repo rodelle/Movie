@@ -14,11 +14,11 @@ Customer::Customer()
 // format: id_num, name name
 void Customer::Init(std::istream& input)
 {
-  input >> id_; 
+  input >> id_;
   std::getline(input, name_);
 
   boost::algorithm::trim(name_);
-  
+
   validate_input();
 }
 
@@ -32,7 +32,7 @@ int Customer::id() const
 {
   return id_;
 }
- 
+
 const std::string& Customer::name() const
 {
   return name_;
