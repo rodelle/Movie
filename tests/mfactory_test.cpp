@@ -11,21 +11,21 @@
 
 /*
 // Test for bad cast exception when casting to references
-struct ReferenceCastException 
+struct ReferenceCastException
 {
   ReferenceCastException()
     : movie(NULL), comedy(NULL), drama(NULL)
   {
     MovieFactory factory;
-    movie = factory.Create('f'); 
+    movie = factory.Create('f');
     comedy = dynamic_cast<Comedy*>(movie);
-    drama = dynamic_cast<Drama*>(movie); 
+    drama = dynamic_cast<Drama*>(movie);
   }
 
   ~ReferenceCastException()
   {
     if(movie != NULL)
-      delete movie; 
+      delete movie;
   }
 
   Movie* movie;
@@ -36,7 +36,7 @@ struct ReferenceCastException
 
 /*
 // Generalize the process of casting each return vale to every other return value
-struct MovieTypes 
+struct MovieTypes
 {
   MovieTypes()
   {
@@ -51,14 +51,14 @@ struct MovieTypes
 };
 */
 
-SUITE(MFactory_h) 
+SUITE(MFactory_h)
 {
-  TEST(InstanceOf_default) 
+  TEST(InstanceOf_default)
   {
     MovieFactory factory;
 
     Movie* movie = factory.InstanceOf('F');
-  
+
     Comedy* comedy = dynamic_cast<Comedy*>(movie);
     Drama* drama = dynamic_cast<Drama*>(movie);
     Classic* classic = dynamic_cast<Classic*>(movie);
@@ -69,12 +69,12 @@ SUITE(MFactory_h)
     CHECK(classic == NULL);
   }
 
-  TEST(InstanceOf_nonexistent) 
+  TEST(InstanceOf_nonexistent)
   {
     MovieFactory factory;
 
     Movie* movie = factory.InstanceOf('x');
-  
+
     Comedy* comedy = dynamic_cast<Comedy*>(movie);
     Drama* drama = dynamic_cast<Drama*>(movie);
     Classic* classic = dynamic_cast<Classic*>(movie);
@@ -85,12 +85,12 @@ SUITE(MFactory_h)
     CHECK(classic == NULL);
   }
 
-  TEST(Create_nonexistent) 
+  TEST(Create_nonexistent)
   {
     MovieFactory factory;
 
     Movie* movie = factory.Create('x');
-  
+
     Comedy* comedy = dynamic_cast<Comedy*>(movie);
     Drama* drama = dynamic_cast<Drama*>(movie);
     Classic* classic = dynamic_cast<Classic*>(movie);
@@ -103,7 +103,7 @@ SUITE(MFactory_h)
     delete movie;
   }
 
-  TEST(Create_drama) 
+  TEST(Create_drama)
   {
     MovieFactory factory;
 
@@ -121,7 +121,7 @@ SUITE(MFactory_h)
     delete movie;
   }
 
-  TEST(Create_classic) 
+  TEST(Create_classic)
   {
     MovieFactory factory;
 
@@ -139,7 +139,7 @@ SUITE(MFactory_h)
     delete movie;
   }
 
-  TEST(Create_comedy) 
+  TEST(Create_comedy)
   {
     MovieFactory factory;
 

@@ -9,22 +9,22 @@
 
 // a concrete class that inherits from the abstract Movie class, represents
 // the classic genre of movie
-class Classic: public Movie 
+class Classic: public Movie
 {
 // overloaded <<
-// Prints out the movie's title, director, release year, release month, and 
-// famous actor in table format 
+// Prints out the movie's title, director, release year, release month, and
+// famous actor in table format
 friend std::ostream& operator<<(std::ostream&, const Classic&);
 
 public:
-  //pre: 1900 <= year <= 2100 
+  //pre: 1900 <= year <= 2100
   //format: "title title, director director, year"
   Classic(std::istream&);
   Classic(
-    const std::string& = kDefaultTitle, 
-    const std::string& = kDefaultDirector, 
+    const std::string& = kDefaultTitle,
+    const std::string& = kDefaultDirector,
     const std::string& = kDefaultData);
-  
+
   // copy ctors
   Classic(const Classic&);
   Classic& operator=(Classic);
@@ -36,7 +36,7 @@ public:
 
   // override
   virtual void Populate(std::istream&);
-    
+
   // returns true if the left movie is less than the right movie
   // Sorted by date then famous actor
   virtual bool operator<(const Movie&) const;

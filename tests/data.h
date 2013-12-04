@@ -5,11 +5,11 @@ class Movie;
 
 #include "../scustomer.h"
 
-struct MovieData 
+struct MovieData
 {
   MovieData();
   ~MovieData();
-  
+
   Movie* schindlers_list;
   Movie* phillippe;
 };

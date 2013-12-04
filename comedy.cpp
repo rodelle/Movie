@@ -9,8 +9,8 @@
 #include "comedy.h"
 
 Comedy::Comedy(
-  const std::string& title, 
-  const std::string& director, 
+  const std::string& title,
+  const std::string& director,
   const std::string& data)
 {
   Movie::Init(title, director, data);
@@ -23,7 +23,7 @@ Comedy::Comedy(std::istream& input)
 
 std::ostream& operator<<(std::ostream& out, const Comedy& movie)
 {
-  out << std::left 
+  out << std::left
     << std::setw(Comedy::kTitleDisplayWidth) << movie.title_
     << std::setw(Comedy::kDirectorDisplayWidth) << movie.director_
     << std::setw(Comedy::kYearDisplayWidth) << movie.year_;
@@ -62,7 +62,7 @@ void Comedy::Populate(std::istream& input)
 
   if(!input.fail()) {
     title_ = title;
-    year_ = boost::lexical_cast<int>(year.c_str()); 
+    year_ = boost::lexical_cast<int>(year.c_str());
   }
 
   validate_input();
@@ -78,7 +78,7 @@ int Comedy::compare(const Comedy& lhs, const Comedy& rhs)
   return lhs.year_ - rhs.year_;
 }
 
-// Sorted by title then date 
+// Sorted by title then date
 bool Comedy::operator<(const Movie& other) const
 {
   const Comedy& o = static_cast<const Comedy&>(other);
@@ -101,7 +101,7 @@ bool Comedy::operator>(const Movie& other) const
 bool Comedy::operator==(const Movie& other) const
 {
   const Comedy& o = static_cast<const Comedy&>(other);
-  return (year_ == o.year_) 
+  return (year_ == o.year_)
     && (director_.compare(o.director_) == 0)
     && (title_.compare(o.title_) == 0);
 }

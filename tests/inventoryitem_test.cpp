@@ -23,17 +23,17 @@ struct ZeroItems
   InventoryItem inventory;
 };
 
-SUITE(InventoryItem_h) 
+SUITE(InventoryItem_h)
 {
   TEST_FIXTURE(ZeroItems, GetMovie)
   {
-    std::string expected_output = 
+    std::string expected_output =
       "Jurassic Park   Steven Spielberg   1993";
 
     cout_redirect redirect;
     std::cout << inventory.movie();
     std::string program_output = redirect.get_output();
- 
+
     remove_spaces(program_output);
     remove_spaces(expected_output);
 
@@ -65,15 +65,15 @@ SUITE(InventoryItem_h)
     CHECK(!inventory.Contains(7));
     CHECK(inventory.Contains(6));
     CHECK(inventory.Contains());
- } 
+ }
 
   TEST_FIXTURE(ZeroItems, AddToInventory)
   {
     // adding previously non-existent type
-    inventory.AddToInventory(); 
+    inventory.AddToInventory();
     CHECK(inventory.GetInventoryCount() == 1);
     CHECK(inventory.GetInventoryCount('b') == 0);
-    
+
     inventory.AddToInventory();
     CHECK(inventory.GetInventoryCount() == 2);
     CHECK(inventory.GetInventoryCount('b') == 0);
@@ -82,8 +82,8 @@ SUITE(InventoryItem_h)
     CHECK(inventory.GetInventoryCount() == 7);
     CHECK(inventory.GetInventoryCount('b') == 0);
 
-    // adding non-existent type, non-default amount 
-    inventory.AddToInventory(5, 'b'); 
+    // adding non-existent type, non-default amount
+    inventory.AddToInventory(5, 'b');
     CHECK(inventory.GetInventoryCount() == 7);
     CHECK(inventory.GetInventoryCount('b') == 5);
   }

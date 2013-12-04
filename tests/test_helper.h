@@ -5,9 +5,9 @@
 
 struct cout_redirect
 {
-  cout_redirect(); 
-  ~cout_redirect(); 
-  std::string get_output(); 
+  cout_redirect();
+  ~cout_redirect();
+  std::string get_output();
 
 private:
   std::streambuf* old;

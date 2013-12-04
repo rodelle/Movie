@@ -27,7 +27,7 @@ MovieData::~MovieData()
 
 UserData::UserData()
 {
-  std::istringstream mickey_mouse_data("1234 Mickey Mouse"); 
+  std::istringstream mickey_mouse_data("1234 Mickey Mouse");
   mickey_mouse.Init(mickey_mouse_data);
 }
 

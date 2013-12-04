@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Customer.h
-// Represents the attributes of a Customer. Customers are uniquely identified 
+// Represents the attributes of a Customer. Customers are uniquely identified
 // by a 4 digit id number
 ///////////////////////////////////////////////////////////////////////////////
 #ifndef CSS343_LAB4_CUSTOMER_H
@@ -16,7 +16,7 @@ public:
   void Init(std::istream&);
 
   // getters
-  int id() const; 
+  int id() const;
   const std::string& name() const;
 
   static const int kMinIdNumber;

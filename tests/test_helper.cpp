@@ -5,7 +5,7 @@
 
 #include "test_helper.h"
 
-cout_redirect::cout_redirect() 
+cout_redirect::cout_redirect()
   : old(std::cout.rdbuf(buffer.rdbuf()))
 {}
 
@@ -13,9 +13,9 @@ std::string cout_redirect::get_output() {
   return buffer.str();
 }
 
-cout_redirect::~cout_redirect( ) { 
+cout_redirect::~cout_redirect( ) {
   std::cout.rdbuf(old);
-}   
+}
 
 void remove_spaces(std::string& s)
 {

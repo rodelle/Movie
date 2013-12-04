@@ -22,17 +22,17 @@ private:
     std::istringstream& customer_data,
     const std::string& data_string,
     int& search_data,
-    const int search_value) 
+    const int search_value)
   {
-    customer_data.str(data_string); 
+    customer_data.str(data_string);
     search_data = search_value;
   }
-  
+
 };
 
-SUITE(CCollection_h) 
+SUITE(CCollection_h)
 {
-  TEST_FIXTURE(CustomerData, Default) 
+  TEST_FIXTURE(CustomerData, Default)
   {
     CustomerCollection customers;
     customers.AddCustomer(data_mickey_mouse);

@@ -6,19 +6,19 @@
 
 #include "movie.h"
 
-class Comedy: public Movie 
+class Comedy: public Movie
 {
 // overloaded <<
-// Prints out the movie's director and title in table format 
+// Prints out the movie's director and title in table format
 friend std::ostream& operator<<(std::ostream&, const Comedy&);
 
 public:
-  //pre: 1800 <= year <= 2100 
+  //pre: 1800 <= year <= 2100
   //format: "title title, director director, year"
   Comedy(std::istream&);
   Comedy(
     const std::string& = kDefaultTitle,
-    const std::string& = kDefaultDirector, 
+    const std::string& = kDefaultDirector,
     const std::string& = kDefaultData);
 
   // override
@@ -30,9 +30,9 @@ public:
   Comedy& operator=(Comedy);
 
   virtual ~Comedy();
-    
+
   // returns true if the left movie is less than the right movie
-  // Sorted by title then date 
+  // Sorted by title then date
   virtual bool operator<(const Movie&) const;
   virtual bool operator>(const Movie&) const;
   virtual bool operator==(const Movie&) const;
