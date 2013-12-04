@@ -25,6 +25,7 @@ bool DisplayCustomerHistory::ExecuteAction(std::istream& input)
 
   print_customer_information(customer);
   print_transaction_history(customer);
+  std::cout << std::endl;
 
   return true;
 }
