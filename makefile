@@ -26,6 +26,7 @@ src = movie.cpp \
 			showmovies.cpp \
 			displaycustomerhistory.cpp \
 			store.cpp \
+			hashtable.cpp \
 
 test_src = test_main.cpp \
 					 test_helper.cpp \
@@ -64,4 +65,4 @@ $(OBJ_DIR)/boost.o: boost.cpp
 	$(CXX) $(CXXFLAGS) $(BOOSTINCLUDE) $< -o $@
 
 clean:
-	rm $(objects) $(test_objects)
+	rm $(objects) $(test_objects) 2>/dev/null
