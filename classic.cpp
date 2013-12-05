@@ -82,14 +82,8 @@ void Classic::PrintTableHeader(std::ostream& out) const
 
 std::ostream& operator<<(std::ostream& out, const Classic& movie)
 {
-  out << std::left
-    << std::setw(Classic::kTitleDisplayWidth) << movie.title_
-    << std::setw(Classic::kDirectorDisplayWidth) << movie.director_
-    << std::setw(Classic::kMonthDisplayWidth) << movie.month_
-    << std::setw(Classic::kYearDisplayWidth) << movie.year_
-    << movie.actor_;
-
- return out;
+  movie.print(out);
+  return out;
 }
 
 Classic::Classic(const Classic& other)
@@ -174,8 +168,12 @@ int Classic::month() const
 
 void Classic::print(std::ostream& out) const
 {
-  Movie::print(out);
-  out << std::right
+  out << std::left
+    << std::setw(kTitleDisplayWidth)
+    << title_.substr(0, kTitleDisplayWidth - 1)
+    << std::setw(Movie::kDirectorDisplayWidth)
+    << director_.substr(0, kDirectorDisplayWidth - 1)
+    << std::right
     << std::setw(Classic::kMonthDisplayWidth) << month_ << " "
     << std::left
     << std::setw(Classic::kYearDisplayWidth) << year_
