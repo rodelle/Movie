@@ -16,11 +16,10 @@ DisplayCustomerHistory::~DisplayCustomerHistory()
 
 bool DisplayCustomerHistory::ExecuteAction(std::istream& input)
 {
-  CustomerCollection& customers = store_.customers();
-
   int customer_id;
   input >> customer_id;
 
+  CustomerCollection& customers = store_.customers();
   StoreCustomer* customer = customers.GetCustomer(customer_id);
 
   if(customer == NULL) // customer does not exist

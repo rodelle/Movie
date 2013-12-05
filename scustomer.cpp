@@ -4,6 +4,7 @@
 
 StoreCustomer::~StoreCustomer()
 {
+  // Delete the transactions
   std::vector<const Transaction*>::iterator i;
   for(i = transactions_.begin(); i != transactions_.end(); ++i) {
     delete *i;
@@ -23,11 +24,6 @@ void StoreCustomer::CheckoutMovie(const Movie* movie)
 void StoreCustomer::ReturnMovie(const Movie* movie)
 {
   movies_.remove(movie);
-}
-
-void StoreCustomer::Print()
-{
-
 }
 
 const std::vector<const Transaction*>& StoreCustomer::GetTransactions() const

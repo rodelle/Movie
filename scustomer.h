@@ -29,9 +29,6 @@ public:
   void CheckoutMovie(const Movie*);
   void ReturnMovie(const Movie*);
 
-  // prints all transaction history associated with the customer
-  void Print();
-
   // getters
   const std::vector<const Transaction*>& GetTransactions() const;
   const std::list<const Movie*>& GetMovies() const;

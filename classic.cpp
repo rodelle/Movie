@@ -1,8 +1,9 @@
 #include <cassert>
 #include <iomanip>
-#include <iostream>
 #include <algorithm> // std::swap
+#include <iostream>
 #include <istream>
+
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/tokenizer.hpp>
@@ -41,8 +42,10 @@ std::size_t Classic::calculate_hash() const
 {
   return Movie::string_hash(hash_value_) + year_ + month_;
 }
+
 void Classic::parse_additional_data(const std::string& additional_data)
 {
+  // split into tokens using space as a delimiter
   boost::tokenizer<> tok(additional_data);
   std::vector<std::string> data;
 
@@ -50,7 +53,7 @@ void Classic::parse_additional_data(const std::string& additional_data)
   std::copy(tok.begin(), tok.end(),
       std::back_inserter<std::vector<std::string> >(data));
 
-  if(data.size() == 4) {
+  if(data.size() == 4) { // classic needs exactly 4 pieces of data
     // format: actor, actor, month, year
     std::string actor, month, year;
     actor = data[0] + " " +  data[1];
@@ -86,6 +89,7 @@ std::ostream& operator<<(std::ostream& out, const Classic& movie)
   return out;
 }
 
+// shallow copy
 Classic::Classic(const Classic& other)
 {
   director_ = other.director_;
@@ -102,6 +106,7 @@ Classic::~Classic()
 
 Classic& Classic::operator=(Classic other)
 {
+  // copy and swap idiom
   std::swap(director_, other.director_);
   std::swap(title_, other.title_);
   std::swap(actor_, other.actor_);
@@ -114,10 +119,10 @@ void Classic::Populate(std::istream& input)
 {
   std::string month, year, actor;
 
-  input >> month;
-  input >> year;
+  input >> month >> year;
   std::getline(input, actor);
 
+  // remove extra white space from input
   boost::algorithm::trim(month);
   boost::algorithm::trim(year);
   boost::algorithm::trim(actor);
@@ -145,6 +150,7 @@ int Classic::compare(const Movie& other) const
     return actor_.compare(o.actor_);
 }
 
+// compares year, month, actor, director, and title
 bool Classic::operator==(const Movie& other) const
 {
   const Classic& o = static_cast<const Classic&>(other);

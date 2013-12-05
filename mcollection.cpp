@@ -54,14 +54,15 @@ void MovieCollection::AddMovie(std::istream& input)
   item->AddToTotal(kDefaultAddCount); // increase the existing stock
 }
 
-void MovieCollection::add_movie_to_set(const char movieType, InventoryItem* item)
+void MovieCollection::add_movie_to_set(
+  const char movieType, InventoryItem* item)
 {
   movie_set_[movieType].insert(item);
 }
 
 void MovieCollection::add_movie_to_hash(InventoryItem* item)
 {
-  std::string movie_key = MovieCollection::get_hash_key(inventory_list_.back()->movie());
+  std::string movie_key = MovieCollection::get_hash_key(item->movie());
 
   typedef std::pair<std::string, InventoryItem*> MovieHashPair;
   MovieHashPair hash_element(movie_key, item);
@@ -89,6 +90,7 @@ InventoryItem* MovieCollection::GetMovie(std::istream& input) const
   if(hash_result != NULL)
     return hash_result;
 
+  // movie can exist in the set but not in the hash
   return this->search_in_set(movieType, *movie);
 }
 
