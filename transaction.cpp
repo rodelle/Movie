@@ -31,9 +31,6 @@ bool Transaction::ExecuteAction(std::istream& input)
   if(item_ == NULL || customer_ == NULL)
     return false; // transaction cannot be completed
 
-  if(item_->GetRemaining() <= 0) // not enough movies exist
-    return false;
-
   isActionComplete_ = this->commit_transaction();
   return isActionComplete_;
 }
