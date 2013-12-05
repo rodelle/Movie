@@ -17,8 +17,8 @@
 class MovieFactory
 {
 public:
-  // ctor should create (dynamically) one of each type of movie and store them in the
-  // movFactory array.
+  // ctor should create (dynamically) one of each type of movie and store
+  // them in the movieFactory array.
   MovieFactory();
   ~MovieFactory();
 

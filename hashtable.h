@@ -32,7 +32,8 @@ public:
   // inserts the element into the hash table
   void insert(const K&, const V&);
 
-  std::size_t calculate_hash(const K&) const; // calculates the has given the key value
+  // calculates the has given the key value
+  std::size_t calculate_hash(const K&) const;
 
 private:
   static const int kDefaultSize;

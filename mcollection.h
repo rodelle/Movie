@@ -39,9 +39,10 @@ public:
   // format: movieType director director, title title, additional information
   void AddMovie(std::istream&);
 
-  // Retrieves previously added movies from the collection. If the identifier can be mapped
-  // to a unique movie, the complexity of this call is O(1). If the identifier cannot be mapped
-  // to a unique movie, the complexity of this call is O(logN).
+  // Retrieves previously added movies from the collection. If the identifier
+  // can be mapped to a unique movie, the complexity of this call is O(1).
+  // If the identifier cannot be mapped to a unique movie, the complexity of
+  // this call is O(logN).
   InventoryItem* GetMovie(std::istream&) const;
 
   // public typedefs
