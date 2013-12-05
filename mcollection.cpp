@@ -6,6 +6,7 @@ const int MovieCollection::kDefaultAddCount = 10;
 MovieCollection::MovieCollection()
 {}
 
+// delete memory owned by this class
 MovieCollection::~MovieCollection()
 {
   std::vector<const Movie*>::iterator i;
@@ -29,14 +30,16 @@ void MovieCollection::AddMovie(std::istream& input)
 
   Movie* movie = factory_.Create(movieType);
 
-  if(movie == NULL) {
+  if(movie == NULL) { // concrete movie does not exist for the given type
     input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return;
   }
 
-  movie->Init(input);
+  movie->Init(input); // allow the movie to initialize itself
 
-  InventoryItem* item = this->search_in_set(movieType, *movie);
+  // movies are uniquely identified by their sorting criteria, so a hash
+  // lookup does not tell us if the movie already exists
+  InventoryItem* item = search_in_set(movieType, *movie);
 
   if(item == NULL) { // movie does not exist in hash or set
     movie_list_.push_back(movie);
