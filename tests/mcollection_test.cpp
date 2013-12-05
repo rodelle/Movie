@@ -4,6 +4,9 @@
 
 #include "../mcollection.h"
 #include "../movie.h"
+#include "../comedy.h"
+#include "../drama.h"
+#include "../classic.h"
 #include "test_helper.h"
 
 struct MovieCollectionMovieData
@@ -92,19 +95,23 @@ SUITE(MCollection_h)
     movies.AddMovie(data_holiday_khepburn);
 
     InventoryItem* item = movies.GetMovie(search_holiday_khepburn);
-
+    const Classic& kh = dynamic_cast<const Classic&>(item->movie());
     CHECK_EQUAL(10, item->GetRemaining('D'));
-    CHECK_EQUAL("Holiday", item->movie().title());
-    CHECK_EQUAL("George Cukor", item->movie().director());
-    CHECK_EQUAL(1938, item->movie().year());
+    CHECK_EQUAL("Holiday", kh.title());
+    CHECK_EQUAL("George Cukor", kh.director());
+    CHECK_EQUAL(1938, kh.year());
+    CHECK_EQUAL(9, kh.month());
+    CHECK_EQUAL("Katherine Hepburn", kh.actor());
 
     movies.AddMovie(data_holiday_cgrant);
     item = movies.GetMovie(search_holiday_cgrant);
+    const Classic& cg = dynamic_cast<const Classic&>(item->movie());
 
     CHECK(item != NULL);
     CHECK_EQUAL(10, item->GetRemaining('D'));
-    CHECK_EQUAL("Holiday", item->movie().title());
-    CHECK_EQUAL("George Cukor", item->movie().director());
-    CHECK_EQUAL(1938, item->movie().year());
+    CHECK_EQUAL("Holiday", cg.title());
+    CHECK_EQUAL("George Cukor", cg.director());
+    CHECK_EQUAL(1938, cg.year());
+    CHECK_EQUAL("Cary Grant", cg.actor());
   }
 }
