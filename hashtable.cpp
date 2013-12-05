@@ -37,7 +37,7 @@ std::size_t HashTable::sanitize_hash(const K& key) const
     hash *= -1; // can lead to unexpected collisions
 
   if(hash != 0) // prevent division by 0
-    hash = tablesize_ % hash;
+    hash =  hash % tablesize_;
 
   return hash;
 }
