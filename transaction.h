@@ -40,6 +40,7 @@ protected:
   // Transactions exist between a customer and an inventory item
   StoreCustomer* customer_;
   InventoryItem* item_;
+  char mediatype_;
 };
 
 #endif

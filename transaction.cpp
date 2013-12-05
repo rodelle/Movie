@@ -48,6 +48,8 @@ void Transaction::initialize_data(std::istream& input)
 
   customer_ = customers.GetCustomer(customer_id);
   item_ = movies.GetMovie(input);
+
+  mediatype_ = media_type;
 }
 
 const StoreCustomer& Transaction::customer() const

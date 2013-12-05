@@ -17,7 +17,7 @@ bool Return::commit_transaction()
   if(!user_has_movie(*customer_, &item_->movie())) // not enough movies exist
     return false;
 
-  item_->AddToRemaining(1);
+  item_->AddToRemaining(1, mediatype_);
   customer_->ReturnMovie(&item_->movie());
   customer_->AddTransaction(this);
 

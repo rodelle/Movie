@@ -17,7 +17,7 @@ bool Borrow::commit_transaction()
   if(item_->GetRemaining() <= 0) // not enough movies exist
     return false;
 
-  item_->RemoveFromInventory(1);
+  item_->RemoveFromInventory(1, mediatype_);
   customer_->CheckoutMovie(&(item_->movie()));
   customer_->AddTransaction(this);
 
