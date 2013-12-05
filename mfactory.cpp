@@ -36,8 +36,9 @@ Movie* MovieFactory::Create(const char movieType) const
     return movieBuilder();
   }
 
-  std::cout << "** Error in Movie Factory. The specified movie does not\
-    exist\n";
+  std::cout << "** Error in Movie Factory. The specified movie type {"
+    << movieType << "} does not exist" << std::endl;
+
   return NULL; // movie type does not exist
 }
 

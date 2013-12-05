@@ -17,8 +17,8 @@ Return::~Return()
 bool Return::commit_transaction()
 {
   if(!user_has_movie(*customer_, &item_->movie())) { // not enough movies exist
-    std::cout << "**Error in Return: " << customer_->name() << " has not borrowed " <<
-      item_->movie().title() << std::endl;
+    std::cout << "** Error in Return: \"" << customer_->name()
+      << "\" has not previously borrowed \"" << item_->movie().title() << "\"\n";
     return false;
   }
 

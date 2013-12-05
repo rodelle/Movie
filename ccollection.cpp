@@ -21,13 +21,18 @@ void CustomerCollection::AddCustomer(std::istream& input)
   StoreCustomer* customer = new StoreCustomer();
   customer->Init(input); // allow the customer to initialize itself
 
-  if(search_in_hash(customer->id()) == NULL) { // customer does not exist
+  StoreCustomer* existing_customer = search_in_hash(customer->id());
+  if(existing_customer == NULL) { // customer does not exist
     // add to containers
     customer_list_.push_back(customer); // holds raw data
     add_to_hash(customer); // fast lookup
   } else {
-    std::cout << "** Error in Customer Collection. \
-      Customer already exists and was not added. \n";
+    std::cout << "** Error in Customer Collection.\n"
+      << "  {" << customer->id() << "}=>\"" << existing_customer->name()
+      << "\" already existss.\n"
+      << "  {" << customer->id() << "}=>\"" << customer->name()
+      << "\" was not added\n";
+
     delete customer; // no longer needed
   }
 }

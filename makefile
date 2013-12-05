@@ -30,6 +30,7 @@ objects = $(src:%.cpp=%.o)
 
 main: $(objects) main.cpp
 	$(CXX) $(objects) main.cpp -o MOVIE
+	./MOVIE
 
 $(OBJ_DIR)/%.o: %.cpp 
 	$(CXX) $< -o $@

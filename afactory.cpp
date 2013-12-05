@@ -33,8 +33,9 @@ Action* ActionFactory::Create(const char actionType, Store& store) const
     return builder->second(store);
   } // else { // action type does not exist
 
-  std::cout << "** Error in ActionFactory.\
-    The specified action does not exist\n";
+  std::cout << "** Error in ActionFactory. The specified action {"
+    << actionType << "} does not exist." << std::endl;
+
   return NULL; // action type does not exist
 }
 
