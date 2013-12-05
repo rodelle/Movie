@@ -1,6 +1,7 @@
 #include <tr1/unordered_map>
 
 #include <cstddef>
+#include <iostream>
 
 #include "action.h"
 #include "afactory.h"
@@ -32,7 +33,9 @@ Action* ActionFactory::Create(const char actionType, Store& store) const
     return builder->second(store);
   } // else { // action type does not exist
 
-  return NULL;
+  std::cout << "** Error in ActionFactory.\
+    The specified action does not exist\n";
+  return NULL; // action type does not exist
 }
 
 Action* ActionFactory::MakeBorrow(Store& store)

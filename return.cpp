@@ -1,4 +1,6 @@
 #include <algorithm>
+#include <iostream>
+
 #include "return.h"
 #include "scustomer.h"
 #include "inventoryitem.h"
@@ -14,8 +16,11 @@ Return::~Return()
 
 bool Return::commit_transaction()
 {
-  if(!user_has_movie(*customer_, &item_->movie())) // not enough movies exist
+  if(!user_has_movie(*customer_, &item_->movie())) { // not enough movies exist
+    std::cout << "**Error in Return: " << customer_->name() << " has not borrowed " <<
+      item_->movie().title() << std::endl;
     return false;
+  }
 
   item_->AddToRemaining(1, mediatype_);
   customer_->ReturnMovie(&item_->movie());

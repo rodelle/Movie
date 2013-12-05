@@ -48,6 +48,8 @@ void MovieCollection::AddMovie(std::istream& input)
     add_movie_to_set(movieType, item);
     add_movie_to_hash(item);
   } else {
+    std::cout << "** Error in Movie Collection. Movie already \
+      exists and was not added.\n";
     delete movie; // no longer needed
   }
 

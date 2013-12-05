@@ -26,6 +26,8 @@ void CustomerCollection::AddCustomer(std::istream& input)
     customer_list_.push_back(customer); // holds raw data
     add_to_hash(customer); // fast lookup
   } else {
+    std::cout << "** Error in Customer Collection. \
+      Customer already exists and was not added. \n";
     delete customer; // no longer needed
   }
 }
