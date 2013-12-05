@@ -62,7 +62,7 @@ void ShowMovies::print_movie_info(const InventoryItem& item) const
   int total = item.GetTotal();
 
   std::cout << std::left
-    << std::setw(kDvdCountDisplayWidth) << total
+    << std::setw(kDvdCountDisplayWidth) << remaining
     << std::setw(kDvdCountDisplayWidth) << total - remaining
     << std::setw(kMovieDisplayWidth) << item.movie()
     << std::endl;
