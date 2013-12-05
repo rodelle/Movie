@@ -108,7 +108,7 @@ SUITE(Drama_h)
   TEST(CopyConstructor_DefaultCase)
   {
     std::string expected_output =
-      "Jurassic Park        Steven Spielberg   1993";
+      "Jurassic Park        Steven Spielber   1993";
 
     Drama copied_movie("Jurassic Park", "Steven Spielberg", "1993");
     Drama movie(copied_movie);
@@ -129,7 +129,7 @@ SUITE(Drama_h)
       "Steven Spielberg, Jurassic Park, 1993";
 
     std::string expected_output =
-      "Jurassic Park        Steven Spielberg    1993";
+      "Jurassic Park        Steven Spielber    1993";
 
     std::istringstream istream(input);
     Drama movie(istream);
@@ -204,7 +204,7 @@ SUITE(Drama_h)
   TEST(Constructor_DefaultCase)
   {
     std::string expected_output =
-      "Jurassic Park        Steven Spielberg   1993";
+      "Jurassic Park        Steven Spielber   1993";
 
     Drama movie("Jurassic Park", "Steven Spielberg", "1993"); // movie with initial data
 

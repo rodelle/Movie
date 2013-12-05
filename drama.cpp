@@ -1,7 +1,8 @@
+#include <algorithm> // std::swap
 #include <iomanip>
 #include <iostream>
-#include <algorithm> // std::swap
 #include <istream>
+
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
 
@@ -22,12 +23,8 @@ Drama::Drama(std::istream& input)
 
 std::ostream& operator<<(std::ostream& out, const Drama& movie)
 {
-  out << std::left
-    << std::setw(Drama::kTitleDisplayWidth) << movie.title_
-    << std::setw(Drama::kDirectorDisplayWidth) << movie.director_
-    << std::setw(Drama::kYearDisplayWidth) << movie.year_;
-
- return out;
+  movie.print(out);
+  return out;
 }
 
 Drama::Drama(const Drama& other)
@@ -50,6 +47,7 @@ Drama& Drama::operator=(Drama other)
   return *this;
 }
 
+// format "title, director,"
 void Drama::Populate(std::istream& input)
 {
   std::string title, director;
@@ -68,7 +66,7 @@ void Drama::Populate(std::istream& input)
   validate_input();
 }
 
-// Sorted by director then title
+// Ssrted by director then title
 int Drama::compare(const Movie& other) const
 {
   const Drama& o = static_cast<const Drama&>(other);
