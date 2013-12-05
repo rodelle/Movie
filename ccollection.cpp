@@ -4,7 +4,7 @@
 CustomerCollection::CustomerCollection()
 {
   // only implemented in c++11
-  //customer_hash_.reserve(Customer::kMaxIdNumber - Customer::kMinIdNumber);
+  //customer_hash_.reserve(Customer::kMaxIdNumber);
 }
 
 CustomerCollection::~CustomerCollection()
