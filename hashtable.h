@@ -32,10 +32,16 @@ public:
   // inserts the element into the hash table
   void insert(const K&, const V&);
 
+  std::size_t calculate_hash(const K&) const; // calculates the has given the key value
+
 private:
   static const int kDefaultSize;
-  std::size_t calculate_hash(const K&) const; // calculates the has given the key value
-  std::vector<V*> data_;
+
+  // modifies the hash value to ensure it's within the array limits
+  std::size_t sanitize_hash(const K&) const;
+
+  std::vector<V*> data_; // holds the data
+  std::size_t tablesize_; // max size of the hash table
 };
 
 #endif
